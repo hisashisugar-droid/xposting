@@ -48,10 +48,10 @@ GitHub 側で必要な Repository Secrets:
 
 スケジュール:
 
-- 日本時間の月曜 7:00
-- 日本時間の水曜 7:00
+- 日本時間の月曜 17:00
+- 日本時間の水曜 17:00
 
-実装上は GitHub Actions の cron が UTC 基準なので、ワークフローでは `日曜 22:00 UTC` と `火曜 22:00 UTC` に設定しています。
+実装上は GitHub Actions の cron が UTC 基準なので、ワークフローでは `月曜 08:00 UTC` と `水曜 08:00 UTC` に設定しています。
 
 GitHub Actions での初回セットアップ:
 
