@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.hacshun.ningenradio.wake-check</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/env</string>
+    <string>swift</string>
+    <string>/Users/hacshun/Library/Application Support/NingenRadioXPost/wake_observer.swift</string>
+  </array>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>KeepAlive</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/hacshun/Documents/Codex/2026-04-18-x-rss-spotify-apple-podcast-url/wake_observer.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/hacshun/Documents/Codex/2026-04-18-x-rss-spotify-apple-podcast-url/wake_observer.error.log</string>
+</dict>
+</plist>

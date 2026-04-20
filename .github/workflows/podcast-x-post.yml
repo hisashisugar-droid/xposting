@@ -1,0 +1,51 @@
+name: Podcast X Post
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Monday and Wednesday 07:00 JST == Sunday and Tuesday 22:00 UTC.
+    - cron: "0 22 * * 0,2"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: podcast-x-post
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run podcast post script
+        env:
+          X_CONSUMER_KEY: ${{ secrets.X_CONSUMER_KEY }}
+          X_CONSUMER_SECRET: ${{ secrets.X_CONSUMER_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+          XGD_API_KEY: ${{ secrets.XGD_API_KEY }}
+          DRY_RUN: "0"
+        run: python3 post_new_episode.py
+
+      - name: Commit updated state
+        run: |
+          if git diff --quiet -- state.json; then
+            echo "No state changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state.json
+          git commit -m "Update podcast post state"
+          git push
