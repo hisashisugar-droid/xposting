@@ -6,3 +6,4 @@ spotify_show.html
 wake_observer.log
 wake_observer.error.log
 xgd_bundle.js
+__pycache__/

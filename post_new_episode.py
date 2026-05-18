@@ -13,23 +13,47 @@ from html import unescape
 from pathlib import Path
 from typing import Dict, Optional
 from urllib.parse import parse_qsl, quote, urlencode, urlparse
+from urllib.error import URLError
 from urllib.request import Request, urlopen
 import xml.etree.ElementTree as ET
 
 
 RSS_URL = "https://anchor.fm/s/9bb1c5d8/podcast/rss"
+APPLE_SHOW_PAGE_URL = "https://podcasts.apple.com/jp/podcast/%E3%83%8B%E3%83%B3%E3%82%B2%E3%83%B3%E5%BA%83%E5%91%8A%E7%A4%BE-%E4%BA%BA%E6%96%87%E7%9F%A5%E3%81%A7%E5%AD%A6%E3%81%B6%E3%83%9E%E3%83%BC%E3%82%B1%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/id1630515609"
+APPLE_SHOW_URL = (
+    "https://amp-api.podcasts.apple.com/v1/catalog/jp/podcasts/1630515609"
+    "?extend=editorialArtwork%2CfeedUrl%2CsellerInfo%2Cupsell%2CuserRating"
+    "&extend%5Bpodcast-channels%5D=availableShowCount%2CeditorialArtwork%2C"
+    "subscriptionArtwork%2CsubscriptionBrandLogoArtwork%2CsubscriptionOffers%2CwordmarkArtwork"
+    "&include=artists%2Cchannel%2Cepisodes%2Cgenres%2Cparticipants%2Creviews%2Ctrailers"
+    "&include%5Bartists%5D=podcasts&include%5Bpodcast-channels%5D=podcasts"
+    "&views=listeners-also-subscribed%2Cchannel-top-paid-shows"
+    "&limit%5Bepisodes%5D=15&limit%5Btrailers%5D=15&sort%5Btrailers%5D=-releaseDate"
+    "&with=entitlements%2ChlsVideo%2CshowHero&l=ja"
+)
 APPLE_SHOW_ID = "1630515609"
 APPLE_COUNTRY = "JP"
 STATE_PATH = Path(__file__).with_name("state.json")
+APPLE_SHOW_HTML_PATH = Path(__file__).with_name("apple_show.html")
 TIMEOUT = 20
 X_WEIGHT_LIMIT = 280
 URL_WEIGHT = 23
+RETRYABLE_ERRORS = (TimeoutError, URLError)
 
 
 def fetch_text(url: str, headers: Optional[Dict[str, str]] = None) -> str:
     request = Request(url, headers=headers or {})
-    with urlopen(request, timeout=TIMEOUT) as response:
-        return response.read().decode("utf-8")
+    last_error: Optional[Exception] = None
+    for attempt in range(3):
+        try:
+            with urlopen(request, timeout=TIMEOUT) as response:
+                return response.read().decode("utf-8")
+        except RETRYABLE_ERRORS as exc:
+            last_error = exc
+            if attempt < 2:
+                time.sleep(1 + attempt)
+    assert last_error is not None
+    raise last_error
 
 
 def fetch_json(url: str, headers: Optional[Dict[str, str]] = None) -> dict:
@@ -43,7 +67,16 @@ def fetch_response(
     method: Optional[str] = None,
 ):
     request = Request(url, data=data, headers=headers or {}, method=method)
-    return urlopen(request, timeout=TIMEOUT)
+    last_error: Optional[Exception] = None
+    for attempt in range(3):
+        try:
+            return urlopen(request, timeout=TIMEOUT)
+        except RETRYABLE_ERRORS as exc:
+            last_error = exc
+            if attempt < 2:
+                time.sleep(1 + attempt)
+    assert last_error is not None
+    raise last_error
 
 
 def strip_html(value: str) -> str:
@@ -151,7 +184,53 @@ def save_state(state: dict) -> None:
     STATE_PATH.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def refresh_apple_show_cache() -> bool:
+    try:
+        html = fetch_text(APPLE_SHOW_PAGE_URL, headers={"User-Agent": "Mozilla/5.0"})
+    except Exception:
+        return False
+    APPLE_SHOW_HTML_PATH.write_text(html, encoding="utf-8")
+    return True
+
+
 def latest_episode() -> dict:
+    sources = [
+        ("Apple HTML cache", _latest_episode_from_apple_html_cache),
+        ("RSS", _latest_episode_from_rss),
+        ("Apple API", _latest_episode_from_apple_api),
+    ]
+    errors = []
+    for source_name, loader in sources:
+        try:
+            episode = loader()
+            episode["source"] = source_name
+            print(f"Episode source: {source_name}")
+            return episode
+        except Exception as exc:
+            errors.append(f"{source_name}: {exc}")
+    raise RuntimeError(" / ".join(errors))
+
+
+def latest_episode_from_rss_or_cache() -> dict:
+    """Prefer RSS when it is reachable, but fall back to the local Apple cache."""
+    sources = [
+        ("RSS", _latest_episode_from_rss),
+        ("Apple HTML cache", _latest_episode_from_apple_html_cache),
+        ("Apple API", _latest_episode_from_apple_api),
+    ]
+    errors = []
+    for source_name, loader in sources:
+        try:
+            episode = loader()
+            episode["source"] = source_name
+            print(f"Episode source: {source_name}")
+            return episode
+        except Exception as exc:
+            errors.append(f"{source_name}: {exc}")
+    raise RuntimeError(" / ".join(errors))
+
+
+def _latest_episode_from_rss() -> dict:
     root = ET.fromstring(fetch_text(RSS_URL, headers={"User-Agent": "Mozilla/5.0"}))
     channel = root.find("channel")
     if channel is None:
@@ -159,22 +238,94 @@ def latest_episode() -> dict:
     item = channel.find("item")
     if item is None:
         raise RuntimeError("No episode item found in RSS feed.")
-    title = (item.findtext("title") or "").strip()
-    description = item.findtext("description") or ""
-    guid = (item.findtext("guid") or title).strip()
-    spotify_episode_url = (item.findtext("link") or "").strip()
-    pub_date = (item.findtext("pubDate") or "").strip()
     return {
-        "guid": guid,
+        "guid": (item.findtext("guid") or item.findtext("title") or "").strip(),
+        "title": (item.findtext("title") or "").strip(),
+        "description": item.findtext("description") or "",
+        "rss_episode_url": (item.findtext("link") or "").strip(),
+        "pub_date": (item.findtext("pubDate") or "").strip(),
+    }
+
+
+def _latest_episode_from_apple_api() -> dict:
+    data = fetch_json(APPLE_SHOW_URL, headers={"User-Agent": "Mozilla/5.0"})
+    included = data.get("data", [])
+    if not included:
+        raise RuntimeError("Apple API returned no show data.")
+    # The Apple catalog payload exposes the most recent episodes in the show attributes.
+    # We take the first episode entry because the endpoint sorts by newest release.
+    show = included[0]
+    relationships = show.get("relationships", {})
+    episodes = relationships.get("episodes", {}).get("data", [])
+    if not episodes:
+        raise RuntimeError("Apple API returned no episodes.")
+    episode_id = episodes[0].get("id")
+    episode_url = (
+        f"https://podcasts.apple.com/jp/podcast/id{APPLE_SHOW_ID}?i={episode_id}"
+        if episode_id
+        else ""
+    )
+    # Fetching the individual episode page gives us title/summary matching the post text.
+    if not episode_url:
+        raise RuntimeError("Apple API episode id missing.")
+    html = fetch_text(episode_url, headers={"User-Agent": "Mozilla/5.0"})
+    title_match = re.search(r'data-testid="episode-lockup-title">([^<]+)</span>', html)
+    summary_match = re.search(
+        r'data-testid="episode-content__summary".*?<!-- HTML_TAG_START -->(.*?)<!-- HTML_TAG_END -->',
+        html,
+        flags=re.S,
+    )
+    published_match = re.search(r'data-testid="episode-details__published-date".*?>([^<]+)</span>', html)
+    title = unescape(title_match.group(1)).strip() if title_match else ""
+    description = strip_html(summary_match.group(1)) if summary_match else ""
+    pub_date = unescape(published_match.group(1)).strip() if published_match else ""
+    if not title:
+        raise RuntimeError("Apple episode title not found.")
+    return {
+        "guid": episode_id or title,
         "title": title,
         "description": description,
-        "rss_episode_url": spotify_episode_url,
+        "rss_episode_url": episode_url,
         "pub_date": pub_date,
     }
 
 
+def _latest_episode_from_apple_html_cache() -> dict:
+    if not APPLE_SHOW_HTML_PATH.exists():
+        raise RuntimeError("Cached Apple HTML not found.")
+    html = APPLE_SHOW_HTML_PATH.read_text(encoding="utf-8", errors="ignore")
+    cache_match = re.search(
+        r"<!-- CODEx_CACHE_BEGIN -->(.*?)<!-- CODEx_CACHE_END -->", html, flags=re.S
+    )
+    cache_html = cache_match.group(1) if cache_match else html
+    title_match = re.search(r'data-testid="episode-lockup-title">([^<]+)</div>', cache_html)
+    summary_match = re.search(
+        r'data-testid="episode-content__summary".*?<!-- HTML_TAG_START -->(.*?)<!-- HTML_TAG_END -->',
+        cache_html,
+        flags=re.S,
+    )
+    url_match = re.search(r'href="(https://podcasts\.apple\.com/[^"]+\?i=\d+)"', cache_html)
+    pub_date_match = re.search(
+        r'data-testid="episode-details__published-date".*?>([^<]+)</span>', cache_html
+    )
+    if not title_match or not url_match:
+        raise RuntimeError("Cached Apple HTML did not contain an episode.")
+    title = unescape(title_match.group(1)).strip()
+    description = strip_html(summary_match.group(1)) if summary_match else ""
+    return {
+        "guid": url_match.group(1),
+        "title": title,
+        "description": description,
+        "rss_episode_url": url_match.group(1),
+        "pub_date": unescape(pub_date_match.group(1)).strip() if pub_date_match else "",
+    }
+
+
 def lookup_spotify_episode_url(rss_episode_url: str) -> str:
-    html = fetch_text(rss_episode_url, headers={"User-Agent": "Mozilla/5.0"})
+    try:
+        html = fetch_text(rss_episode_url, headers={"User-Agent": "Mozilla/5.0"})
+    except Exception:
+        return rss_episode_url
     match = re.search(
         r'"spotifyUrl":"(https:\\u002F\\u002Fopen\.spotify\.com\\u002Fepisode\\u002F[^"]+)"',
         html,
@@ -185,38 +336,41 @@ def lookup_spotify_episode_url(rss_episode_url: str) -> str:
 
 
 def lookup_apple_episode_url(title: str) -> str:
-    api_url = (
-        "https://itunes.apple.com/lookup?"
-        + urlencode(
-            {
-                "id": APPLE_SHOW_ID,
-                "entity": "podcastEpisode",
-                "country": APPLE_COUNTRY,
-                "limit": 200,
-            }
+    try:
+        api_url = (
+            "https://itunes.apple.com/lookup?"
+            + urlencode(
+                {
+                    "id": APPLE_SHOW_ID,
+                    "entity": "podcastEpisode",
+                    "country": APPLE_COUNTRY,
+                    "limit": 200,
+                }
+            )
         )
-    )
-    data = fetch_json(api_url, headers={"User-Agent": "Mozilla/5.0"})
-    normalized_target = normalize_title(title)
-    candidates = []
-    for item in data.get("results", []):
-        episode_title = item.get("trackName")
-        episode_url = item.get("trackViewUrl")
-        if not episode_title or not episode_url:
-            continue
-        score = title_similarity(normalized_target, normalize_title(episode_title))
-        candidates.append((score, episode_url, episode_title))
-    if not candidates:
-        raise RuntimeError("Apple Podcast episode URL could not be found.")
-    best_score, best_url, best_title = max(candidates, key=lambda item: item[0])
-    if best_score < 0.7:
-        raise RuntimeError(f"Apple episode match was too weak: {best_title}")
-    parsed = urlparse(best_url)
-    query = dict(parse_qsl(parsed.query))
-    episode_id = query.get("i")
-    if episode_id:
-        return f"https://podcasts.apple.com/jp/podcast/id{APPLE_SHOW_ID}?i={episode_id}"
-    return best_url.replace("&uo=4", "")
+        data = fetch_json(api_url, headers={"User-Agent": "Mozilla/5.0"})
+        normalized_target = normalize_title(title)
+        candidates = []
+        for item in data.get("results", []):
+            episode_title = item.get("trackName")
+            episode_url = item.get("trackViewUrl")
+            if not episode_title or not episode_url:
+                continue
+            score = title_similarity(normalized_target, normalize_title(episode_title))
+            candidates.append((score, episode_url, episode_title))
+        if not candidates:
+            raise RuntimeError("Apple Podcast episode URL could not be found.")
+        best_score, best_url, best_title = max(candidates, key=lambda item: item[0])
+        if best_score < 0.7:
+            raise RuntimeError(f"Apple episode match was too weak: {best_title}")
+        parsed = urlparse(best_url)
+        query = dict(parse_qsl(parsed.query))
+        episode_id = query.get("i")
+        if episode_id:
+            return f"https://podcasts.apple.com/jp/podcast/id{APPLE_SHOW_ID}?i={episode_id}"
+        return best_url.replace("&uo=4", "")
+    except Exception:
+        return f"https://podcasts.apple.com/jp/podcast/id{APPLE_SHOW_ID}"
 
 
 def xgd_auth_header() -> str:
@@ -248,13 +402,13 @@ def xgd_shorten_url(url: str) -> str:
     if not api_key:
         return url
 
-    payload = urlencode({"url": url, "key": api_key}).encode("utf-8")
-    headers = {
-        "User-Agent": "Mozilla/5.0",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "xacas": xgd_auth_header(),
-    }
     try:
+        payload = urlencode({"url": url, "key": api_key}).encode("utf-8")
+        headers = {
+            "User-Agent": "Mozilla/5.0",
+            "Content-Type": "application/x-www-form-urlencoded",
+            "xacas": xgd_auth_header(),
+        }
         with fetch_response(
             "https://x.gd/api/V1/shorten",
             data=payload,
@@ -352,8 +506,17 @@ def post_to_x(text: str) -> dict:
         },
         method="POST",
     )
-    with urlopen(request, timeout=TIMEOUT) as response:
-        return json.loads(response.read().decode("utf-8"))
+    last_error: Optional[Exception] = None
+    for attempt in range(3):
+        try:
+            with urlopen(request, timeout=TIMEOUT) as response:
+                return json.loads(response.read().decode("utf-8"))
+        except RETRYABLE_ERRORS as exc:
+            last_error = exc
+            if attempt < 2:
+                time.sleep(1 + attempt)
+    assert last_error is not None
+    raise last_error
 
 
 def build_post_text(title: str, summary: str, spotify_url: str, apple_url: str) -> str:
@@ -396,7 +559,14 @@ def build_post_text(title: str, summary: str, spotify_url: str, apple_url: str) 
 
 def main() -> int:
     state = load_state()
-    episode = latest_episode()
+    refreshed = refresh_apple_show_cache()
+    print(f"Apple cache refreshed: {str(refreshed).lower()}")
+    if os.getenv("PREFER_RSS", "").lower() in {"1", "true", "yes"}:
+        episode = latest_episode_from_rss_or_cache()
+    else:
+        episode = latest_episode()
+    print(f"Episode title: {episode['title']}")
+    print(f"Episode guid: {episode['guid']}")
 
     posted_guids = set(state.get("posted_guids", []))
     if episode["guid"] in posted_guids:
@@ -406,6 +576,8 @@ def main() -> int:
     title_for_post = display_title(episode["title"])
     spotify_url = xgd_shorten_url(lookup_spotify_episode_url(episode["rss_episode_url"]))
     apple_url = xgd_shorten_url(lookup_apple_episode_url(episode["title"]))
+    print(f"Spotify URL: {spotify_url}")
+    print(f"Apple URL: {apple_url}")
     fixed_parts_length = len(
         "\n".join(
             [
@@ -425,6 +597,8 @@ def main() -> int:
         print(post_text)
         return 0
 
+    if not episode.get("title") or not episode.get("description"):
+        raise RuntimeError("Episode data is incomplete; refusing to post.")
     response = post_to_x(post_text)
     posted_guids.add(episode["guid"])
     state["posted_guids"] = sorted(posted_guids)
