@@ -20,7 +20,7 @@ import xml.etree.ElementTree as ET
 
 RSS_URL = "https://anchor.fm/s/9bb1c5d8/podcast/rss"
 APPLE_SHOW_PAGE_URL = "https://podcasts.apple.com/jp/podcast/%E3%83%8B%E3%83%B3%E3%82%B2%E3%83%B3%E5%BA%83%E5%91%8A%E7%A4%BE-%E4%BA%BA%E6%96%87%E7%9F%A5%E3%81%A7%E5%AD%A6%E3%81%B6%E3%83%9E%E3%83%BC%E3%82%B1%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/id1630515609"
-APPLE_SHOW_URL = (
+APPLE_SHOW_API_URL = (
     "https://amp-api.podcasts.apple.com/v1/catalog/jp/podcasts/1630515609"
     "?extend=editorialArtwork%2CfeedUrl%2CsellerInfo%2Cupsell%2CuserRating"
     "&extend%5Bpodcast-channels%5D=availableShowCount%2CeditorialArtwork%2C"
@@ -195,8 +195,8 @@ def refresh_apple_show_cache() -> bool:
 
 def latest_episode() -> dict:
     sources = [
-        ("Apple HTML cache", _latest_episode_from_apple_html_cache),
         ("RSS", _latest_episode_from_rss),
+        ("Apple HTML cache", _latest_episode_from_apple_html_cache),
         ("Apple API", _latest_episode_from_apple_api),
     ]
     errors = []
@@ -248,7 +248,7 @@ def _latest_episode_from_rss() -> dict:
 
 
 def _latest_episode_from_apple_api() -> dict:
-    data = fetch_json(APPLE_SHOW_URL, headers={"User-Agent": "Mozilla/5.0"})
+    data = fetch_json(APPLE_SHOW_API_URL, headers={"User-Agent": "Mozilla/5.0"})
     included = data.get("data", [])
     if not included:
         raise RuntimeError("Apple API returned no show data.")
@@ -398,6 +398,8 @@ def xgd_auth_header() -> str:
 
 
 def xgd_shorten_url(url: str) -> str:
+    if os.getenv("ENABLE_XGD_SHORTENING", "").lower() not in {"1", "true", "yes"}:
+        return url
     api_key = os.getenv("XGD_API_KEY")
     if not api_key:
         return url
