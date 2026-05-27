@@ -515,6 +515,10 @@ def post_to_x(text: str) -> dict:
                 return json.loads(response.read().decode("utf-8"))
         except HTTPError as exc:
             body = exc.read().decode("utf-8", errors="replace")
+            if exc.code in {429, 500, 502, 503, 504} and attempt < 2:
+                last_error = exc
+                time.sleep(2 + attempt * 2)
+                continue
             raise RuntimeError(
                 f"X API HTTP {exc.code}: {body or exc.reason}"
             ) from exc
