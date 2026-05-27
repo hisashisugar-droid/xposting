@@ -36,7 +36,7 @@ jobs:
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
           XGD_API_KEY: ${{ secrets.XGD_API_KEY }}
           DRY_RUN: "0"
-        run: python3 post_new_episode.py
+        run: python3 -u post_new_episode.py
 
       - name: Commit updated state
         run: |

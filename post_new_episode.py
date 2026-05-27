@@ -13,7 +13,7 @@ from html import unescape
 from pathlib import Path
 from typing import Dict, Optional
 from urllib.parse import parse_qsl, quote, urlencode, urlparse
-from urllib.error import URLError
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 import xml.etree.ElementTree as ET
 
@@ -513,6 +513,11 @@ def post_to_x(text: str) -> dict:
         try:
             with urlopen(request, timeout=TIMEOUT) as response:
                 return json.loads(response.read().decode("utf-8"))
+        except HTTPError as exc:
+            body = exc.read().decode("utf-8", errors="replace")
+            raise RuntimeError(
+                f"X API HTTP {exc.code}: {body or exc.reason}"
+            ) from exc
         except RETRYABLE_ERRORS as exc:
             last_error = exc
             if attempt < 2:
