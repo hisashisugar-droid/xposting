@@ -41,6 +41,10 @@ URL_WEIGHT = 23
 RETRYABLE_ERRORS = (TimeoutError, URLError)
 
 
+class DuplicateTweetError(RuntimeError):
+    pass
+
+
 def fetch_text(url: str, headers: Optional[Dict[str, str]] = None) -> str:
     request = Request(url, headers=headers or {})
     last_error: Optional[Exception] = None
@@ -515,6 +519,8 @@ def post_to_x(text: str) -> dict:
                 return json.loads(response.read().decode("utf-8"))
         except HTTPError as exc:
             body = exc.read().decode("utf-8", errors="replace")
+            if exc.code == 403 and "duplicate content" in body.lower():
+                raise DuplicateTweetError(body or exc.reason) from exc
             if exc.code in {429, 500, 502, 503, 504} and attempt < 2:
                 last_error = exc
                 time.sleep(2 + attempt * 2)
@@ -610,7 +616,11 @@ def main() -> int:
 
     if not episode.get("title") or not episode.get("description"):
         raise RuntimeError("Episode data is incomplete; refusing to post.")
-    response = post_to_x(post_text)
+    try:
+        response = post_to_x(post_text)
+    except DuplicateTweetError as exc:
+        print(f"X duplicate treated as success: {exc}")
+        response = {"data": {"id": state.get("last_post", {}).get("tweet_id")}}
     posted_guids.add(episode["guid"])
     state["posted_guids"] = sorted(posted_guids)
     state["last_post"] = {
