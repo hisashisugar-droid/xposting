@@ -40,15 +40,15 @@ jobs:
 
       - name: Commit updated state
         run: |
-          if git diff --quiet -- state.json apple_show.html; then
+          if git diff --quiet -- state.json; then
             echo "No state changes to commit."
             exit 0
           fi
           git pull --rebase --autostash origin main
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add state.json apple_show.html
-          git commit -m "Update podcast post state and cache"
+          git add state.json
+          git commit -m "Update podcast post state"
           for attempt in 1 2 3; do
             if git push; then
               exit 0
