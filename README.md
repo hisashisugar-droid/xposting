@@ -18,6 +18,11 @@ Apple: {短縮URL}
 - `post_new_episode.py`: 監視と投稿の本体
 - `run_post.sh`: `.env` を読んで本体を起動するランナー
 - `.github/workflows/podcast-x-post.yml`: GitHub Actions の定期実行ワークフロー
+- `create_spotify_clip.py`: RSS最新回から15秒音声を抜き出し、縦長MP4を作るスクリプト
+- `send_clip_email.py`: 生成したMP4のダウンロードリンクをメールするスクリプト
+- `.github/workflows/spotify-clips.yml`: Spotify Clips用動画を毎週水曜正午に生成するワークフロー
+- `assets/`: Clips動画に使う静止画
+- `clip_state.json`: Clips生成済みエピソードの記録
 - `wake_observer.swift`: スリープ復帰時に投稿チェックを走らせる監視
 - `com.hacshun.ningenradio.wake-check.plist`: `launchd` 用のLaunchAgent定義
 - `state.json`: 投稿済みエピソードを記録する状態ファイル
@@ -62,6 +67,66 @@ GitHub Actions での初回セットアップ:
 
 `state.json` は投稿済みGUIDを保持するため、Actions 実行後に自動コミットされます。
 これによって、同じエピソードの重複投稿を防ぎます。
+
+## Spotify Clips 自動生成
+
+毎週水曜の正午にRSSの最新回を確認し、最新回の音声から途中の15秒をランダムに抜き出して、Spotify Clips向けの縦長MP4を作成します。
+映像は `assets/clip_cover.png`、または `assets/` 内の画像ファイルを使った静止画です。
+
+出力仕様:
+
+- 長さ: 15秒
+- 解像度: 1080 x 1920 px
+- 比率: 9:16 縦長
+- 形式: MP4
+- 音声: RSS enclosure の音声をAACに変換して含める
+
+GitHub Actions ワークフロー:
+
+- ファイル: `.github/workflows/spotify-clips.yml`
+- スケジュール: 日本時間 水曜 12:00
+- UTC cron: `0 3 * * 3`
+- 生成物: GitHub Actions artifactとして14日間保持
+- 通知: artifactのダウンロードURLを `hisashi.sato@gmail.com` にメール
+
+GitHub 側で必要な Repository Secrets:
+
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_USE_SSL`
+- `SMTP_USERNAME`
+- `SMTP_PASSWORD`
+- `SMTP_FROM`
+
+Gmailを使う場合の例:
+
+- `SMTP_HOST`: `smtp.gmail.com`
+- `SMTP_PORT`: `587`
+- `SMTP_USE_SSL`: `0`
+- `SMTP_USERNAME`: 送信元Gmailアドレス
+- `SMTP_PASSWORD`: Gmailのアプリパスワード
+- `SMTP_FROM`: 送信元Gmailアドレス
+
+同じ最新回への重複メールを防ぐため、生成済みGUIDは `clip_state.json` に保存され、成功後に自動コミットされます。
+手動で再生成したい場合は、Actionsの `Spotify Clips` → `Run workflow` で `force` を有効にします。
+
+### カバー画像
+
+動画の静止画は、まず `assets/clip_cover.png` を探します。
+このファイルがない場合は、`assets/` 内の `.jpg` `.jpeg` `.png` `.webp` のいずれかを自動で使います。
+別の写真を使う場合は、`assets/clip_cover.png` として置くか、`assets/` 内の画像を差し替えてください。
+縦長写真ならそのまま中央クロップ、横長写真なら9:16に中央クロップされます。
+
+### ローカルテスト
+
+ローカルで試すには `ffmpeg` と `ffprobe` が必要です。
+
+```bash
+cd /Users/hacshun/Documents/Codex/2026-04-18-x-rss-spotify-apple-podcast-url
+python3 create_spotify_clip.py --force
+```
+
+生成されたMP4は `clip_outputs/` に出ます。
 
 ## 手動テスト
 

@@ -7,3 +7,4 @@ wake_observer.log
 wake_observer.error.log
 xgd_bundle.js
 __pycache__/
+clip_outputs/

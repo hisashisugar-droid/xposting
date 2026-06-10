@@ -1,0 +1,104 @@
+name: Spotify Clips
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Create a clip even when the latest episode was already processed"
+        required: false
+        type: boolean
+        default: false
+  schedule:
+    # Wednesday 12:00 JST == Wednesday 03:00 UTC.
+    - cron: "0 3 * * 3"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: spotify-clips
+  cancel-in-progress: false
+
+jobs:
+  create-clip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Create Spotify clip
+        id: clip
+        env:
+          FORCE_CLIP: ${{ inputs.force && '1' || '0' }}
+        run: |
+          args=()
+          if [[ "${FORCE_CLIP}" == "1" ]]; then
+            args+=(--force)
+          fi
+          python3 -u create_spotify_clip.py "${args[@]}"
+
+      - name: Upload clip artifact
+        id: upload
+        if: steps.clip.outputs.clip_created == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.clip.outputs.clip_filename }}
+          path: |
+            ${{ steps.clip.outputs.clip_path }}
+            ${{ steps.clip.outputs.metadata_path }}
+          retention-days: 14
+
+      - name: Send download email
+        if: steps.clip.outputs.clip_created == 'true'
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USE_SSL: ${{ secrets.SMTP_USE_SSL }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+          EMAIL_TO: hisashi.sato@gmail.com
+          CLIP_DOWNLOAD_URL: ${{ steps.upload.outputs.artifact-url }}
+          CLIP_FILENAME: ${{ steps.clip.outputs.clip_filename }}
+          EPISODE_TITLE: ${{ steps.clip.outputs.episode_title }}
+          EPISODE_PUB_DATE: ${{ steps.clip.outputs.pub_date }}
+          EPISODE_URL: ${{ steps.clip.outputs.episode_url }}
+          CLIP_START_SECONDS: ${{ steps.clip.outputs.clip_start_seconds }}
+          CLIP_SECONDS: ${{ steps.clip.outputs.clip_seconds }}
+          GITHUB_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: python3 -u send_clip_email.py
+
+      - name: Commit updated clip state
+        if: steps.clip.outputs.clip_created == 'true'
+        run: |
+          if git diff --quiet -- clip_state.json; then
+            echo "No clip state changes to commit."
+            exit 0
+          fi
+          git pull --rebase --autostash origin main
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add clip_state.json
+          git commit -m "Update Spotify Clips state"
+          for attempt in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            echo "git push failed on attempt ${attempt}; retrying..."
+            sleep $((attempt * 2))
+            git pull --rebase --autostash origin main || true
+          done
+          exit 1
