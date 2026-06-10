@@ -1,4 +1,35 @@
 {
-  "processed_guids": [],
-  "clips": []
+  "processed_guids": [
+    "10f5b05a-3f65-4473-8499-a049c9de542d"
+  ],
+  "clips": [
+    {
+      "guid": "10f5b05a-3f65-4473-8499-a049c9de542d",
+      "title": "「日本人は集団主義」の嘘！〜 『空気という妖怪』の倒し方〜 #240",
+      "pub_date": "Tue, 09 Jun 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/240-e3kdjhg",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/121080816/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-5-6%2F16727168-b520-7e0a-d9ac-eee0c0e7067f.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/「日本人は集団主義」の嘘！〜_『空気という妖怪』の倒し方〜_#240_clip.mp4",
+      "clip_filename": "「日本人は集団主義」の嘘！〜_『空気という妖怪』の倒し方〜_#240_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 1251.0,
+      "clip_start_seconds": 458.109,
+      "file_size_bytes": 945107,
+      "created_at_unix": 1781114061
+    }
+  ],
+  "latest_clip": {
+    "guid": "10f5b05a-3f65-4473-8499-a049c9de542d",
+    "title": "「日本人は集団主義」の嘘！〜 『空気という妖怪』の倒し方〜 #240",
+    "pub_date": "Tue, 09 Jun 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/240-e3kdjhg",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/121080816/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-5-6%2F16727168-b520-7e0a-d9ac-eee0c0e7067f.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/「日本人は集団主義」の嘘！〜_『空気という妖怪』の倒し方〜_#240_clip.mp4",
+    "clip_filename": "「日本人は集団主義」の嘘！〜_『空気という妖怪』の倒し方〜_#240_clip.mp4",
+    "clip_seconds": 15.0,
+    "audio_duration_seconds": 1251.0,
+    "clip_start_seconds": 458.109,
+    "file_size_bytes": 945107,
+    "created_at_unix": 1781114061
+  }
 }
