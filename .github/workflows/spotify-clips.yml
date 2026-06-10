@@ -14,6 +14,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: spotify-clips
@@ -61,16 +62,12 @@ jobs:
             ${{ steps.clip.outputs.metadata_path }}
           retention-days: 14
 
-      - name: Send download email
+      - name: Create download notification issue
         if: steps.clip.outputs.clip_created == 'true'
         env:
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SMTP_USE_SSL: ${{ secrets.SMTP_USE_SSL }}
-          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
-          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-          SMTP_FROM: ${{ secrets.SMTP_FROM }}
-          EMAIL_TO: hisashi.sugar@gmail.com
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          NOTIFY_MENTION: "@hisashisugar-droid"
           CLIP_DOWNLOAD_URL: ${{ steps.upload.outputs.artifact-url }}
           CLIP_FILENAME: ${{ steps.clip.outputs.clip_filename }}
           EPISODE_TITLE: ${{ steps.clip.outputs.episode_title }}
@@ -79,7 +76,7 @@ jobs:
           CLIP_START_SECONDS: ${{ steps.clip.outputs.clip_start_seconds }}
           CLIP_SECONDS: ${{ steps.clip.outputs.clip_seconds }}
           GITHUB_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: python3 -u send_clip_email.py
+        run: python3 -u create_clip_issue.py
 
       - name: Commit updated clip state
         if: steps.clip.outputs.clip_created == 'true'

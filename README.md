@@ -19,7 +19,7 @@ Apple: {短縮URL}
 - `run_post.sh`: `.env` を読んで本体を起動するランナー
 - `.github/workflows/podcast-x-post.yml`: GitHub Actions の定期実行ワークフロー
 - `create_spotify_clip.py`: RSS最新回から15秒音声を抜き出し、縦長MP4を作るスクリプト
-- `send_clip_email.py`: 生成したMP4のダウンロードリンクをメールするスクリプト
+- `create_clip_issue.py`: 生成したMP4のダウンロードリンクをGitHub Issueで通知するスクリプト
 - `.github/workflows/spotify-clips.yml`: Spotify Clips用動画を毎週水曜正午に生成するワークフロー
 - `assets/`: Clips動画に使う静止画
 - `clip_state.json`: Clips生成済みエピソードの記録
@@ -87,25 +87,20 @@ GitHub Actions ワークフロー:
 - スケジュール: 日本時間 水曜 12:00
 - UTC cron: `0 3 * * 3`
 - 生成物: GitHub Actions artifactとして14日間保持
-- 通知: artifactのダウンロードURLを `hisashi.sugar@gmail.com` にメール
+- 通知: artifactのダウンロードURLをGitHub Issueで通知
 
-GitHub 側で必要な Repository Secret:
+GitHub 側で追加のRepository Secretは不要です。
+ワークフロー内の `GITHUB_TOKEN` で通知Issueを作成します。
 
-- `SMTP_PASSWORD`: Gmailのアプリパスワード
+通知Issueには以下が入ります。
 
-初期設定では、GmailのSMTPサーバーを使い、送信元と宛先を `hisashi.sugar@gmail.com` として扱います。
-別の送信元アドレスを使う場合だけ、以下のRepository Secretsも追加してください。
+- `@hisashisugar-droid` へのメンション
+- エピソードタイトル
+- artifactのダウンロードURL
+- GitHub Actions実行ログURL
+- 音声の切り出し位置
 
-- `SMTP_USERNAME`: 送信元Gmailアドレス
-- `SMTP_FROM`: メールのFromに表示するアドレス
-
-必要に応じて上書きできる任意のRepository Secrets:
-
-- `SMTP_HOST`: 既定値 `smtp.gmail.com`
-- `SMTP_PORT`: 既定値 `587`
-- `SMTP_USE_SSL`: 既定値 `0`
-
-同じ最新回への重複メールを防ぐため、生成済みGUIDは `clip_state.json` に保存され、成功後に自動コミットされます。
+同じ最新回への重複生成を防ぐため、生成済みGUIDは `clip_state.json` に保存され、成功後に自動コミットされます。
 手動で再生成したい場合は、Actionsの `Spotify Clips` → `Run workflow` で `force` を有効にします。
 
 ### カバー画像
