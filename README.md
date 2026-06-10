@@ -20,7 +20,7 @@ Apple: {短縮URL}
 - `.github/workflows/podcast-x-post.yml`: GitHub Actions の定期実行ワークフロー
 - `create_spotify_clip.py`: RSS最新回から15秒音声を抜き出し、縦長MP4を作るスクリプト
 - `create_clip_issue.py`: 生成したMP4のダウンロードリンクをGitHub Issueで通知するスクリプト
-- `.github/workflows/spotify-clips.yml`: Spotify Clips用動画を毎週水曜正午に生成するワークフロー
+- `.github/workflows/spotify-clips.yml`: Spotify Clips用動画を毎週月曜・水曜正午に生成するワークフロー
 - `assets/`: Clips動画に使う静止画
 - `clip_state.json`: Clips生成済みエピソードの記録
 - `wake_observer.swift`: スリープ復帰時に投稿チェックを走らせる監視
@@ -70,7 +70,7 @@ GitHub Actions での初回セットアップ:
 
 ## Spotify Clips 自動生成
 
-毎週水曜の正午にRSSの最新回を確認し、最新回の音声から途中の15秒をランダムに抜き出して、Spotify Clips向けの縦長MP4を作成します。
+毎週月曜・水曜の正午にRSSの最新回を確認し、最新回の音声から途中の15秒をランダムに抜き出して、Spotify Clips向けの縦長MP4を作成します。
 映像は `assets/clip_cover.png`、または `assets/` 内の画像ファイルを使った静止画です。
 
 出力仕様:
@@ -84,8 +84,8 @@ GitHub Actions での初回セットアップ:
 GitHub Actions ワークフロー:
 
 - ファイル: `.github/workflows/spotify-clips.yml`
-- スケジュール: 日本時間 水曜 12:00
-- UTC cron: `0 3 * * 3`
+- スケジュール: 日本時間 月曜・水曜 12:00
+- UTC cron: `0 3 * * 1,3`
 - 生成物: GitHub Actions artifactとして14日間保持
 - 通知: artifactのダウンロードURLをGitHub Issueで通知
 
