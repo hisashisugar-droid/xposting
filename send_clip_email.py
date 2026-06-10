@@ -35,7 +35,7 @@ def smtp_password() -> str:
     password = env("SMTP_PASSWORD") or env("GMAIL_APP_PASSWORD")
     if not password:
         raise RuntimeError("Missing SMTP_PASSWORD or GMAIL_APP_PASSWORD.")
-    return password
+    return password.replace(" ", "").replace("\u3000", "")
 
 
 def build_message() -> EmailMessage:
