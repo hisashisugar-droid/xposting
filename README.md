@@ -87,13 +87,13 @@ GitHub Actions ワークフロー:
 - スケジュール: 日本時間 水曜 12:00
 - UTC cron: `0 3 * * 3`
 - 生成物: GitHub Actions artifactとして14日間保持
-- 通知: artifactのダウンロードURLを `hisashi.sato@gmail.com` にメール
+- 通知: artifactのダウンロードURLを `hisashi.sugar@gmail.com` にメール
 
 GitHub 側で必要な Repository Secret:
 
 - `SMTP_PASSWORD`: Gmailのアプリパスワード
 
-初期設定では、GmailのSMTPサーバーを使い、送信元と宛先を `hisashi.sato@gmail.com` として扱います。
+初期設定では、GmailのSMTPサーバーを使い、送信元と宛先を `hisashi.sugar@gmail.com` として扱います。
 別の送信元アドレスを使う場合だけ、以下のRepository Secretsも追加してください。
 
 - `SMTP_USERNAME`: 送信元Gmailアドレス

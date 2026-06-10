@@ -7,7 +7,7 @@ import ssl
 from email.message import EmailMessage
 
 
-DEFAULT_TO = "hisashi.sato@gmail.com"
+DEFAULT_TO = "hisashi.sugar@gmail.com"
 DEFAULT_SMTP_HOST = "smtp.gmail.com"
 DEFAULT_SMTP_PORT = "587"
 DEFAULT_SMTP_USE_SSL = "0"

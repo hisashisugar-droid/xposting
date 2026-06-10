@@ -70,7 +70,7 @@ jobs:
           SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           SMTP_FROM: ${{ secrets.SMTP_FROM }}
-          EMAIL_TO: hisashi.sato@gmail.com
+          EMAIL_TO: hisashi.sugar@gmail.com
           CLIP_DOWNLOAD_URL: ${{ steps.upload.outputs.artifact-url }}
           CLIP_FILENAME: ${{ steps.clip.outputs.clip_filename }}
           EPISODE_TITLE: ${{ steps.clip.outputs.episode_title }}
