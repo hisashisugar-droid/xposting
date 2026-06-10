@@ -89,23 +89,21 @@ GitHub Actions ワークフロー:
 - 生成物: GitHub Actions artifactとして14日間保持
 - 通知: artifactのダウンロードURLを `hisashi.sato@gmail.com` にメール
 
-GitHub 側で必要な Repository Secrets:
+GitHub 側で必要な Repository Secret:
 
-- `SMTP_HOST`
-- `SMTP_PORT`
-- `SMTP_USE_SSL`
-- `SMTP_USERNAME`
-- `SMTP_PASSWORD`
-- `SMTP_FROM`
-
-Gmailを使う場合の例:
-
-- `SMTP_HOST`: `smtp.gmail.com`
-- `SMTP_PORT`: `587`
-- `SMTP_USE_SSL`: `0`
-- `SMTP_USERNAME`: 送信元Gmailアドレス
 - `SMTP_PASSWORD`: Gmailのアプリパスワード
-- `SMTP_FROM`: 送信元Gmailアドレス
+
+初期設定では、GmailのSMTPサーバーを使い、送信元と宛先を `hisashi.sato@gmail.com` として扱います。
+別の送信元アドレスを使う場合だけ、以下のRepository Secretsも追加してください。
+
+- `SMTP_USERNAME`: 送信元Gmailアドレス
+- `SMTP_FROM`: メールのFromに表示するアドレス
+
+必要に応じて上書きできる任意のRepository Secrets:
+
+- `SMTP_HOST`: 既定値 `smtp.gmail.com`
+- `SMTP_PORT`: 既定値 `587`
+- `SMTP_USE_SSL`: 既定値 `0`
 
 同じ最新回への重複メールを防ぐため、生成済みGUIDは `clip_state.json` に保存され、成功後に自動コミットされます。
 手動で再生成したい場合は、Actionsの `Spotify Clips` → `Run workflow` で `force` を有効にします。

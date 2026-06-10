@@ -8,6 +8,9 @@ from email.message import EmailMessage
 
 
 DEFAULT_TO = "hisashi.sato@gmail.com"
+DEFAULT_SMTP_HOST = "smtp.gmail.com"
+DEFAULT_SMTP_PORT = "587"
+DEFAULT_SMTP_USE_SSL = "0"
 
 
 def env(name: str, default: str = "") -> str:
@@ -24,11 +27,20 @@ def require_env(name: str) -> str:
     return value
 
 
+def smtp_address() -> str:
+    return env("SMTP_USERNAME") or env("SMTP_FROM") or env("GMAIL_ADDRESS") or DEFAULT_TO
+
+
+def smtp_password() -> str:
+    password = env("SMTP_PASSWORD") or env("GMAIL_APP_PASSWORD")
+    if not password:
+        raise RuntimeError("Missing SMTP_PASSWORD or GMAIL_APP_PASSWORD.")
+    return password
+
+
 def build_message() -> EmailMessage:
     to_address = env("EMAIL_TO", DEFAULT_TO)
-    from_address = env("SMTP_FROM") or env("SMTP_USERNAME")
-    if not from_address:
-        raise RuntimeError("Missing SMTP_FROM or SMTP_USERNAME.")
+    from_address = env("SMTP_FROM") or env("SMTP_USERNAME") or env("GMAIL_ADDRESS") or DEFAULT_TO
 
     episode_title = env("EPISODE_TITLE", "最新回")
     pub_date = env("EPISODE_PUB_DATE")
@@ -72,11 +84,11 @@ def build_message() -> EmailMessage:
 
 
 def send(message: EmailMessage) -> None:
-    host = require_env("SMTP_HOST")
-    port = int(env("SMTP_PORT", "587"))
-    username = require_env("SMTP_USERNAME")
-    password = require_env("SMTP_PASSWORD")
-    use_ssl = env("SMTP_USE_SSL", "0").lower() in {"1", "true", "yes"}
+    host = env("SMTP_HOST", DEFAULT_SMTP_HOST)
+    port = int(env("SMTP_PORT", DEFAULT_SMTP_PORT))
+    username = smtp_address()
+    password = smtp_password()
+    use_ssl = env("SMTP_USE_SSL", DEFAULT_SMTP_USE_SSL).lower() in {"1", "true", "yes"}
 
     if use_ssl:
         context = ssl.create_default_context()
