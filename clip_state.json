@@ -1,7 +1,8 @@
 {
   "processed_guids": [
     "10f5b05a-3f65-4473-8499-a049c9de542d",
-    "a10f7c49-6a6d-4a75-bd9f-304f9b19262e"
+    "a10f7c49-6a6d-4a75-bd9f-304f9b19262e",
+    "97a38141-1f84-4d15-b603-8ae1470ec10d"
   ],
   "clips": [
     {
@@ -31,20 +32,34 @@
       "clip_start_seconds": 381.504,
       "file_size_bytes": 940896,
       "created_at_unix": 1781515485
+    },
+    {
+      "guid": "97a38141-1f84-4d15-b603-8ae1470ec10d",
+      "title": "間違えたら即退社！君の広告クイズ #242",
+      "pub_date": "Tue, 16 Jun 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/242-e3kdjes",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/121080732/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-5-6%2Fa2091067-7112-e181-4e65-bc254ed37a85.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/間違えたら即退社！君の広告クイズ_#242_clip.mp4",
+      "clip_filename": "間違えたら即退社！君の広告クイズ_#242_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 2189.016,
+      "clip_start_seconds": 471.672,
+      "file_size_bytes": 954733,
+      "created_at_unix": 1781685005
     }
   ],
   "latest_clip": {
-    "guid": "a10f7c49-6a6d-4a75-bd9f-304f9b19262e",
-    "title": "脱「個人的には」！じゃぁどう言えばいい？ #241",
-    "pub_date": "Sun, 14 Jun 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/241-e3kdk9f",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/121081583/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-5-6%2F425611656-44100-2-abbefed198245.m4a",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/脱「個人的には」！じゃぁどう言えばいい？_#241_clip.mp4",
-    "clip_filename": "脱「個人的には」！じゃぁどう言えばいい？_#241_clip.mp4",
+    "guid": "97a38141-1f84-4d15-b603-8ae1470ec10d",
+    "title": "間違えたら即退社！君の広告クイズ #242",
+    "pub_date": "Tue, 16 Jun 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/242-e3kdjes",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/121080732/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-5-6%2Fa2091067-7112-e181-4e65-bc254ed37a85.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/間違えたら即退社！君の広告クイズ_#242_clip.mp4",
+    "clip_filename": "間違えたら即退社！君の広告クイズ_#242_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 477.755,
-    "clip_start_seconds": 381.504,
-    "file_size_bytes": 940896,
-    "created_at_unix": 1781515485
+    "audio_duration_seconds": 2189.016,
+    "clip_start_seconds": 471.672,
+    "file_size_bytes": 954733,
+    "created_at_unix": 1781685005
   }
 }
