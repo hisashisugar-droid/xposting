@@ -3,7 +3,8 @@
     "10f5b05a-3f65-4473-8499-a049c9de542d",
     "a10f7c49-6a6d-4a75-bd9f-304f9b19262e",
     "97a38141-1f84-4d15-b603-8ae1470ec10d",
-    "50250ac2-e0f8-421e-8bc5-2e1addd6c05c"
+    "50250ac2-e0f8-421e-8bc5-2e1addd6c05c",
+    "7b232808-ac5a-4d76-a0a8-4ad48e393f29"
   ],
   "clips": [
     {
@@ -61,20 +62,34 @@
       "clip_start_seconds": 417.619,
       "file_size_bytes": 940142,
       "created_at_unix": 1782119529
+    },
+    {
+      "guid": "7b232808-ac5a-4d76-a0a8-4ad48e393f29",
+      "title": "実在したヤバい広告10連発！君の広告クイズいよいよクライマックス #244",
+      "pub_date": "Tue, 23 Jun 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/10-244-e3l1pt7",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/121742695/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-5-20%2Fab586bda-c2c8-b972-81c4-8cf582abb7b2.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/実在したヤバい広告10連発！君の広告クイズいよいよクライマックス_#244_clip.mp4",
+      "clip_filename": "実在したヤバい広告10連発！君の広告クイズいよいよクライマックス_#244_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 1657.248,
+      "clip_start_seconds": 311.935,
+      "file_size_bytes": 962413,
+      "created_at_unix": 1782283834
     }
   ],
   "latest_clip": {
-    "guid": "50250ac2-e0f8-421e-8bc5-2e1addd6c05c",
-    "title": "そんなことある？先輩を飲みに誘う方法がわからない #243",
-    "pub_date": "Sun, 21 Jun 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/243-e3l1plb",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/121742443/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-5-20%2F426495131-44100-2-67385a3962ab5.m4a",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/そんなことある？先輩を飲みに誘う方法がわからない_#243_clip.mp4",
-    "clip_filename": "そんなことある？先輩を飲みに誘う方法がわからない_#243_clip.mp4",
+    "guid": "7b232808-ac5a-4d76-a0a8-4ad48e393f29",
+    "title": "実在したヤバい広告10連発！君の広告クイズいよいよクライマックス #244",
+    "pub_date": "Tue, 23 Jun 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/10-244-e3l1pt7",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/121742695/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-5-20%2Fab586bda-c2c8-b972-81c4-8cf582abb7b2.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/実在したヤバい広告10連発！君の広告クイズいよいよクライマックス_#244_clip.mp4",
+    "clip_filename": "実在したヤバい広告10連発！君の広告クイズいよいよクライマックス_#244_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 587.29,
-    "clip_start_seconds": 417.619,
-    "file_size_bytes": 940142,
-    "created_at_unix": 1782119529
+    "audio_duration_seconds": 1657.248,
+    "clip_start_seconds": 311.935,
+    "file_size_bytes": 962413,
+    "created_at_unix": 1782283834
   }
 }
