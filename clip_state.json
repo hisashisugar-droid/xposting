@@ -6,7 +6,8 @@
     "50250ac2-e0f8-421e-8bc5-2e1addd6c05c",
     "7b232808-ac5a-4d76-a0a8-4ad48e393f29",
     "9e925dc6-6230-45d8-b2ee-311a14c26673",
-    "7bd5facf-39ec-4643-a0ed-f76a9fbae23f"
+    "7bd5facf-39ec-4643-a0ed-f76a9fbae23f",
+    "b8274a0a-fe18-44ba-8644-ae657c641f1c"
   ],
   "clips": [
     {
@@ -106,20 +107,34 @@
       "clip_start_seconds": 1351.537,
       "file_size_bytes": 947189,
       "created_at_unix": 1782890008
+    },
+    {
+      "guid": "b8274a0a-fe18-44ba-8644-ae657c641f1c",
+      "title": "コスパの悪い友情よサヨナラ！〜若者の交際費新常識 #247",
+      "pub_date": "Sun, 05 Jul 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/247-e3lle6l",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/122386069/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-4%2F427354828-44100-2-01956333bed77.m4a",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/コスパの悪い友情よサヨナラ！〜若者の交際費新常識_#247_clip.mp4",
+      "clip_filename": "コスパの悪い友情よサヨナラ！〜若者の交際費新常識_#247_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 560.595,
+      "clip_start_seconds": 416.071,
+      "file_size_bytes": 946180,
+      "created_at_unix": 1783322100
     }
   ],
   "latest_clip": {
-    "guid": "7bd5facf-39ec-4643-a0ed-f76a9fbae23f",
-    "title": "決定版3C分析！ 〜「企業参謀」勝ち筋を見つける思考法 #246",
-    "pub_date": "Tue, 30 Jun 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/3C--246-e3lbj8g",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/122063568/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-5-27%2Fc5e98105-fe31-76f0-1920-897d8a519488.mp3",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/決定版3C分析！_〜「企業参謀」勝ち筋を見つける思考法_#246_clip.mp4",
-    "clip_filename": "決定版3C分析！_〜「企業参謀」勝ち筋を見つける思考法_#246_clip.mp4",
+    "guid": "b8274a0a-fe18-44ba-8644-ae657c641f1c",
+    "title": "コスパの悪い友情よサヨナラ！〜若者の交際費新常識 #247",
+    "pub_date": "Sun, 05 Jul 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/247-e3lle6l",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/122386069/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-4%2F427354828-44100-2-01956333bed77.m4a",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/コスパの悪い友情よサヨナラ！〜若者の交際費新常識_#247_clip.mp4",
+    "clip_filename": "コスパの悪い友情よサヨナラ！〜若者の交際費新常識_#247_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 1571.304,
-    "clip_start_seconds": 1351.537,
-    "file_size_bytes": 947189,
-    "created_at_unix": 1782890008
+    "audio_duration_seconds": 560.595,
+    "clip_start_seconds": 416.071,
+    "file_size_bytes": 946180,
+    "created_at_unix": 1783322100
   }
 }
