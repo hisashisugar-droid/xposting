@@ -192,6 +192,12 @@ def save_state(state: dict) -> None:
     STATE_PATH.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def record_post_status(state: dict, **fields) -> None:
+    history = state.setdefault("post_history", [])
+    history.append(fields)
+    state["post_history"] = history[-25:]
+
+
 def refresh_apple_show_cache() -> bool:
     try:
         html = fetch_text(APPLE_SHOW_PAGE_URL, headers={"User-Agent": "Mozilla/5.0"})
@@ -630,10 +636,25 @@ def main() -> int:
             break
         except DuplicateTweetError as exc:
             print(f"X duplicate on attempt {attempt + 1}: {exc}")
-            if attempt == 2:
-                raise RuntimeError("X rejected duplicate content after retries.") from exc
-            time.sleep(1 + attempt)
-            continue
+            record_post_status(
+                state,
+                guid=episode["guid"],
+                title=episode["title"],
+                pub_date=episode["pub_date"],
+                result="duplicate",
+                message=str(exc),
+            )
+            posted_guids.add(episode["guid"])
+            state["posted_guids"] = sorted(posted_guids)
+            state["last_post"] = {
+                "guid": episode["guid"],
+                "title": episode["title"],
+                "pub_date": episode["pub_date"],
+                "tweet_id": state.get("last_post", {}).get("tweet_id"),
+            }
+            save_state(state)
+            print("Duplicate content treated as already posted.")
+            return 0
     assert response is not None
     posted_guids.add(episode["guid"])
     state["posted_guids"] = sorted(posted_guids)
@@ -643,6 +664,14 @@ def main() -> int:
         "pub_date": episode["pub_date"],
         "tweet_id": response.get("data", {}).get("id"),
     }
+    record_post_status(
+        state,
+        guid=episode["guid"],
+        title=episode["title"],
+        pub_date=episode["pub_date"],
+        result="posted",
+        tweet_id=state["last_post"]["tweet_id"],
+    )
     save_state(state)
     print(json.dumps(response, ensure_ascii=False))
     return 0
@@ -652,5 +681,12 @@ if __name__ == "__main__":
     try:
         raise SystemExit(main())
     except Exception as exc:
+        try:
+            state = load_state()
+            record_post_status(state, result="error", message=str(exc))
+            state["last_error"] = str(exc)
+            save_state(state)
+        except Exception:
+            pass
         print(f"ERROR: {exc}", file=sys.stderr)
         raise SystemExit(1)
