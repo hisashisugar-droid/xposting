@@ -45,6 +45,10 @@ class DuplicateTweetError(RuntimeError):
     pass
 
 
+def add_retry_marker(text: str, attempt: int) -> str:
+    return "\n".join([text, f"再送 {attempt + 1}"])
+
+
 def fetch_text(url: str, headers: Optional[Dict[str, str]] = None) -> str:
     request = Request(url, headers=headers or {})
     last_error: Optional[Exception] = None
@@ -616,11 +620,21 @@ def main() -> int:
 
     if not episode.get("title") or not episode.get("description"):
         raise RuntimeError("Episode data is incomplete; refusing to post.")
-    try:
-        response = post_to_x(post_text)
-    except DuplicateTweetError as exc:
-        print(f"X duplicate treated as success: {exc}")
-        response = {"data": {"id": state.get("last_post", {}).get("tweet_id")}}
+    response = None
+    for attempt in range(3):
+        candidate_text = post_text if attempt == 0 else add_retry_marker(post_text, attempt)
+        try:
+            response = post_to_x(candidate_text)
+            if attempt > 0:
+                print(f"X repost succeeded on attempt {attempt + 1}")
+            break
+        except DuplicateTweetError as exc:
+            print(f"X duplicate on attempt {attempt + 1}: {exc}")
+            if attempt == 2:
+                raise RuntimeError("X rejected duplicate content after retries.") from exc
+            time.sleep(1 + attempt)
+            continue
+    assert response is not None
     posted_guids.add(episode["guid"])
     state["posted_guids"] = sorted(posted_guids)
     state["last_post"] = {
