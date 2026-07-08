@@ -7,7 +7,8 @@
     "7b232808-ac5a-4d76-a0a8-4ad48e393f29",
     "9e925dc6-6230-45d8-b2ee-311a14c26673",
     "7bd5facf-39ec-4643-a0ed-f76a9fbae23f",
-    "b8274a0a-fe18-44ba-8644-ae657c641f1c"
+    "b8274a0a-fe18-44ba-8644-ae657c641f1c",
+    "1423cf6d-9a70-440a-a656-a00f63954968"
   ],
   "clips": [
     {
@@ -121,20 +122,34 @@
       "clip_start_seconds": 416.071,
       "file_size_bytes": 946180,
       "created_at_unix": 1783322100
+    },
+    {
+      "guid": "1423cf6d-9a70-440a-a656-a00f63954968",
+      "title": "今押さえるべき2026上半期ヒット商品の本質 #248",
+      "pub_date": "Tue, 07 Jul 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/2026-248-e3llen7",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/122386599/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-4%2F21d7ec3b-b1cb-bb28-bace-c5ad4818dc06.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/今押さえるべき2026上半期ヒット商品の本質_#248_clip.mp4",
+      "clip_filename": "今押さえるべき2026上半期ヒット商品の本質_#248_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 1728.432,
+      "clip_start_seconds": 566.769,
+      "file_size_bytes": 943705,
+      "created_at_unix": 1783490018
     }
   ],
   "latest_clip": {
-    "guid": "b8274a0a-fe18-44ba-8644-ae657c641f1c",
-    "title": "コスパの悪い友情よサヨナラ！〜若者の交際費新常識 #247",
-    "pub_date": "Sun, 05 Jul 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/247-e3lle6l",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/122386069/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-4%2F427354828-44100-2-01956333bed77.m4a",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/コスパの悪い友情よサヨナラ！〜若者の交際費新常識_#247_clip.mp4",
-    "clip_filename": "コスパの悪い友情よサヨナラ！〜若者の交際費新常識_#247_clip.mp4",
+    "guid": "1423cf6d-9a70-440a-a656-a00f63954968",
+    "title": "今押さえるべき2026上半期ヒット商品の本質 #248",
+    "pub_date": "Tue, 07 Jul 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/2026-248-e3llen7",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/122386599/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-4%2F21d7ec3b-b1cb-bb28-bace-c5ad4818dc06.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/今押さえるべき2026上半期ヒット商品の本質_#248_clip.mp4",
+    "clip_filename": "今押さえるべき2026上半期ヒット商品の本質_#248_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 560.595,
-    "clip_start_seconds": 416.071,
-    "file_size_bytes": 946180,
-    "created_at_unix": 1783322100
+    "audio_duration_seconds": 1728.432,
+    "clip_start_seconds": 566.769,
+    "file_size_bytes": 943705,
+    "created_at_unix": 1783490018
   }
 }
