@@ -1,5 +1,6 @@
 {
   "posted_guids": [
+    "0f6e6d69-4c48-4ab4-b91a-efb37d8f8f6c",
     "10f5b05a-3f65-4473-8499-a049c9de542d",
     "1423cf6d-9a70-440a-a656-a00f63954968",
     "1cbe74da-8116-4244-86a5-ac5b6576ef2d",
@@ -24,10 +25,10 @@
     "f8595685-e7f1-4f70-868d-c30e722f7d2b"
   ],
   "last_post": {
-    "guid": "e1fe99f5-68d8-40d6-b610-85c6061e9ef5",
-    "title": "さよならレビュー！実況でモノを売る時代へ！ #249",
-    "pub_date": "Sun, 12 Jul 2026 21:30:00 GMT",
-    "tweet_id": "2076628230283436341"
+    "guid": "0f6e6d69-4c48-4ab4-b91a-efb37d8f8f6c",
+    "title": "大解剖！上半期トレンドから見えた「孤独」と「小さな幸せ」 #250",
+    "pub_date": "Tue, 14 Jul 2026 21:30:00 GMT",
+    "tweet_id": "2077334827884577076"
   },
   "post_history": [
     {
@@ -36,6 +37,13 @@
       "pub_date": "Sun, 12 Jul 2026 21:30:00 GMT",
       "result": "posted",
       "tweet_id": "2076628230283436341"
+    },
+    {
+      "guid": "0f6e6d69-4c48-4ab4-b91a-efb37d8f8f6c",
+      "title": "大解剖！上半期トレンドから見えた「孤独」と「小さな幸せ」 #250",
+      "pub_date": "Tue, 14 Jul 2026 21:30:00 GMT",
+      "result": "posted",
+      "tweet_id": "2077334827884577076"
     }
   ]
 }
