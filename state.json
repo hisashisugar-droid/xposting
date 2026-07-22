@@ -10,6 +10,7 @@
     "6e7b90ce-8cb5-49c1-9c9d-4877c54ac77b",
     "7b232808-ac5a-4d76-a0a8-4ad48e393f29",
     "7bd5facf-39ec-4643-a0ed-f76a9fbae23f",
+    "7d8eabb1-a58a-4778-a043-00b01a4a2f2a",
     "81c98a1c-22a8-4c92-8dba-fd642cf79d27",
     "833d740d-c7f1-465d-bf0e-f40339061a75",
     "8b1668e4-9172-4051-9e9d-bdc32f9ca362",
@@ -26,10 +27,10 @@
     "f8595685-e7f1-4f70-868d-c30e722f7d2b"
   ],
   "last_post": {
-    "guid": "9fcae38b-4940-4b49-a1a1-97c53188646d",
-    "title": "テンションが低い後輩、どう扱う？！ #251",
-    "pub_date": "Sun, 19 Jul 2026 21:30:00 GMT",
-    "tweet_id": "2079161657276686831"
+    "guid": "7d8eabb1-a58a-4778-a043-00b01a4a2f2a",
+    "title": "物語は広告より強い 〜プロダクトプレイスメントの全て #252",
+    "pub_date": "Tue, 21 Jul 2026 21:30:00 GMT",
+    "tweet_id": "2079877107341988095"
   },
   "post_history": [
     {
@@ -52,6 +53,13 @@
       "pub_date": "Sun, 19 Jul 2026 21:30:00 GMT",
       "result": "posted",
       "tweet_id": "2079161657276686831"
+    },
+    {
+      "guid": "7d8eabb1-a58a-4778-a043-00b01a4a2f2a",
+      "title": "物語は広告より強い 〜プロダクトプレイスメントの全て #252",
+      "pub_date": "Tue, 21 Jul 2026 21:30:00 GMT",
+      "result": "posted",
+      "tweet_id": "2079877107341988095"
     }
   ]
 }
