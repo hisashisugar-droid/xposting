@@ -37,6 +37,7 @@ class Episode:
     guid: str
     title: str
     pub_date: str
+    pub_timestamp: float
     episode_url: str
     audio_url: str
     audio_type: str
@@ -77,7 +78,34 @@ def download(url: str, destination: Path) -> None:
     raise RuntimeError(f"Failed to download {url}")
 
 
-def latest_episode(rss_url: str) -> Episode:
+def parse_pub_timestamp(pub_date: str) -> float:
+    try:
+        return parsedate_to_datetime(pub_date).timestamp()
+    except Exception:
+        return 0.0
+
+
+def episode_from_item(item: ET.Element) -> Episode:
+    enclosure = item.find("enclosure")
+    if enclosure is None or not enclosure.attrib.get("url"):
+        title = (item.findtext("title") or "podcast episode").strip()
+        raise RuntimeError(f"RSS item does not contain an audio enclosure URL: {title}")
+
+    title = (item.findtext("title") or "podcast episode").strip()
+    pub_date = (item.findtext("pubDate") or "").strip()
+    guid = (item.findtext("guid") or item.findtext("link") or title).strip()
+    return Episode(
+        guid=guid,
+        title=title,
+        pub_date=pub_date,
+        pub_timestamp=parse_pub_timestamp(pub_date),
+        episode_url=(item.findtext("link") or "").strip(),
+        audio_url=enclosure.attrib["url"].strip(),
+        audio_type=enclosure.attrib.get("type", "").strip(),
+    )
+
+
+def rss_episodes(rss_url: str) -> list[Episode]:
     root = ET.fromstring(fetch_bytes(rss_url))
     channel = root.find("channel")
     if channel is None:
@@ -87,28 +115,43 @@ def latest_episode(rss_url: str) -> Episode:
     if not items:
         raise RuntimeError("No podcast episodes found in RSS feed.")
 
-    def item_date(item: ET.Element) -> float:
-        pub_date = (item.findtext("pubDate") or "").strip()
-        try:
-            return parsedate_to_datetime(pub_date).timestamp()
-        except Exception:
-            return 0.0
+    return sorted((episode_from_item(item) for item in items), key=lambda episode: episode.pub_timestamp)
 
-    item = max(items, key=item_date)
-    enclosure = item.find("enclosure")
-    if enclosure is None or not enclosure.attrib.get("url"):
-        raise RuntimeError("Latest RSS item does not contain an audio enclosure URL.")
 
-    title = (item.findtext("title") or "podcast episode").strip()
-    guid = (item.findtext("guid") or item.findtext("link") or title).strip()
-    return Episode(
-        guid=guid,
-        title=title,
-        pub_date=(item.findtext("pubDate") or "").strip(),
-        episode_url=(item.findtext("link") or "").strip(),
-        audio_url=enclosure.attrib["url"].strip(),
-        audio_type=enclosure.attrib.get("type", "").strip(),
-    )
+def latest_episode(rss_url: str) -> Episode:
+    return max(rss_episodes(rss_url), key=lambda episode: episode.pub_timestamp)
+
+
+def latest_processed_timestamp(state: dict[str, Any]) -> float:
+    timestamps = [
+        parse_pub_timestamp(str(clip.get("pub_date", "")))
+        for clip in state.get("clips", [])
+        if clip.get("guid") in set(state.get("processed_guids", []))
+    ]
+    return max(timestamps, default=0.0)
+
+
+def select_episode(episodes: list[Episode], state: dict[str, Any], force: bool) -> Episode | None:
+    if force:
+        return max(episodes, key=lambda episode: episode.pub_timestamp)
+
+    processed_guids = set(state.get("processed_guids", []))
+    if not processed_guids:
+        return max(episodes, key=lambda episode: episode.pub_timestamp)
+
+    latest_processed = latest_processed_timestamp(state)
+    new_episodes = [
+        episode
+        for episode in episodes
+        if episode.guid not in processed_guids and episode.pub_timestamp > latest_processed
+    ]
+    if new_episodes:
+        return min(new_episodes, key=lambda episode: episode.pub_timestamp)
+
+    unprocessed = [episode for episode in episodes if episode.guid not in processed_guids]
+    if unprocessed:
+        return max(unprocessed, key=lambda episode: episode.pub_timestamp)
+    return None
 
 
 def resolve_binary(name: str) -> str:
@@ -285,16 +328,17 @@ def main() -> int:
 
     cover_path = resolve_cover_path(args.cover)
 
-    episode = latest_episode(args.rss_url)
+    episodes = rss_episodes(args.rss_url)
     state = load_state(args.state)
-    processed_guids = set(state.get("processed_guids", []))
-    if episode.guid in processed_guids and not args.force:
-        print(f"Latest episode already processed: {episode.title}")
+    episode = select_episode(episodes, state, args.force)
+    if episode is None:
+        latest = max(episodes, key=lambda item: item.pub_timestamp)
+        print(f"No unprocessed episodes found. Latest episode already processed: {latest.title}")
         write_github_output(
             {
                 "clip_created": "false",
-                "episode_title": episode.title,
-                "episode_guid": episode.guid,
+                "episode_title": latest.title,
+                "episode_guid": latest.guid,
             }
         )
         return 0
