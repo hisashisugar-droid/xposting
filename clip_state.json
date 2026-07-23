@@ -12,7 +12,8 @@
     "e1fe99f5-68d8-40d6-b610-85c6061e9ef5",
     "0f6e6d69-4c48-4ab4-b91a-efb37d8f8f6c",
     "9fcae38b-4940-4b49-a1a1-97c53188646d",
-    "7d8eabb1-a58a-4778-a043-00b01a4a2f2a"
+    "7d8eabb1-a58a-4778-a043-00b01a4a2f2a",
+    "833d740d-c7f1-465d-bf0e-f40339061a75"
   ],
   "clips": [
     {
@@ -196,20 +197,34 @@
       "clip_start_seconds": 818.662,
       "file_size_bytes": 948575,
       "created_at_unix": 1784741631
+    },
+    {
+      "guid": "833d740d-c7f1-465d-bf0e-f40339061a75",
+      "title": "それでええんかNISA貧乏 #239",
+      "pub_date": "Sun, 07 Jun 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/NISA-239-e3kdjc8",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/121080648/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-5-6%2F425610464-44100-2-572bedc44efa2.m4a",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/それでええんかNISA貧乏_#239_clip.mp4",
+      "clip_filename": "それでええんかNISA貧乏_#239_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 610.734,
+      "clip_start_seconds": 67.287,
+      "file_size_bytes": 939525,
+      "created_at_unix": 1784786301
     }
   ],
   "latest_clip": {
-    "guid": "7d8eabb1-a58a-4778-a043-00b01a4a2f2a",
-    "title": "物語は広告より強い 〜プロダクトプレイスメントの全て #252",
-    "pub_date": "Tue, 21 Jul 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/252-e3m8ugv",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/123025375/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-19%2F04129a51-7b6c-4eb1-9b0d-6e2a4fbf0966.mp3",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/物語は広告より強い_〜プロダクトプレイスメントの全て_#252_clip.mp4",
-    "clip_filename": "物語は広告より強い_〜プロダクトプレイスメントの全て_#252_clip.mp4",
+    "guid": "833d740d-c7f1-465d-bf0e-f40339061a75",
+    "title": "それでええんかNISA貧乏 #239",
+    "pub_date": "Sun, 07 Jun 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/NISA-239-e3kdjc8",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/121080648/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-5-6%2F425610464-44100-2-572bedc44efa2.m4a",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/それでええんかNISA貧乏_#239_clip.mp4",
+    "clip_filename": "それでええんかNISA貧乏_#239_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 1761.12,
-    "clip_start_seconds": 818.662,
-    "file_size_bytes": 948575,
-    "created_at_unix": 1784741631
+    "audio_duration_seconds": 610.734,
+    "clip_start_seconds": 67.287,
+    "file_size_bytes": 939525,
+    "created_at_unix": 1784786301
   }
 }
