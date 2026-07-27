@@ -4,6 +4,7 @@
     "10f5b05a-3f65-4473-8499-a049c9de542d",
     "1423cf6d-9a70-440a-a656-a00f63954968",
     "1cbe74da-8116-4244-86a5-ac5b6576ef2d",
+    "1f39a8c5-97a3-43f7-ac5c-f67fcf12eee1",
     "3a391c18-a0d5-4778-9f2e-839e1fb20f79",
     "50250ac2-e0f8-421e-8bc5-2e1addd6c05c",
     "6bf5cf37-1266-4386-bd74-fa8eec4a3218",
@@ -27,10 +28,10 @@
     "f8595685-e7f1-4f70-868d-c30e722f7d2b"
   ],
   "last_post": {
-    "guid": "7d8eabb1-a58a-4778-a043-00b01a4a2f2a",
-    "title": "物語は広告より強い 〜プロダクトプレイスメントの全て #252",
-    "pub_date": "Tue, 21 Jul 2026 21:30:00 GMT",
-    "tweet_id": "2079982698395783593"
+    "guid": "1f39a8c5-97a3-43f7-ac5c-f67fcf12eee1",
+    "title": "失敗したら終わり！と思う新人たち #253",
+    "pub_date": "Sun, 26 Jul 2026 21:30:00 GMT",
+    "tweet_id": "2081765392838476169"
   },
   "post_history": [
     {
@@ -60,6 +61,13 @@
       "pub_date": "Tue, 21 Jul 2026 21:30:00 GMT",
       "result": "posted",
       "tweet_id": "2079982698395783593"
+    },
+    {
+      "guid": "1f39a8c5-97a3-43f7-ac5c-f67fcf12eee1",
+      "title": "失敗したら終わり！と思う新人たち #253",
+      "pub_date": "Sun, 26 Jul 2026 21:30:00 GMT",
+      "result": "posted",
+      "tweet_id": "2081765392838476169"
     }
   ]
 }
