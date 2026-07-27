@@ -14,7 +14,8 @@
     "9fcae38b-4940-4b49-a1a1-97c53188646d",
     "7d8eabb1-a58a-4778-a043-00b01a4a2f2a",
     "833d740d-c7f1-465d-bf0e-f40339061a75",
-    "6bf5cf37-1266-4386-bd74-fa8eec4a3218"
+    "6bf5cf37-1266-4386-bd74-fa8eec4a3218",
+    "1f39a8c5-97a3-43f7-ac5c-f67fcf12eee1"
   ],
   "clips": [
     {
@@ -226,20 +227,34 @@
       "clip_start_seconds": 542.78,
       "file_size_bytes": 944671,
       "created_at_unix": 1784805220
+    },
+    {
+      "guid": "1f39a8c5-97a3-43f7-ac5c-f67fcf12eee1",
+      "title": "失敗したら終わり！と思う新人たち #253",
+      "pub_date": "Sun, 26 Jul 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/253-e3mialg",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/123332720/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-26%2F428631740-44100-2-857f6423f7fc9.m4a",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/失敗したら終わり！と思う新人たち_#253_clip.mp4",
+      "clip_filename": "失敗したら終わり！と思う新人たち_#253_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 617.638,
+      "clip_start_seconds": 476.347,
+      "file_size_bytes": 941232,
+      "created_at_unix": 1785134027
     }
   ],
   "latest_clip": {
-    "guid": "6bf5cf37-1266-4386-bd74-fa8eec4a3218",
-    "title": "絶対権力者「空気」の研究 〜なぜみんなiPhoneを選ぶのか？〜 #238",
-    "pub_date": "Tue, 02 Jun 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/iPhone-238-e3k4n13",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/120789475/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-31%2F84970a0f-dbfe-0b66-b824-efa9ed29cfbb.mp3",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/絶対権力者「空気」の研究_〜なぜみんなiPhoneを選ぶのか？〜_#238_clip.mp4",
-    "clip_filename": "絶対権力者「空気」の研究_〜なぜみんなiPhoneを選ぶのか？〜_#238_clip.mp4",
+    "guid": "1f39a8c5-97a3-43f7-ac5c-f67fcf12eee1",
+    "title": "失敗したら終わり！と思う新人たち #253",
+    "pub_date": "Sun, 26 Jul 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/253-e3mialg",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/123332720/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-26%2F428631740-44100-2-857f6423f7fc9.m4a",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/失敗したら終わり！と思う新人たち_#253_clip.mp4",
+    "clip_filename": "失敗したら終わり！と思う新人たち_#253_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 1224.264,
-    "clip_start_seconds": 542.78,
-    "file_size_bytes": 944671,
-    "created_at_unix": 1784805220
+    "audio_duration_seconds": 617.638,
+    "clip_start_seconds": 476.347,
+    "file_size_bytes": 941232,
+    "created_at_unix": 1785134027
   }
 }
