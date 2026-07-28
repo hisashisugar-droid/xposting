@@ -17,7 +17,8 @@
     "6bf5cf37-1266-4386-bd74-fa8eec4a3218",
     "1f39a8c5-97a3-43f7-ac5c-f67fcf12eee1",
     "f00299df-f585-4662-8378-e0787a013df4",
-    "5271b57e-e730-44d4-9658-23be2203900c"
+    "5271b57e-e730-44d4-9658-23be2203900c",
+    "bba4c401-44aa-4846-a8cd-3cf0f579d0f4"
   ],
   "clips": [
     {
@@ -271,20 +272,34 @@
       "clip_start_seconds": 1095.071,
       "file_size_bytes": 945272,
       "created_at_unix": 1785217772
+    },
+    {
+      "guid": "bba4c401-44aa-4846-a8cd-3cf0f579d0f4",
+      "title": "Tiktokは時間を 溶かす説の欺瞞！ #235",
+      "pub_date": "Sun, 24 May 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/Tiktok--235-e3jqpd3",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/120464227/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-24%2F424786149-44100-2-7a0b94fe59125.m4a",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/Tiktokは時間を_溶かす説の欺瞞！_#235_clip.mp4",
+      "clip_filename": "Tiktokは時間を_溶かす説の欺瞞！_#235_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 587.17,
+      "clip_start_seconds": 429.128,
+      "file_size_bytes": 941600,
+      "created_at_unix": 1785240395
     }
   ],
   "latest_clip": {
-    "guid": "5271b57e-e730-44d4-9658-23be2203900c",
-    "title": "もっと知りたい！「ランチェスター戦略」 #236",
-    "pub_date": "Tue, 26 May 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/236-e3jqphf",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/120464367/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-24%2F4a350187-6c01-659c-3944-23b652b676c5.mp3",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/もっと知りたい！「ランチェスター戦略」_#236_clip.mp4",
-    "clip_filename": "もっと知りたい！「ランチェスター戦略」_#236_clip.mp4",
+    "guid": "bba4c401-44aa-4846-a8cd-3cf0f579d0f4",
+    "title": "Tiktokは時間を 溶かす説の欺瞞！ #235",
+    "pub_date": "Sun, 24 May 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/Tiktok--235-e3jqpd3",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/120464227/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-24%2F424786149-44100-2-7a0b94fe59125.m4a",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/Tiktokは時間を_溶かす説の欺瞞！_#235_clip.mp4",
+    "clip_filename": "Tiktokは時間を_溶かす説の欺瞞！_#235_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 1514.88,
-    "clip_start_seconds": 1095.071,
-    "file_size_bytes": 945272,
-    "created_at_unix": 1785217772
+    "audio_duration_seconds": 587.17,
+    "clip_start_seconds": 429.128,
+    "file_size_bytes": 941600,
+    "created_at_unix": 1785240395
   }
 }
