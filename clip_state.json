@@ -16,7 +16,8 @@
     "833d740d-c7f1-465d-bf0e-f40339061a75",
     "6bf5cf37-1266-4386-bd74-fa8eec4a3218",
     "1f39a8c5-97a3-43f7-ac5c-f67fcf12eee1",
-    "f00299df-f585-4662-8378-e0787a013df4"
+    "f00299df-f585-4662-8378-e0787a013df4",
+    "5271b57e-e730-44d4-9658-23be2203900c"
   ],
   "clips": [
     {
@@ -256,20 +257,34 @@
       "clip_start_seconds": 505.316,
       "file_size_bytes": 944049,
       "created_at_unix": 1785155251
+    },
+    {
+      "guid": "5271b57e-e730-44d4-9658-23be2203900c",
+      "title": "もっと知りたい！「ランチェスター戦略」 #236",
+      "pub_date": "Tue, 26 May 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/236-e3jqphf",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/120464367/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-24%2F4a350187-6c01-659c-3944-23b652b676c5.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/もっと知りたい！「ランチェスター戦略」_#236_clip.mp4",
+      "clip_filename": "もっと知りたい！「ランチェスター戦略」_#236_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 1514.88,
+      "clip_start_seconds": 1095.071,
+      "file_size_bytes": 945272,
+      "created_at_unix": 1785217772
     }
   ],
   "latest_clip": {
-    "guid": "f00299df-f585-4662-8378-e0787a013df4",
-    "title": "仲良くなった先輩と仕事するのが気まずい説！ #237",
-    "pub_date": "Sun, 31 May 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/237-e3k4mmb",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/120789131/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-31%2F425219634-44100-2-0f05765f6b327.m4a",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/仲良くなった先輩と仕事するのが気まずい説！_#237_clip.mp4",
-    "clip_filename": "仲良くなった先輩と仕事するのが気まずい説！_#237_clip.mp4",
+    "guid": "5271b57e-e730-44d4-9658-23be2203900c",
+    "title": "もっと知りたい！「ランチェスター戦略」 #236",
+    "pub_date": "Tue, 26 May 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/236-e3jqphf",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/120464367/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-24%2F4a350187-6c01-659c-3944-23b652b676c5.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/もっと知りたい！「ランチェスター戦略」_#236_clip.mp4",
+    "clip_filename": "もっと知りたい！「ランチェスター戦略」_#236_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 616.0,
-    "clip_start_seconds": 505.316,
-    "file_size_bytes": 944049,
-    "created_at_unix": 1785155251
+    "audio_duration_seconds": 1514.88,
+    "clip_start_seconds": 1095.071,
+    "file_size_bytes": 945272,
+    "created_at_unix": 1785217772
   }
 }
