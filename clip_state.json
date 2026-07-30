@@ -20,7 +20,8 @@
     "5271b57e-e730-44d4-9658-23be2203900c",
     "bba4c401-44aa-4846-a8cd-3cf0f579d0f4",
     "ebbec27d-e21f-4334-9e41-1afaf2cd9014",
-    "ccb3cd38-a388-4014-9855-c7977511c468"
+    "ccb3cd38-a388-4014-9855-c7977511c468",
+    "1cbe74da-8116-4244-86a5-ac5b6576ef2d"
   ],
   "clips": [
     {
@@ -316,20 +317,34 @@
       "clip_start_seconds": 344.826,
       "file_size_bytes": 946463,
       "created_at_unix": 1785324532
+    },
+    {
+      "guid": "1cbe74da-8116-4244-86a5-ac5b6576ef2d",
+      "title": "「ファスト○○」こそ正義！ #233",
+      "pub_date": "Sun, 17 May 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/233-e3jfqi3",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/120104963/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-17%2F424306710-44100-2-69a2a2dbf110d.m4a",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/「ファスト○○」こそ正義！_#233_clip.mp4",
+      "clip_filename": "「ファスト○○」こそ正義！_#233_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 617.455,
+      "clip_start_seconds": 402.175,
+      "file_size_bytes": 942055,
+      "created_at_unix": 1785390256
     }
   ],
   "latest_clip": {
-    "guid": "ccb3cd38-a388-4014-9855-c7977511c468",
-    "title": "頑張るほど危険？『ザ・ゴール』が覆す仕事の常識 #254",
-    "pub_date": "Tue, 28 Jul 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/254-e3miap5",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/123332837/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-26%2F98790d7c-578f-d82c-6e1b-641faf3debb3.mp3",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/頑張るほど危険？『ザ・ゴール』が覆す仕事の常識_#254_clip.mp4",
-    "clip_filename": "頑張るほど危険？『ザ・ゴール』が覆す仕事の常識_#254_clip.mp4",
+    "guid": "1cbe74da-8116-4244-86a5-ac5b6576ef2d",
+    "title": "「ファスト○○」こそ正義！ #233",
+    "pub_date": "Sun, 17 May 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/233-e3jfqi3",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/120104963/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-17%2F424306710-44100-2-69a2a2dbf110d.m4a",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/「ファスト○○」こそ正義！_#233_clip.mp4",
+    "clip_filename": "「ファスト○○」こそ正義！_#233_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 1426.896,
-    "clip_start_seconds": 344.826,
-    "file_size_bytes": 946463,
-    "created_at_unix": 1785324532
+    "audio_duration_seconds": 617.455,
+    "clip_start_seconds": 402.175,
+    "file_size_bytes": 942055,
+    "created_at_unix": 1785390256
   }
 }
