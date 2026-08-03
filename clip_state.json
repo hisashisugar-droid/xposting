@@ -23,7 +23,8 @@
     "ccb3cd38-a388-4014-9855-c7977511c468",
     "1cbe74da-8116-4244-86a5-ac5b6576ef2d",
     "6e7b90ce-8cb5-49c1-9c9d-4877c54ac77b",
-    "7a3a4b5b-1fba-4d50-86b5-c4e8b474fa0d"
+    "7a3a4b5b-1fba-4d50-86b5-c4e8b474fa0d",
+    "a9cf894d-c8cd-4ddd-9978-cbe4b410c10b"
   ],
   "clips": [
     {
@@ -361,20 +362,34 @@
       "clip_start_seconds": 421.287,
       "file_size_bytes": 940968,
       "created_at_unix": 1785738427
+    },
+    {
+      "guid": "a9cf894d-c8cd-4ddd-9978-cbe4b410c10b",
+      "title": "情報収集は読書が王様なんて誰が決めた？ #231",
+      "pub_date": "Sun, 10 May 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/231-e3iqfn5",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/119405733/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-3%2F423360507-44100-2-724609cd569c5.m4a",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/情報収集は読書が王様なんて誰が決めた？_#231_clip.mp4",
+      "clip_filename": "情報収集は読書が王様なんて誰が決めた？_#231_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 632.212,
+      "clip_start_seconds": 454.574,
+      "file_size_bytes": 943217,
+      "created_at_unix": 1785760089
     }
   ],
   "latest_clip": {
-    "guid": "7a3a4b5b-1fba-4d50-86b5-c4e8b474fa0d",
-    "title": "ホワハラの正体！ #255",
-    "pub_date": "Sun, 02 Aug 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/255-e3mr0d0",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/123617120/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-1%2F429017714-44100-2-aa18a376db1e.m4a",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/ホワハラの正体！_#255_clip.mp4",
-    "clip_filename": "ホワハラの正体！_#255_clip.mp4",
+    "guid": "a9cf894d-c8cd-4ddd-9978-cbe4b410c10b",
+    "title": "情報収集は読書が王様なんて誰が決めた？ #231",
+    "pub_date": "Sun, 10 May 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/231-e3iqfn5",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/119405733/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-3%2F423360507-44100-2-724609cd569c5.m4a",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/情報収集は読書が王様なんて誰が決めた？_#231_clip.mp4",
+    "clip_filename": "情報収集は読書が王様なんて誰が決めた？_#231_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 625.294,
-    "clip_start_seconds": 421.287,
-    "file_size_bytes": 940968,
-    "created_at_unix": 1785738427
+    "audio_duration_seconds": 632.212,
+    "clip_start_seconds": 454.574,
+    "file_size_bytes": 943217,
+    "created_at_unix": 1785760089
   }
 }
