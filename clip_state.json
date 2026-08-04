@@ -25,7 +25,8 @@
     "6e7b90ce-8cb5-49c1-9c9d-4877c54ac77b",
     "7a3a4b5b-1fba-4d50-86b5-c4e8b474fa0d",
     "a9cf894d-c8cd-4ddd-9978-cbe4b410c10b",
-    "f8595685-e7f1-4f70-868d-c30e722f7d2b"
+    "f8595685-e7f1-4f70-868d-c30e722f7d2b",
+    "da9d034c-2eaf-4cf1-a7ce-180b33132cc5"
   ],
   "clips": [
     {
@@ -391,20 +392,34 @@
       "clip_start_seconds": 643.131,
       "file_size_bytes": 947765,
       "created_at_unix": 1785822643
+    },
+    {
+      "guid": "da9d034c-2eaf-4cf1-a7ce-180b33132cc5",
+      "title": "持ち寄りに怯えて震える夜はもうやめよう！ #229",
+      "pub_date": "Sun, 03 May 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/229-e3iqfcp",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/119405401/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-3%2F423360029-44100-2-0bd887e99328f.m4a",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/持ち寄りに怯えて震える夜はもうやめよう！_#229_clip.mp4",
+      "clip_filename": "持ち寄りに怯えて震える夜はもうやめよう！_#229_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 647.587,
+      "clip_start_seconds": 313.906,
+      "file_size_bytes": 939734,
+      "created_at_unix": 1785842841
     }
   ],
   "latest_clip": {
-    "guid": "f8595685-e7f1-4f70-868d-c30e722f7d2b",
-    "title": "会議室の支配者になれ！「知的に見せる10の儀式」 #230",
-    "pub_date": "Tue, 05 May 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/10-230-e3iqfhp",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/119405561/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-3%2F92388212-a684-42d9-d228-7ea4b65f8639.mp3",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/会議室の支配者になれ！「知的に見せる10の儀式」_#230_clip.mp4",
-    "clip_filename": "会議室の支配者になれ！「知的に見せる10の儀式」_#230_clip.mp4",
+    "guid": "da9d034c-2eaf-4cf1-a7ce-180b33132cc5",
+    "title": "持ち寄りに怯えて震える夜はもうやめよう！ #229",
+    "pub_date": "Sun, 03 May 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/229-e3iqfcp",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/119405401/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-3%2F423360029-44100-2-0bd887e99328f.m4a",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/持ち寄りに怯えて震える夜はもうやめよう！_#229_clip.mp4",
+    "clip_filename": "持ち寄りに怯えて震える夜はもうやめよう！_#229_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 1175.472,
-    "clip_start_seconds": 643.131,
-    "file_size_bytes": 947765,
-    "created_at_unix": 1785822643
+    "audio_duration_seconds": 647.587,
+    "clip_start_seconds": 313.906,
+    "file_size_bytes": 939734,
+    "created_at_unix": 1785842841
   }
 }
