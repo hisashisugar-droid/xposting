@@ -24,7 +24,8 @@
     "1cbe74da-8116-4244-86a5-ac5b6576ef2d",
     "6e7b90ce-8cb5-49c1-9c9d-4877c54ac77b",
     "7a3a4b5b-1fba-4d50-86b5-c4e8b474fa0d",
-    "a9cf894d-c8cd-4ddd-9978-cbe4b410c10b"
+    "a9cf894d-c8cd-4ddd-9978-cbe4b410c10b",
+    "f8595685-e7f1-4f70-868d-c30e722f7d2b"
   ],
   "clips": [
     {
@@ -376,20 +377,34 @@
       "clip_start_seconds": 454.574,
       "file_size_bytes": 943217,
       "created_at_unix": 1785760089
+    },
+    {
+      "guid": "f8595685-e7f1-4f70-868d-c30e722f7d2b",
+      "title": "会議室の支配者になれ！「知的に見せる10の儀式」 #230",
+      "pub_date": "Tue, 05 May 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/10-230-e3iqfhp",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/119405561/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-3%2F92388212-a684-42d9-d228-7ea4b65f8639.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/会議室の支配者になれ！「知的に見せる10の儀式」_#230_clip.mp4",
+      "clip_filename": "会議室の支配者になれ！「知的に見せる10の儀式」_#230_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 1175.472,
+      "clip_start_seconds": 643.131,
+      "file_size_bytes": 947765,
+      "created_at_unix": 1785822643
     }
   ],
   "latest_clip": {
-    "guid": "a9cf894d-c8cd-4ddd-9978-cbe4b410c10b",
-    "title": "情報収集は読書が王様なんて誰が決めた？ #231",
-    "pub_date": "Sun, 10 May 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/231-e3iqfn5",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/119405733/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-3%2F423360507-44100-2-724609cd569c5.m4a",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/情報収集は読書が王様なんて誰が決めた？_#231_clip.mp4",
-    "clip_filename": "情報収集は読書が王様なんて誰が決めた？_#231_clip.mp4",
+    "guid": "f8595685-e7f1-4f70-868d-c30e722f7d2b",
+    "title": "会議室の支配者になれ！「知的に見せる10の儀式」 #230",
+    "pub_date": "Tue, 05 May 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/10-230-e3iqfhp",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/119405561/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-4-3%2F92388212-a684-42d9-d228-7ea4b65f8639.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/会議室の支配者になれ！「知的に見せる10の儀式」_#230_clip.mp4",
+    "clip_filename": "会議室の支配者になれ！「知的に見せる10の儀式」_#230_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 632.212,
-    "clip_start_seconds": 454.574,
-    "file_size_bytes": 943217,
-    "created_at_unix": 1785760089
+    "audio_duration_seconds": 1175.472,
+    "clip_start_seconds": 643.131,
+    "file_size_bytes": 947765,
+    "created_at_unix": 1785822643
   }
 }
