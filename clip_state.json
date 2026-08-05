@@ -27,7 +27,8 @@
     "a9cf894d-c8cd-4ddd-9978-cbe4b410c10b",
     "f8595685-e7f1-4f70-868d-c30e722f7d2b",
     "da9d034c-2eaf-4cf1-a7ce-180b33132cc5",
-    "9812b39f-e86c-4edf-9b64-6ac77d2ccd68"
+    "9812b39f-e86c-4edf-9b64-6ac77d2ccd68",
+    "3a391c18-a0d5-4778-9f2e-839e1fb20f79"
   ],
   "clips": [
     {
@@ -421,20 +422,34 @@
       "clip_start_seconds": 466.54,
       "file_size_bytes": 945775,
       "created_at_unix": 1785908927
+    },
+    {
+      "guid": "3a391c18-a0d5-4778-9f2e-839e1fb20f79",
+      "title": "日本と海外の広告会社ってこんなに違うの？ #228",
+      "pub_date": "Tue, 28 Apr 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/228-e3igarh",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/119073073/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-3-26%2Fc9202057-d292-fc7c-b884-6cef475339e3.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/日本と海外の広告会社ってこんなに違うの？_#228_clip.mp4",
+      "clip_filename": "日本と海外の広告会社ってこんなに違うの？_#228_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 1844.304,
+      "clip_start_seconds": 761.957,
+      "file_size_bytes": 949652,
+      "created_at_unix": 1785928993
     }
   ],
   "latest_clip": {
-    "guid": "9812b39f-e86c-4edf-9b64-6ac77d2ccd68",
-    "title": "サボれ！ #256",
-    "pub_date": "Tue, 04 Aug 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/256-e3mr06r",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/123616923/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-1%2F2ebd17ed-8101-b2c1-3caf-ce5e0bbcde1d.mp3",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/サボれ！_#256_clip.mp4",
-    "clip_filename": "サボれ！_#256_clip.mp4",
+    "guid": "3a391c18-a0d5-4778-9f2e-839e1fb20f79",
+    "title": "日本と海外の広告会社ってこんなに違うの？ #228",
+    "pub_date": "Tue, 28 Apr 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/228-e3igarh",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/119073073/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-3-26%2Fc9202057-d292-fc7c-b884-6cef475339e3.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/日本と海外の広告会社ってこんなに違うの？_#228_clip.mp4",
+    "clip_filename": "日本と海外の広告会社ってこんなに違うの？_#228_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 1610.352,
-    "clip_start_seconds": 466.54,
-    "file_size_bytes": 945775,
-    "created_at_unix": 1785908927
+    "audio_duration_seconds": 1844.304,
+    "clip_start_seconds": 761.957,
+    "file_size_bytes": 949652,
+    "created_at_unix": 1785928993
   }
 }
