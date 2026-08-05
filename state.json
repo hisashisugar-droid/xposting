@@ -17,6 +17,7 @@
     "833d740d-c7f1-465d-bf0e-f40339061a75",
     "8b1668e4-9172-4051-9e9d-bdc32f9ca362",
     "97a38141-1f84-4d15-b603-8ae1470ec10d",
+    "9812b39f-e86c-4edf-9b64-6ac77d2ccd68",
     "9e925dc6-6230-45d8-b2ee-311a14c26673",
     "9fcae38b-4940-4b49-a1a1-97c53188646d",
     "a10f7c49-6a6d-4a75-bd9f-304f9b19262e",
@@ -30,10 +31,10 @@
     "f8595685-e7f1-4f70-868d-c30e722f7d2b"
   ],
   "last_post": {
-    "guid": "7a3a4b5b-1fba-4d50-86b5-c4e8b474fa0d",
-    "title": "ホワハラの正体！ #255",
-    "pub_date": "Sun, 02 Aug 2026 21:30:00 GMT",
-    "tweet_id": "2084241789842583676"
+    "guid": "9812b39f-e86c-4edf-9b64-6ac77d2ccd68",
+    "title": "サボれ！ #256",
+    "pub_date": "Tue, 04 Aug 2026 21:30:00 GMT",
+    "tweet_id": "2085035626123137436"
   },
   "post_history": [
     {
@@ -84,6 +85,17 @@
       "pub_date": "Sun, 02 Aug 2026 21:30:00 GMT",
       "result": "posted",
       "tweet_id": "2084241789842583676"
+    },
+    {
+      "result": "error",
+      "message": "<urlopen error [Errno 8] nodename nor servname provided, or not known>"
+    },
+    {
+      "guid": "9812b39f-e86c-4edf-9b64-6ac77d2ccd68",
+      "title": "サボれ！ #256",
+      "pub_date": "Tue, 04 Aug 2026 21:30:00 GMT",
+      "result": "posted",
+      "tweet_id": "2085035626123137436"
     }
   ]
 }

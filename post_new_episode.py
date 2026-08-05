@@ -646,6 +646,7 @@ def main() -> int:
             )
             posted_guids.add(episode["guid"])
             state["posted_guids"] = sorted(posted_guids)
+            state.pop("last_error", None)
             state["last_post"] = {
                 "guid": episode["guid"],
                 "title": episode["title"],
@@ -658,6 +659,7 @@ def main() -> int:
     assert response is not None
     posted_guids.add(episode["guid"])
     state["posted_guids"] = sorted(posted_guids)
+    state.pop("last_error", None)
     state["last_post"] = {
         "guid": episode["guid"],
         "title": episode["title"],
