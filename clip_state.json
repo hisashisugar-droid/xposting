@@ -28,7 +28,8 @@
     "f8595685-e7f1-4f70-868d-c30e722f7d2b",
     "da9d034c-2eaf-4cf1-a7ce-180b33132cc5",
     "9812b39f-e86c-4edf-9b64-6ac77d2ccd68",
-    "3a391c18-a0d5-4778-9f2e-839e1fb20f79"
+    "3a391c18-a0d5-4778-9f2e-839e1fb20f79",
+    "8b1668e4-9172-4051-9e9d-bdc32f9ca362"
   ],
   "clips": [
     {
@@ -436,20 +437,34 @@
       "clip_start_seconds": 761.957,
       "file_size_bytes": 949652,
       "created_at_unix": 1785928993
+    },
+    {
+      "guid": "8b1668e4-9172-4051-9e9d-bdc32f9ca362",
+      "title": "チャットAIの最大貢献はキーワード化 #227",
+      "pub_date": "Sun, 26 Apr 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/AI-227-e3igaim",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/119072790/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-3-26%2F422905796-44100-2-a46f88336bcd3.m4a",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/チャットAIの最大貢献はキーワード化_#227_clip.mp4",
+      "clip_filename": "チャットAIの最大貢献はキーワード化_#227_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 593.209,
+      "clip_start_seconds": 356.111,
+      "file_size_bytes": 946175,
+      "created_at_unix": 1785995547
     }
   ],
   "latest_clip": {
-    "guid": "3a391c18-a0d5-4778-9f2e-839e1fb20f79",
-    "title": "日本と海外の広告会社ってこんなに違うの？ #228",
-    "pub_date": "Tue, 28 Apr 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/228-e3igarh",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/119073073/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-3-26%2Fc9202057-d292-fc7c-b884-6cef475339e3.mp3",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/日本と海外の広告会社ってこんなに違うの？_#228_clip.mp4",
-    "clip_filename": "日本と海外の広告会社ってこんなに違うの？_#228_clip.mp4",
+    "guid": "8b1668e4-9172-4051-9e9d-bdc32f9ca362",
+    "title": "チャットAIの最大貢献はキーワード化 #227",
+    "pub_date": "Sun, 26 Apr 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/AI-227-e3igaim",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/119072790/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-3-26%2F422905796-44100-2-a46f88336bcd3.m4a",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/チャットAIの最大貢献はキーワード化_#227_clip.mp4",
+    "clip_filename": "チャットAIの最大貢献はキーワード化_#227_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 1844.304,
-    "clip_start_seconds": 761.957,
-    "file_size_bytes": 949652,
-    "created_at_unix": 1785928993
+    "audio_duration_seconds": 593.209,
+    "clip_start_seconds": 356.111,
+    "file_size_bytes": 946175,
+    "created_at_unix": 1785995547
   }
 }
