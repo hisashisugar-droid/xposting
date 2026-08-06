@@ -29,7 +29,8 @@
     "da9d034c-2eaf-4cf1-a7ce-180b33132cc5",
     "9812b39f-e86c-4edf-9b64-6ac77d2ccd68",
     "3a391c18-a0d5-4778-9f2e-839e1fb20f79",
-    "8b1668e4-9172-4051-9e9d-bdc32f9ca362"
+    "8b1668e4-9172-4051-9e9d-bdc32f9ca362",
+    "b4942c53-d5d0-49ce-ae34-0aa5f1f265f8"
   ],
   "clips": [
     {
@@ -451,20 +452,34 @@
       "clip_start_seconds": 356.111,
       "file_size_bytes": 946175,
       "created_at_unix": 1785995547
+    },
+    {
+      "guid": "b4942c53-d5d0-49ce-ae34-0aa5f1f265f8",
+      "title": "共感は選ぶ時代へ #226",
+      "pub_date": "Tue, 21 Apr 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/226-e3i4q9r",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/118695675/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-3-19%2Fa5b5209c-251d-bcb6-7dda-36e165453399.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/共感は選ぶ時代へ_#226_clip.mp4",
+      "clip_filename": "共感は選ぶ時代へ_#226_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 1054.728,
+      "clip_start_seconds": 484.578,
+      "file_size_bytes": 943668,
+      "created_at_unix": 1786015551
     }
   ],
   "latest_clip": {
-    "guid": "8b1668e4-9172-4051-9e9d-bdc32f9ca362",
-    "title": "チャットAIの最大貢献はキーワード化 #227",
-    "pub_date": "Sun, 26 Apr 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/AI-227-e3igaim",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/119072790/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-3-26%2F422905796-44100-2-a46f88336bcd3.m4a",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/チャットAIの最大貢献はキーワード化_#227_clip.mp4",
-    "clip_filename": "チャットAIの最大貢献はキーワード化_#227_clip.mp4",
+    "guid": "b4942c53-d5d0-49ce-ae34-0aa5f1f265f8",
+    "title": "共感は選ぶ時代へ #226",
+    "pub_date": "Tue, 21 Apr 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/226-e3i4q9r",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/118695675/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-3-19%2Fa5b5209c-251d-bcb6-7dda-36e165453399.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/共感は選ぶ時代へ_#226_clip.mp4",
+    "clip_filename": "共感は選ぶ時代へ_#226_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 593.209,
-    "clip_start_seconds": 356.111,
-    "file_size_bytes": 946175,
-    "created_at_unix": 1785995547
+    "audio_duration_seconds": 1054.728,
+    "clip_start_seconds": 484.578,
+    "file_size_bytes": 943668,
+    "created_at_unix": 1786015551
   }
 }
