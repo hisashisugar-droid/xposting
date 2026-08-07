@@ -122,36 +122,15 @@ def latest_episode(rss_url: str) -> Episode:
     return max(rss_episodes(rss_url), key=lambda episode: episode.pub_timestamp)
 
 
-def latest_processed_timestamp(state: dict[str, Any]) -> float:
-    timestamps = [
-        parse_pub_timestamp(str(clip.get("pub_date", "")))
-        for clip in state.get("clips", [])
-        if clip.get("guid") in set(state.get("processed_guids", []))
-    ]
-    return max(timestamps, default=0.0)
-
-
 def select_episode(episodes: list[Episode], state: dict[str, Any], force: bool) -> Episode | None:
+    latest = max(episodes, key=lambda episode: episode.pub_timestamp)
     if force:
-        return max(episodes, key=lambda episode: episode.pub_timestamp)
+        return latest
 
     processed_guids = set(state.get("processed_guids", []))
-    if not processed_guids:
-        return max(episodes, key=lambda episode: episode.pub_timestamp)
-
-    latest_processed = latest_processed_timestamp(state)
-    new_episodes = [
-        episode
-        for episode in episodes
-        if episode.guid not in processed_guids and episode.pub_timestamp > latest_processed
-    ]
-    if new_episodes:
-        return min(new_episodes, key=lambda episode: episode.pub_timestamp)
-
-    unprocessed = [episode for episode in episodes if episode.guid not in processed_guids]
-    if unprocessed:
-        return max(unprocessed, key=lambda episode: episode.pub_timestamp)
-    return None
+    if latest.guid in processed_guids:
+        return None
+    return latest
 
 
 def resolve_binary(name: str) -> str:
