@@ -31,7 +31,8 @@
     "3a391c18-a0d5-4778-9f2e-839e1fb20f79",
     "8b1668e4-9172-4051-9e9d-bdc32f9ca362",
     "b4942c53-d5d0-49ce-ae34-0aa5f1f265f8",
-    "ea7b150b-e56c-491c-8124-9ca25356d794"
+    "ea7b150b-e56c-491c-8124-9ca25356d794",
+    "cda0927a-1086-43b4-80f6-20e44765397d"
   ],
   "clips": [
     {
@@ -481,20 +482,34 @@
       "clip_start_seconds": 381.336,
       "file_size_bytes": 942547,
       "created_at_unix": 1786336830
+    },
+    {
+      "guid": "cda0927a-1086-43b4-80f6-20e44765397d",
+      "title": "AI時代どんなマーケターが消滅するのか？ #258",
+      "pub_date": "Tue, 11 Aug 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/AI-258-e3n62mv",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/123979935/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-9%2Fcef21704-9806-055d-d573-0395adad74a7.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/AI時代どんなマーケターが消滅するのか？_#258_clip.mp4",
+      "clip_filename": "AI時代どんなマーケターが消滅するのか？_#258_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 1601.64,
+      "clip_start_seconds": 202.325,
+      "file_size_bytes": 959352,
+      "created_at_unix": 1786529386
     }
   ],
   "latest_clip": {
-    "guid": "ea7b150b-e56c-491c-8124-9ca25356d794",
-    "title": "なぜ私たちは職場で働くふりをしてしまうのか？ #257",
-    "pub_date": "Sun, 09 Aug 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/257-e3mrni8",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/123640840/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-2%2F429049927-44100-2-a9692cbb3085f.m4a",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/なぜ私たちは職場で働くふりをしてしまうのか？_#257_clip.mp4",
-    "clip_filename": "なぜ私たちは職場で働くふりをしてしまうのか？_#257_clip.mp4",
+    "guid": "cda0927a-1086-43b4-80f6-20e44765397d",
+    "title": "AI時代どんなマーケターが消滅するのか？ #258",
+    "pub_date": "Tue, 11 Aug 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/AI-258-e3n62mv",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/123979935/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-9%2Fcef21704-9806-055d-d573-0395adad74a7.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/AI時代どんなマーケターが消滅するのか？_#258_clip.mp4",
+    "clip_filename": "AI時代どんなマーケターが消滅するのか？_#258_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 612.206,
-    "clip_start_seconds": 381.336,
-    "file_size_bytes": 942547,
-    "created_at_unix": 1786336830
+    "audio_duration_seconds": 1601.64,
+    "clip_start_seconds": 202.325,
+    "file_size_bytes": 959352,
+    "created_at_unix": 1786529386
   }
 }
