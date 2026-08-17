@@ -32,7 +32,8 @@
     "8b1668e4-9172-4051-9e9d-bdc32f9ca362",
     "b4942c53-d5d0-49ce-ae34-0aa5f1f265f8",
     "ea7b150b-e56c-491c-8124-9ca25356d794",
-    "cda0927a-1086-43b4-80f6-20e44765397d"
+    "cda0927a-1086-43b4-80f6-20e44765397d",
+    "9bcf2581-dd95-42b5-90db-b438ee4f60b7"
   ],
   "clips": [
     {
@@ -496,20 +497,34 @@
       "clip_start_seconds": 202.325,
       "file_size_bytes": 959352,
       "created_at_unix": 1786529386
+    },
+    {
+      "guid": "9bcf2581-dd95-42b5-90db-b438ee4f60b7",
+      "title": "PPTよりエクセルより先に磨きたい「構造化思考」の力 #259",
+      "pub_date": "Sun, 16 Aug 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/PPT-259-e3nefq8",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/124255496/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-15%2F429888231-44100-2-7daecd9253877.m4a",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/PPTよりエクセルより先に磨きたい「構造化思考」の力_#259_clip.mp4",
+      "clip_filename": "PPTよりエクセルより先に磨きたい「構造化思考」の力_#259_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 507.016,
+      "clip_start_seconds": 274.674,
+      "file_size_bytes": 942132,
+      "created_at_unix": 1786938782
     }
   ],
   "latest_clip": {
-    "guid": "cda0927a-1086-43b4-80f6-20e44765397d",
-    "title": "AI時代どんなマーケターが消滅するのか？ #258",
-    "pub_date": "Tue, 11 Aug 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/AI-258-e3n62mv",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/123979935/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-9%2Fcef21704-9806-055d-d573-0395adad74a7.mp3",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/AI時代どんなマーケターが消滅するのか？_#258_clip.mp4",
-    "clip_filename": "AI時代どんなマーケターが消滅するのか？_#258_clip.mp4",
+    "guid": "9bcf2581-dd95-42b5-90db-b438ee4f60b7",
+    "title": "PPTよりエクセルより先に磨きたい「構造化思考」の力 #259",
+    "pub_date": "Sun, 16 Aug 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/PPT-259-e3nefq8",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/124255496/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-15%2F429888231-44100-2-7daecd9253877.m4a",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/PPTよりエクセルより先に磨きたい「構造化思考」の力_#259_clip.mp4",
+    "clip_filename": "PPTよりエクセルより先に磨きたい「構造化思考」の力_#259_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 1601.64,
-    "clip_start_seconds": 202.325,
-    "file_size_bytes": 959352,
-    "created_at_unix": 1786529386
+    "audio_duration_seconds": 507.016,
+    "clip_start_seconds": 274.674,
+    "file_size_bytes": 942132,
+    "created_at_unix": 1786938782
   }
 }
