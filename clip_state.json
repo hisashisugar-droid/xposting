@@ -35,7 +35,8 @@
     "cda0927a-1086-43b4-80f6-20e44765397d",
     "9bcf2581-dd95-42b5-90db-b438ee4f60b7",
     "dd686178-1e63-4f45-b793-7624d0240927",
-    "9fc9641c-cd74-4ca3-abf2-07dc8445d198"
+    "9fc9641c-cd74-4ca3-abf2-07dc8445d198",
+    "f13a4778-b083-4340-baf1-db8f16219a32"
   ],
   "clips": [
     {
@@ -541,20 +542,34 @@
       "clip_start_seconds": 136.722,
       "file_size_bytes": 943483,
       "created_at_unix": 1787543810
+    },
+    {
+      "guid": "f13a4778-b083-4340-baf1-db8f16219a32",
+      "title": "サヨナラ、すべての不条理！広告業界の闇を煮詰めたうんこ味のカレー、ついに完結！ #262",
+      "pub_date": "Tue, 25 Aug 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/262-e3nph3p",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/124617273/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-23%2F727d2494-0137-4faa-d132-17d4bffa5897.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/サヨナラ、すべての不条理！広告業界の闇を煮詰めたうんこ味のカレー、ついに完結！_#262_clip.mp4",
+      "clip_filename": "サヨナラ、すべての不条理！広告業界の闇を煮詰めたうんこ味のカレー、ついに完結！_#262_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 1781.088,
+      "clip_start_seconds": 1350.901,
+      "file_size_bytes": 948216,
+      "created_at_unix": 1787716529
     }
   ],
   "latest_clip": {
-    "guid": "9fc9641c-cd74-4ca3-abf2-07dc8445d198",
-    "title": "おい先輩！もっと踏み込んでこいよ！ by後輩 #261",
-    "pub_date": "Sun, 23 Aug 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/by-261-e3nphci",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/124617554/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-23%2F430379042-44100-2-bf97bd7b6e612.m4a",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/おい先輩！もっと踏み込んでこいよ！_by後輩_#261_clip.mp4",
-    "clip_filename": "おい先輩！もっと踏み込んでこいよ！_by後輩_#261_clip.mp4",
+    "guid": "f13a4778-b083-4340-baf1-db8f16219a32",
+    "title": "サヨナラ、すべての不条理！広告業界の闇を煮詰めたうんこ味のカレー、ついに完結！ #262",
+    "pub_date": "Tue, 25 Aug 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/262-e3nph3p",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/124617273/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-23%2F727d2494-0137-4faa-d132-17d4bffa5897.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/サヨナラ、すべての不条理！広告業界の闇を煮詰めたうんこ味のカレー、ついに完結！_#262_clip.mp4",
+    "clip_filename": "サヨナラ、すべての不条理！広告業界の闇を煮詰めたうんこ味のカレー、ついに完結！_#262_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 543.693,
-    "clip_start_seconds": 136.722,
-    "file_size_bytes": 943483,
-    "created_at_unix": 1787543810
+    "audio_duration_seconds": 1781.088,
+    "clip_start_seconds": 1350.901,
+    "file_size_bytes": 948216,
+    "created_at_unix": 1787716529
   }
 }
