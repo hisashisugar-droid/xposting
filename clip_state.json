@@ -37,7 +37,8 @@
     "dd686178-1e63-4f45-b793-7624d0240927",
     "9fc9641c-cd74-4ca3-abf2-07dc8445d198",
     "f13a4778-b083-4340-baf1-db8f16219a32",
-    "b923711b-3ef4-4fb0-99b9-3b306983dd3d"
+    "b923711b-3ef4-4fb0-99b9-3b306983dd3d",
+    "f250508f-5722-4c2c-ab14-35f2bf27f343"
   ],
   "clips": [
     {
@@ -571,20 +572,34 @@
       "clip_start_seconds": 226.161,
       "file_size_bytes": 943026,
       "created_at_unix": 1788168516
+    },
+    {
+      "guid": "f250508f-5722-4c2c-ab14-35f2bf27f343",
+      "title": "成功するBtoB営業の秘術。それはSPIN！ #264",
+      "pub_date": "Tue, 01 Sep 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/BtoBSPIN-264-e3o2ttr",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/124925307/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-30%2Fd3683034-131c-1b30-480a-5b10526ddc45.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/成功するBtoB営業の秘術。それはSPIN！_#264_clip.mp4",
+      "clip_filename": "成功するBtoB営業の秘術。それはSPIN！_#264_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 1344.504,
+      "clip_start_seconds": 1133.892,
+      "file_size_bytes": 945895,
+      "created_at_unix": 1788335238
     }
   ],
   "latest_clip": {
-    "guid": "b923711b-3ef4-4fb0-99b9-3b306983dd3d",
-    "title": "食べるのが遅いのは失礼？ #263",
-    "pub_date": "Sun, 30 Aug 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/263-e3o2tna",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/124925098/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-30%2F430804591-44100-2-a9634aea55c2.m4a",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/食べるのが遅いのは失礼？_#263_clip.mp4",
-    "clip_filename": "食べるのが遅いのは失礼？_#263_clip.mp4",
+    "guid": "f250508f-5722-4c2c-ab14-35f2bf27f343",
+    "title": "成功するBtoB営業の秘術。それはSPIN！ #264",
+    "pub_date": "Tue, 01 Sep 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/BtoBSPIN-264-e3o2ttr",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/124925307/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-30%2Fd3683034-131c-1b30-480a-5b10526ddc45.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/成功するBtoB営業の秘術。それはSPIN！_#264_clip.mp4",
+    "clip_filename": "成功するBtoB営業の秘術。それはSPIN！_#264_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 589.165,
-    "clip_start_seconds": 226.161,
-    "file_size_bytes": 943026,
-    "created_at_unix": 1788168516
+    "audio_duration_seconds": 1344.504,
+    "clip_start_seconds": 1133.892,
+    "file_size_bytes": 945895,
+    "created_at_unix": 1788335238
   }
 }
