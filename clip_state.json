@@ -38,7 +38,8 @@
     "9fc9641c-cd74-4ca3-abf2-07dc8445d198",
     "f13a4778-b083-4340-baf1-db8f16219a32",
     "b923711b-3ef4-4fb0-99b9-3b306983dd3d",
-    "f250508f-5722-4c2c-ab14-35f2bf27f343"
+    "f250508f-5722-4c2c-ab14-35f2bf27f343",
+    "fd69f010-2f60-4f14-891b-12f75279d42a"
   ],
   "clips": [
     {
@@ -586,20 +587,34 @@
       "clip_start_seconds": 1133.892,
       "file_size_bytes": 945895,
       "created_at_unix": 1788335238
+    },
+    {
+      "guid": "fd69f010-2f60-4f14-891b-12f75279d42a",
+      "title": "頼み事するのが 苦手な営業なのですが... #265",
+      "pub_date": "Sun, 06 Sep 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/265-e3odmu0",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/125278592/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-6%2F431285336-44100-2-f832d0c90e74b.m4a",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/頼み事するのが_苦手な営業なのですが..._#265_clip.mp4",
+      "clip_filename": "頼み事するのが_苦手な営業なのですが..._#265_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 583.523,
+      "clip_start_seconds": 224.23,
+      "file_size_bytes": 940575,
+      "created_at_unix": 1788768196
     }
   ],
   "latest_clip": {
-    "guid": "f250508f-5722-4c2c-ab14-35f2bf27f343",
-    "title": "成功するBtoB営業の秘術。それはSPIN！ #264",
-    "pub_date": "Tue, 01 Sep 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/BtoBSPIN-264-e3o2ttr",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/124925307/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-30%2Fd3683034-131c-1b30-480a-5b10526ddc45.mp3",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/成功するBtoB営業の秘術。それはSPIN！_#264_clip.mp4",
-    "clip_filename": "成功するBtoB営業の秘術。それはSPIN！_#264_clip.mp4",
+    "guid": "fd69f010-2f60-4f14-891b-12f75279d42a",
+    "title": "頼み事するのが 苦手な営業なのですが... #265",
+    "pub_date": "Sun, 06 Sep 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/265-e3odmu0",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/125278592/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-6%2F431285336-44100-2-f832d0c90e74b.m4a",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/頼み事するのが_苦手な営業なのですが..._#265_clip.mp4",
+    "clip_filename": "頼み事するのが_苦手な営業なのですが..._#265_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 1344.504,
-    "clip_start_seconds": 1133.892,
-    "file_size_bytes": 945895,
-    "created_at_unix": 1788335238
+    "audio_duration_seconds": 583.523,
+    "clip_start_seconds": 224.23,
+    "file_size_bytes": 940575,
+    "created_at_unix": 1788768196
   }
 }
