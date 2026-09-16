@@ -41,7 +41,8 @@
     "f250508f-5722-4c2c-ab14-35f2bf27f343",
     "fd69f010-2f60-4f14-891b-12f75279d42a",
     "4d7e0841-05d5-411c-b1e0-f14965bf2365",
-    "2804b488-bbe3-4454-b39a-4d48fc0c9ec2"
+    "2804b488-bbe3-4454-b39a-4d48fc0c9ec2",
+    "5bc2afaf-0770-45f1-8304-f423ded14e09"
   ],
   "clips": [
     {
@@ -631,20 +632,34 @@
       "clip_start_seconds": 418.972,
       "file_size_bytes": 939970,
       "created_at_unix": 1789375257
+    },
+    {
+      "guid": "5bc2afaf-0770-45f1-8304-f423ded14e09",
+      "title": "某大学教授が大激怒!?「マーケティングの科学」を今すぐシュレッダーにかけろ！ #268",
+      "pub_date": "Tue, 15 Sep 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/268-e3oog01",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/125631937/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-12%2F726b3a78-562c-5170-338f-65b2213d4b4b.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/某大学教授が大激怒!-「マーケティングの科学」を今すぐシュレッダーにかけろ！_#268_clip.mp4",
+      "clip_filename": "某大学教授が大激怒!-「マーケティングの科学」を今すぐシュレッダーにかけろ！_#268_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 1162.008,
+      "clip_start_seconds": 612.377,
+      "file_size_bytes": 944817,
+      "created_at_unix": 1789546988
     }
   ],
   "latest_clip": {
-    "guid": "2804b488-bbe3-4454-b39a-4d48fc0c9ec2",
-    "title": "欲望が欠落している消費者ヲワタな件 #267",
-    "pub_date": "Sun, 13 Sep 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/267-e3oofqu",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/125631774/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-12%2F431749285-44100-2-4fc776e7cccbf.m4a",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/欲望が欠落している消費者ヲワタな件_#267_clip.mp4",
-    "clip_filename": "欲望が欠落している消費者ヲワタな件_#267_clip.mp4",
+    "guid": "5bc2afaf-0770-45f1-8304-f423ded14e09",
+    "title": "某大学教授が大激怒!?「マーケティングの科学」を今すぐシュレッダーにかけろ！ #268",
+    "pub_date": "Tue, 15 Sep 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/268-e3oog01",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/125631937/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-12%2F726b3a78-562c-5170-338f-65b2213d4b4b.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/某大学教授が大激怒!-「マーケティングの科学」を今すぐシュレッダーにかけろ！_#268_clip.mp4",
+    "clip_filename": "某大学教授が大激怒!-「マーケティングの科学」を今すぐシュレッダーにかけろ！_#268_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 547.201,
-    "clip_start_seconds": 418.972,
-    "file_size_bytes": 939970,
-    "created_at_unix": 1789375257
+    "audio_duration_seconds": 1162.008,
+    "clip_start_seconds": 612.377,
+    "file_size_bytes": 944817,
+    "created_at_unix": 1789546988
   }
 }
