@@ -42,7 +42,8 @@
     "fd69f010-2f60-4f14-891b-12f75279d42a",
     "4d7e0841-05d5-411c-b1e0-f14965bf2365",
     "2804b488-bbe3-4454-b39a-4d48fc0c9ec2",
-    "5bc2afaf-0770-45f1-8304-f423ded14e09"
+    "5bc2afaf-0770-45f1-8304-f423ded14e09",
+    "df6eb1c8-2faa-4598-b536-f18d483bb666"
   ],
   "clips": [
     {
@@ -646,20 +647,34 @@
       "clip_start_seconds": 612.377,
       "file_size_bytes": 944817,
       "created_at_unix": 1789546988
+    },
+    {
+      "guid": "df6eb1c8-2faa-4598-b536-f18d483bb666",
+      "title": "リモート勤務が生んだ「休めない病」の正体 #269",
+      "pub_date": "Sun, 20 Sep 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/269-e3p4eeu",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/126023582/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-20%2F432282535-44100-2-cdf8cf7f55933.m4a",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/リモート勤務が生んだ「休めない病」の正体_#269_clip.mp4",
+      "clip_filename": "リモート勤務が生んだ「休めない病」の正体_#269_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 559.245,
+      "clip_start_seconds": 213.799,
+      "file_size_bytes": 945995,
+      "created_at_unix": 1789980142
     }
   ],
   "latest_clip": {
-    "guid": "5bc2afaf-0770-45f1-8304-f423ded14e09",
-    "title": "某大学教授が大激怒!?「マーケティングの科学」を今すぐシュレッダーにかけろ！ #268",
-    "pub_date": "Tue, 15 Sep 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/268-e3oog01",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/125631937/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-12%2F726b3a78-562c-5170-338f-65b2213d4b4b.mp3",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/某大学教授が大激怒!-「マーケティングの科学」を今すぐシュレッダーにかけろ！_#268_clip.mp4",
-    "clip_filename": "某大学教授が大激怒!-「マーケティングの科学」を今すぐシュレッダーにかけろ！_#268_clip.mp4",
+    "guid": "df6eb1c8-2faa-4598-b536-f18d483bb666",
+    "title": "リモート勤務が生んだ「休めない病」の正体 #269",
+    "pub_date": "Sun, 20 Sep 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/269-e3p4eeu",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/126023582/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-20%2F432282535-44100-2-cdf8cf7f55933.m4a",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/リモート勤務が生んだ「休めない病」の正体_#269_clip.mp4",
+    "clip_filename": "リモート勤務が生んだ「休めない病」の正体_#269_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 1162.008,
-    "clip_start_seconds": 612.377,
-    "file_size_bytes": 944817,
-    "created_at_unix": 1789546988
+    "audio_duration_seconds": 559.245,
+    "clip_start_seconds": 213.799,
+    "file_size_bytes": 945995,
+    "created_at_unix": 1789980142
   }
 }
