@@ -6,6 +6,7 @@
     "1cbe74da-8116-4244-86a5-ac5b6576ef2d",
     "1f39a8c5-97a3-43f7-ac5c-f67fcf12eee1",
     "2804b488-bbe3-4454-b39a-4d48fc0c9ec2",
+    "2b6e487a-9d1a-4ed6-a1bf-30821ec4ab2c",
     "3a391c18-a0d5-4778-9f2e-839e1fb20f79",
     "4d7e0841-05d5-411c-b1e0-f14965bf2365",
     "50250ac2-e0f8-421e-8bc5-2e1addd6c05c",
@@ -44,10 +45,10 @@
     "fd69f010-2f60-4f14-891b-12f75279d42a"
   ],
   "last_post": {
-    "guid": "df6eb1c8-2faa-4598-b536-f18d483bb666",
-    "title": "リモート勤務が生んだ「休めない病」の正体 #269",
-    "pub_date": "Sun, 20 Sep 2026 21:30:00 GMT",
-    "tweet_id": "2102050911740969136"
+    "guid": "2b6e487a-9d1a-4ed6-a1bf-30821ec4ab2c",
+    "title": "フードデリバリー。店が増えるほど儲からない謎を解明します！ #270",
+    "pub_date": "Tue, 22 Sep 2026 21:30:00 GMT",
+    "tweet_id": "2102753315398246782"
   },
   "post_history": [
     {
@@ -200,6 +201,13 @@
       "pub_date": "Sun, 20 Sep 2026 21:30:00 GMT",
       "result": "posted",
       "tweet_id": "2102050911740969136"
+    },
+    {
+      "guid": "2b6e487a-9d1a-4ed6-a1bf-30821ec4ab2c",
+      "title": "フードデリバリー。店が増えるほど儲からない謎を解明します！ #270",
+      "pub_date": "Tue, 22 Sep 2026 21:30:00 GMT",
+      "result": "posted",
+      "tweet_id": "2102753315398246782"
     }
   ]
 }
