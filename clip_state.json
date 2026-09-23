@@ -43,7 +43,8 @@
     "4d7e0841-05d5-411c-b1e0-f14965bf2365",
     "2804b488-bbe3-4454-b39a-4d48fc0c9ec2",
     "5bc2afaf-0770-45f1-8304-f423ded14e09",
-    "df6eb1c8-2faa-4598-b536-f18d483bb666"
+    "df6eb1c8-2faa-4598-b536-f18d483bb666",
+    "2b6e487a-9d1a-4ed6-a1bf-30821ec4ab2c"
   ],
   "clips": [
     {
@@ -661,20 +662,34 @@
       "clip_start_seconds": 213.799,
       "file_size_bytes": 945995,
       "created_at_unix": 1789980142
+    },
+    {
+      "guid": "2b6e487a-9d1a-4ed6-a1bf-30821ec4ab2c",
+      "title": "フードデリバリー。店が増えるほど儲からない謎を解明します！ #270",
+      "pub_date": "Tue, 22 Sep 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/270-e3p4elr",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/126023803/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-20%2Ff56b89b3-1913-a8e6-d0b3-b3580c782585.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/フードデリバリー。店が増えるほど儲からない謎を解明します！_#270_clip.mp4",
+      "clip_filename": "フードデリバリー。店が増えるほど儲からない謎を解明します！_#270_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 1715.04,
+      "clip_start_seconds": 1516.727,
+      "file_size_bytes": 944341,
+      "created_at_unix": 1790151785
     }
   ],
   "latest_clip": {
-    "guid": "df6eb1c8-2faa-4598-b536-f18d483bb666",
-    "title": "リモート勤務が生んだ「休めない病」の正体 #269",
-    "pub_date": "Sun, 20 Sep 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/269-e3p4eeu",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/126023582/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-20%2F432282535-44100-2-cdf8cf7f55933.m4a",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/リモート勤務が生んだ「休めない病」の正体_#269_clip.mp4",
-    "clip_filename": "リモート勤務が生んだ「休めない病」の正体_#269_clip.mp4",
+    "guid": "2b6e487a-9d1a-4ed6-a1bf-30821ec4ab2c",
+    "title": "フードデリバリー。店が増えるほど儲からない謎を解明します！ #270",
+    "pub_date": "Tue, 22 Sep 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/270-e3p4elr",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/126023803/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-20%2Ff56b89b3-1913-a8e6-d0b3-b3580c782585.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/フードデリバリー。店が増えるほど儲からない謎を解明します！_#270_clip.mp4",
+    "clip_filename": "フードデリバリー。店が増えるほど儲からない謎を解明します！_#270_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 559.245,
-    "clip_start_seconds": 213.799,
-    "file_size_bytes": 945995,
-    "created_at_unix": 1789980142
+    "audio_duration_seconds": 1715.04,
+    "clip_start_seconds": 1516.727,
+    "file_size_bytes": 944341,
+    "created_at_unix": 1790151785
   }
 }
