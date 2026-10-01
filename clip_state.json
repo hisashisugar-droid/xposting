@@ -45,7 +45,8 @@
     "5bc2afaf-0770-45f1-8304-f423ded14e09",
     "df6eb1c8-2faa-4598-b536-f18d483bb666",
     "2b6e487a-9d1a-4ed6-a1bf-30821ec4ab2c",
-    "0f6dd95e-35cb-4a18-b9a3-e55077f45b60"
+    "0f6dd95e-35cb-4a18-b9a3-e55077f45b60",
+    "cc9652fe-60df-458b-b601-cf7e821d0c6c"
   ],
   "clips": [
     {
@@ -691,20 +692,34 @@
       "clip_start_seconds": 149.349,
       "file_size_bytes": 942963,
       "created_at_unix": 1790587830
+    },
+    {
+      "guid": "cc9652fe-60df-458b-b601-cf7e821d0c6c",
+      "title": "あなたの退屈は狙われている！退屈を消費に変える仕組み #272",
+      "pub_date": "Tue, 29 Sep 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/272-e3pe5n2",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/126342306/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-26%2Fcf315c55-8388-a60b-6944-ad01cffbbbfc.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/あなたの退屈は狙われている！退屈を消費に変える仕組み_#272_clip.mp4",
+      "clip_filename": "あなたの退屈は狙われている！退屈を消費に変える仕組み_#272_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 1670.568,
+      "clip_start_seconds": 392.237,
+      "file_size_bytes": 944762,
+      "created_at_unix": 1790848397
     }
   ],
   "latest_clip": {
-    "guid": "0f6dd95e-35cb-4a18-b9a3-e55077f45b60",
-    "title": "なぜ今ノイズを足す？ミニマリズムの揺り戻し #271",
-    "pub_date": "Sun, 27 Sep 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/271-e3pe5ib",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/126342155/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-26%2F432712136-44100-2-a8975c6884777.m4a",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/なぜ今ノイズを足す？ミニマリズムの揺り戻し_#271_clip.mp4",
-    "clip_filename": "なぜ今ノイズを足す？ミニマリズムの揺り戻し_#271_clip.mp4",
+    "guid": "cc9652fe-60df-458b-b601-cf7e821d0c6c",
+    "title": "あなたの退屈は狙われている！退屈を消費に変える仕組み #272",
+    "pub_date": "Tue, 29 Sep 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/272-e3pe5n2",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/126342306/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-26%2Fcf315c55-8388-a60b-6944-ad01cffbbbfc.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/あなたの退屈は狙われている！退屈を消費に変える仕組み_#272_clip.mp4",
+    "clip_filename": "あなたの退屈は狙われている！退屈を消費に変える仕組み_#272_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 543.257,
-    "clip_start_seconds": 149.349,
-    "file_size_bytes": 942963,
-    "created_at_unix": 1790587830
+    "audio_duration_seconds": 1670.568,
+    "clip_start_seconds": 392.237,
+    "file_size_bytes": 944762,
+    "created_at_unix": 1790848397
   }
 }
