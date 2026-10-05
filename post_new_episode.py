@@ -245,7 +245,19 @@ def latest_episode_from_rss_or_cache() -> dict:
 
 
 def _latest_episode_from_rss() -> dict:
-    root = ET.fromstring(fetch_text(RSS_URL, headers={"User-Agent": "Mozilla/5.0"}))
+    # Anchor's CDN can serve a stale feed for the bare URL. A cache-busting
+    # query and no-cache headers ensure scheduled runs see newly published episodes.
+    rss_url = f"{RSS_URL}?refresh={int(time.time())}"
+    root = ET.fromstring(
+        fetch_text(
+            rss_url,
+            headers={
+                "User-Agent": "Mozilla/5.0",
+                "Cache-Control": "no-cache",
+                "Pragma": "no-cache",
+            },
+        )
+    )
     channel = root.find("channel")
     if channel is None:
         raise RuntimeError("RSS channel not found.")
