@@ -47,7 +47,8 @@
     "2b6e487a-9d1a-4ed6-a1bf-30821ec4ab2c",
     "0f6dd95e-35cb-4a18-b9a3-e55077f45b60",
     "cc9652fe-60df-458b-b601-cf7e821d0c6c",
-    "ac261b2b-9309-449c-abbf-ff2e4eaa3aa5"
+    "ac261b2b-9309-449c-abbf-ff2e4eaa3aa5",
+    "a4c89fce-06a3-4095-85ca-1c676a809862"
   ],
   "clips": [
     {
@@ -721,20 +722,34 @@
       "clip_start_seconds": 792.324,
       "file_size_bytes": 943277,
       "created_at_unix": 1791194955
+    },
+    {
+      "guid": "a4c89fce-06a3-4095-85ca-1c676a809862",
+      "title": "買えば買うほど退屈になる！消費社会が隠した本当の贅沢とは？ #274",
+      "pub_date": "Tue, 06 Oct 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/274-e3prtsd",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/126793037/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-4%2F1f8fde46-4a73-1c8e-b6ab-70f30f8591c1.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/買えば買うほど退屈になる！消費社会が隠した本当の贅沢とは？_#274_clip.mp4",
+      "clip_filename": "買えば買うほど退屈になる！消費社会が隠した本当の贅沢とは？_#274_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 1439.088,
+      "clip_start_seconds": 1272.043,
+      "file_size_bytes": 946620,
+      "created_at_unix": 1791367201
     }
   ],
   "latest_clip": {
-    "guid": "ac261b2b-9309-449c-abbf-ff2e4eaa3aa5",
-    "title": "代理店vs事業会社。マーケターの違いを徹底比較 #273",
-    "pub_date": "Sun, 04 Oct 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/vs-273-e3prta6",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/126792454/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-4%2F433295204-44100-2-a6863259d2bd.m4a",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/代理店vs事業会社。マーケターの違いを徹底比較_#273_clip.mp4",
-    "clip_filename": "代理店vs事業会社。マーケターの違いを徹底比較_#273_clip.mp4",
+    "guid": "a4c89fce-06a3-4095-85ca-1c676a809862",
+    "title": "買えば買うほど退屈になる！消費社会が隠した本当の贅沢とは？ #274",
+    "pub_date": "Tue, 06 Oct 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/274-e3prtsd",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/126793037/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-4%2F1f8fde46-4a73-1c8e-b6ab-70f30f8591c1.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/買えば買うほど退屈になる！消費社会が隠した本当の贅沢とは？_#274_clip.mp4",
+    "clip_filename": "買えば買うほど退屈になる！消費社会が隠した本当の贅沢とは？_#274_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 961.281,
-    "clip_start_seconds": 792.324,
-    "file_size_bytes": 943277,
-    "created_at_unix": 1791194955
+    "audio_duration_seconds": 1439.088,
+    "clip_start_seconds": 1272.043,
+    "file_size_bytes": 946620,
+    "created_at_unix": 1791367201
   }
 }
