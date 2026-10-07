@@ -28,6 +28,7 @@
     "9fc9641c-cd74-4ca3-abf2-07dc8445d198",
     "9fcae38b-4940-4b49-a1a1-97c53188646d",
     "a10f7c49-6a6d-4a75-bd9f-304f9b19262e",
+    "a4c89fce-06a3-4095-85ca-1c676a809862",
     "a9cf894d-c8cd-4ddd-9978-cbe4b410c10b",
     "ac261b2b-9309-449c-abbf-ff2e4eaa3aa5",
     "b4942c53-d5d0-49ce-ae34-0aa5f1f265f8",
@@ -48,19 +49,12 @@
     "fd69f010-2f60-4f14-891b-12f75279d42a"
   ],
   "last_post": {
-    "guid": "ac261b2b-9309-449c-abbf-ff2e4eaa3aa5",
-    "title": "代理店vs事業会社。マーケターの違いを徹底比較 #273",
-    "pub_date": "Sun, 04 Oct 2026 21:30:00 GMT",
-    "tweet_id": "2107121218872881552"
+    "guid": "a4c89fce-06a3-4095-85ca-1c676a809862",
+    "title": "買えば買うほど退屈になる！消費社会が隠した本当の贅沢とは？ #274",
+    "pub_date": "Tue, 06 Oct 2026 21:30:00 GMT",
+    "tweet_id": "2107840207412416664"
   },
   "post_history": [
-    {
-      "guid": "0f6e6d69-4c48-4ab4-b91a-efb37d8f8f6c",
-      "title": "大解剖！上半期トレンドから見えた「孤独」と「小さな幸せ」 #250",
-      "pub_date": "Tue, 14 Jul 2026 21:30:00 GMT",
-      "result": "posted",
-      "tweet_id": "2077334827884577076"
-    },
     {
       "guid": "9fcae38b-4940-4b49-a1a1-97c53188646d",
       "title": "テンションが低い後輩、どう扱う？！ #251",
@@ -225,6 +219,13 @@
       "pub_date": "Sun, 04 Oct 2026 21:30:00 GMT",
       "result": "posted",
       "tweet_id": "2107121218872881552"
+    },
+    {
+      "guid": "a4c89fce-06a3-4095-85ca-1c676a809862",
+      "title": "買えば買うほど退屈になる！消費社会が隠した本当の贅沢とは？ #274",
+      "pub_date": "Tue, 06 Oct 2026 21:30:00 GMT",
+      "result": "posted",
+      "tweet_id": "2107840207412416664"
     }
   ]
 }
