@@ -48,7 +48,8 @@
     "0f6dd95e-35cb-4a18-b9a3-e55077f45b60",
     "cc9652fe-60df-458b-b601-cf7e821d0c6c",
     "ac261b2b-9309-449c-abbf-ff2e4eaa3aa5",
-    "a4c89fce-06a3-4095-85ca-1c676a809862"
+    "a4c89fce-06a3-4095-85ca-1c676a809862",
+    "1cd72bfc-3e82-46ad-aa8e-4a35e05a3230"
   ],
   "clips": [
     {
@@ -736,20 +737,34 @@
       "clip_start_seconds": 1272.043,
       "file_size_bytes": 946620,
       "created_at_unix": 1791367201
+    },
+    {
+      "guid": "1cd72bfc-3e82-46ad-aa8e-4a35e05a3230",
+      "title": "マーケターは性格が悪くなるのか？ #275",
+      "pub_date": "Sun, 11 Oct 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/275-e3qbclo",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/127299704/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-11%2F433932842-44100-2-8be30641f7e1a.m4a",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/マーケターは性格が悪くなるのか？_#275_clip.mp4",
+      "clip_filename": "マーケターは性格が悪くなるのか？_#275_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 736.923,
+      "clip_start_seconds": 152.951,
+      "file_size_bytes": 938355,
+      "created_at_unix": 1791886623
     }
   ],
   "latest_clip": {
-    "guid": "a4c89fce-06a3-4095-85ca-1c676a809862",
-    "title": "買えば買うほど退屈になる！消費社会が隠した本当の贅沢とは？ #274",
-    "pub_date": "Tue, 06 Oct 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/274-e3prtsd",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/126793037/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-4%2F1f8fde46-4a73-1c8e-b6ab-70f30f8591c1.mp3",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/買えば買うほど退屈になる！消費社会が隠した本当の贅沢とは？_#274_clip.mp4",
-    "clip_filename": "買えば買うほど退屈になる！消費社会が隠した本当の贅沢とは？_#274_clip.mp4",
+    "guid": "1cd72bfc-3e82-46ad-aa8e-4a35e05a3230",
+    "title": "マーケターは性格が悪くなるのか？ #275",
+    "pub_date": "Sun, 11 Oct 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/275-e3qbclo",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/127299704/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-11%2F433932842-44100-2-8be30641f7e1a.m4a",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/マーケターは性格が悪くなるのか？_#275_clip.mp4",
+    "clip_filename": "マーケターは性格が悪くなるのか？_#275_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 1439.088,
-    "clip_start_seconds": 1272.043,
-    "file_size_bytes": 946620,
-    "created_at_unix": 1791367201
+    "audio_duration_seconds": 736.923,
+    "clip_start_seconds": 152.951,
+    "file_size_bytes": 938355,
+    "created_at_unix": 1791886623
   }
 }
