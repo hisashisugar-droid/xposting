@@ -51,7 +51,8 @@
     "a4c89fce-06a3-4095-85ca-1c676a809862",
     "1cd72bfc-3e82-46ad-aa8e-4a35e05a3230",
     "56714d39-d9a6-4da0-a5a0-43c02e69f4ad",
-    "7847aa00-ba64-4c7d-82f5-de7b5448c18a"
+    "7847aa00-ba64-4c7d-82f5-de7b5448c18a",
+    "781e4862-6756-4463-9ff3-2a2302609eef"
   ],
   "clips": [
     {
@@ -781,20 +782,34 @@
       "clip_start_seconds": 122.849,
       "file_size_bytes": 943283,
       "created_at_unix": 1792426702
+    },
+    {
+      "guid": "781e4862-6756-4463-9ff3-2a2302609eef",
+      "title": "ラジオはオワコンなのか？ #278",
+      "pub_date": "Tue, 20 Oct 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/278-e3qlamj",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/127625363/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-17%2Fa89893a8-af94-5629-a2c8-51c0f8c1ddd2.mp3",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/ラジオはオワコンなのか？_#278_clip.mp4",
+      "clip_filename": "ラジオはオワコンなのか？_#278_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 1539.264,
+      "clip_start_seconds": 357.484,
+      "file_size_bytes": 961539,
+      "created_at_unix": 1792570933
     }
   ],
   "latest_clip": {
-    "guid": "7847aa00-ba64-4c7d-82f5-de7b5448c18a",
-    "title": "マーケターの脳汁はいつ出るのか？ #277",
-    "pub_date": "Sun, 18 Oct 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/277-e3qla2l",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/127624725/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-17%2F434373432-44100-2-5914e24dd70c3.m4a",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/マーケターの脳汁はいつ出るのか？_#277_clip.mp4",
-    "clip_filename": "マーケターの脳汁はいつ出るのか？_#277_clip.mp4",
+    "guid": "781e4862-6756-4463-9ff3-2a2302609eef",
+    "title": "ラジオはオワコンなのか？ #278",
+    "pub_date": "Tue, 20 Oct 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/278-e3qlamj",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/127625363/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-17%2Fa89893a8-af94-5629-a2c8-51c0f8c1ddd2.mp3",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/ラジオはオワコンなのか？_#278_clip.mp4",
+    "clip_filename": "ラジオはオワコンなのか？_#278_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 817.959,
-    "clip_start_seconds": 122.849,
-    "file_size_bytes": 943283,
-    "created_at_unix": 1792426702
+    "audio_duration_seconds": 1539.264,
+    "clip_start_seconds": 357.484,
+    "file_size_bytes": 961539,
+    "created_at_unix": 1792570933
   }
 }
