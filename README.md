@@ -35,6 +35,9 @@ Apple: {短縮URL}
 - `X_ACCESS_TOKEN`
 - `X_ACCESS_TOKEN_SECRET`
 - `XGD_API_KEY` (`x.gd` で短縮URLを作る場合)
+- `ENABLE_XGD_SHORTENING=1` (`x.gd` の短縮処理を明示的に有効にする場合)
+
+XはURLを一律23文字換算するため短縮の文字数メリットはない。ドメインが見えるほうがクリックされやすい。
 
 X APIのユーザーコンテキストで投稿するため、X Appの資格情報が必要です。
 

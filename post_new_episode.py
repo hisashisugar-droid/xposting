@@ -39,6 +39,10 @@ TIMEOUT = 20
 X_WEIGHT_LIMIT = 280
 URL_WEIGHT = 23
 RETRYABLE_ERRORS = (TimeoutError, URLError)
+RELEASE_DAYS_LABEL = "月・水"
+CTA_TEXT = f"Apple Podcastでフォローすると、{RELEASE_DAYS_LABEL}の新着が届きます。"
+HASHTAG = "#ニンゲン広告社"
+HOOK_DISPLAY_LIMIT = 45
 
 
 class DuplicateTweetError(RuntimeError):
@@ -126,37 +130,33 @@ def extract_topic(text: str) -> Optional[str]:
     return None
 
 
-def build_catchy_summary(title: str, description: str, target_length: int) -> str:
+def build_catchy_summary(
+    title: str, description: str, target_length: int = 70
+) -> tuple[str, str]:
     cleaned = strip_html(description).replace("\n", " ")
     cleaned = re.sub(r"\s+", " ", cleaned).strip()
-    parts = [part.strip() for part in re.split(r"(?<=[。！？!?])", cleaned) if part.strip()]
+    parts = [
+        part.strip()
+        for part in re.findall(r"[^。！？!?]+[。！？!?]+|[^。！？!?]+$", cleaned)
+        if part.strip()
+    ]
 
-    opener = ""
-    topic = extract_topic(description)
-    if topic:
-        opener = f"今回のテーマは「{topic}」。"
-    elif title:
-        opener = f"{display_title(title)}を深掘り。"
+    used_count = 1
+    if parts:
+        hook = parts[0]
+        if len(hook) < 20 and len(parts) > 1:
+            hook += parts[1]
+            used_count = 2
+    else:
+        hook = title.strip()
+        used_count = 0
 
-    summary = opener
-    used = set()
-    for part in parts:
-        normalized = part.strip()
-        if not normalized or normalized in used:
-            continue
-        candidate = f"{summary}{normalized}"
-        if len(candidate) <= target_length:
-            summary = candidate
-            used.add(normalized)
-        else:
-            break
+    hook = hook[:target_length].rstrip()
+    if hook.endswith("、"):
+        hook = hook[:-1] + "。"
 
-    if not summary:
-        summary = cleaned[:target_length]
-
-    if len(summary) > target_length:
-        summary = summary[: max(0, target_length - 1)].rstrip() + "…"
-    return summary
+    supplement = parts[used_count] if len(parts) > used_count else ""
+    return hook, supplement
 
 
 def weighted_length(text: str) -> int:
@@ -245,6 +245,13 @@ def latest_episode_from_rss_or_cache() -> dict:
 
 
 def _latest_episode_from_rss() -> dict:
+    episodes = _episodes_from_rss(limit=1)
+    if not episodes:
+        raise RuntimeError("No episode item found in RSS feed.")
+    return episodes[0]
+
+
+def _episodes_from_rss(limit: int = 3) -> list[dict]:
     # Anchor's CDN can serve a stale feed for the bare URL. A cache-busting
     # query and no-cache headers ensure scheduled runs see newly published episodes.
     rss_url = f"{RSS_URL}?refresh={int(time.time())}"
@@ -261,16 +268,18 @@ def _latest_episode_from_rss() -> dict:
     channel = root.find("channel")
     if channel is None:
         raise RuntimeError("RSS channel not found.")
-    item = channel.find("item")
-    if item is None:
-        raise RuntimeError("No episode item found in RSS feed.")
-    return {
-        "guid": (item.findtext("guid") or item.findtext("title") or "").strip(),
-        "title": (item.findtext("title") or "").strip(),
-        "description": item.findtext("description") or "",
-        "rss_episode_url": (item.findtext("link") or "").strip(),
-        "pub_date": (item.findtext("pubDate") or "").strip(),
-    }
+    episodes = []
+    for item in channel.findall("item")[:limit]:
+        episodes.append(
+            {
+                "guid": (item.findtext("guid") or item.findtext("title") or "").strip(),
+                "title": (item.findtext("title") or "").strip(),
+                "description": item.findtext("description") or "",
+                "rss_episode_url": (item.findtext("link") or "").strip(),
+                "pub_date": (item.findtext("pubDate") or "").strip(),
+            }
+        )
+    return episodes
 
 
 def _latest_episode_from_apple_api() -> dict:
@@ -352,6 +361,18 @@ def lookup_spotify_episode_url(rss_episode_url: str) -> str:
         html = fetch_text(rss_episode_url, headers={"User-Agent": "Mozilla/5.0"})
     except Exception:
         return rss_episode_url
+    episode_path = urlparse(rss_episode_url).path.rstrip("/")
+    episode_path = re.sub(r"^/pod/show", "", episode_path)
+    escaped_episode_path = episode_path.replace("/", "\\u002F")
+    path_marker = f'"shareLinkPath":"{escaped_episode_path}"'
+    marker_index = html.find(path_marker)
+    if marker_index >= 0:
+        episode_match = re.search(
+            r'"spotifyUrl":"(https:\\u002F\\u002Fopen\.spotify\.com\\u002Fepisode\\u002F[^"]+)"',
+            html[marker_index : marker_index + 2000],
+        )
+        if episode_match:
+            return episode_match.group(1).replace("\\u002F", "/")
     match = re.search(
         r'"spotifyUrl":"(https:\\u002F\\u002Fopen\.spotify\.com\\u002Fepisode\\u002F[^"]+)"',
         html,
@@ -558,48 +579,124 @@ def post_to_x(text: str) -> dict:
     raise last_error
 
 
-def build_post_text(title: str, summary: str, spotify_url: str, apple_url: str) -> str:
+def post_display_title(title: str) -> str:
     shown_title = display_title(title)
-    text = "\n".join(
-        [
-            "🔥更新🔥",
-            shown_title,
-            summary,
-            f"Spotify: {spotify_url}",
-            f"Apple: {apple_url}",
-        ]
-    )
-    if weighted_length(text) <= X_WEIGHT_LIMIT:
-        return text
+    episode_number = re.search(r"#\d+\s*$", title)
+    if episode_number:
+        separator = " " if title[: episode_number.start()].endswith(" ") else ""
+        return f"{shown_title}{separator}{episode_number.group(0).strip()}"
+    return shown_title
 
-    base_text = "\n".join(
+
+def _shorten_hook(hook: str, max_chars: int, add_ellipsis: bool = False) -> str:
+    shortened = hook[:max_chars].rstrip()
+    if shortened.endswith("、"):
+        shortened = shortened[:-1] + "。"
+    if add_ellipsis and len(hook) > max_chars:
+        shortened += "…"
+    return shortened
+
+
+def _display_length(text: str) -> int:
+    return sum(
+        2 if unicodedata.east_asian_width(ch) in {"F", "W", "A"} else 1
+        for ch in text
+    )
+
+
+def _compose_post_text(
+    hook: str,
+    title: str,
+    supplement: str,
+    spotify_url: str,
+    apple_url: str,
+    include_hashtag: bool,
+    title_first: bool = False,
+) -> str:
+    title_line = title
+    if include_hashtag:
+        title_line = f"{title_line} {HASHTAG}"
+    if title_first:
+        lines = [title_line]
+    else:
+        lines = [hook, title_line]
+    if supplement:
+        lines.append(supplement)
+    lines.extend(
         [
-            "🔥更新🔥",
-            shown_title,
-            "",
-            f"Spotify: {spotify_url}",
-            f"Apple: {apple_url}",
+            CTA_TEXT,
+            f"Spotify: {spotify_url} / Apple: {apple_url}",
         ]
     )
-    remaining = X_WEIGHT_LIMIT - weighted_length(base_text)
-    trimmed_summary = trim_to_weight(summary, max(20, remaining - 1))
-    if trimmed_summary != summary:
-        trimmed_summary = trim_to_weight(trimmed_summary + "…", max(20, remaining))
-    return "\n".join(
-        [
-            "🔥更新🔥",
-            shown_title,
-            trimmed_summary,
-            f"Spotify: {spotify_url}",
-            f"Apple: {apple_url}",
+    return "\n".join(lines)
+
+
+def build_post_text(title: str, description: str, spotify_url: str, apple_url: str) -> str:
+    shown_title = post_display_title(title)
+    hook, supplement = build_catchy_summary(title, description)
+
+    title_first = bool(strip_html(description)) and _display_length(hook) > HOOK_DISPLAY_LIMIT
+    if title_first:
+        candidates = [
+            (hook, hook, True),
+            (hook, "", True),
+            (hook, "", False),
         ]
+    else:
+        candidates = [
+            (hook, supplement, True),
+            (hook, "", True),
+            (hook, "", False),
+            (_shorten_hook(hook, 60), "", False),
+            (_shorten_hook(hook, 45), "", False),
+            (_shorten_hook(hook, 30, add_ellipsis=True), "", False),
+        ]
+    for candidate_hook, candidate_supplement, include_hashtag in candidates:
+        text = _compose_post_text(
+            candidate_hook,
+            shown_title,
+            candidate_supplement,
+            spotify_url,
+            apple_url,
+            include_hashtag,
+            title_first=title_first,
+        )
+        if weighted_length(text) <= X_WEIGHT_LIMIT:
+            return text
+
+    raise RuntimeError("Required post fields do not fit within X's 280-character limit.")
+
+
+def build_episode_post(episode: dict) -> tuple[str, str, str]:
+    spotify_url = xgd_shorten_url(lookup_spotify_episode_url(episode["rss_episode_url"]))
+    apple_url = xgd_shorten_url(lookup_apple_episode_url(episode["title"]))
+    post_text = build_post_text(
+        episode["title"], episode["description"], spotify_url, apple_url
     )
+    return post_text, spotify_url, apple_url
 
 
 def main() -> int:
     state = load_state()
     refreshed = refresh_apple_show_cache()
     print(f"Apple cache refreshed: {str(refreshed).lower()}")
+    dry_run = os.getenv("DRY_RUN", "").lower() in {"1", "true", "yes"}
+    if dry_run:
+        try:
+            episodes = _episodes_from_rss(limit=3)
+            print("Episode source: RSS")
+        except Exception:
+            episodes = [latest_episode()]
+        for index, episode in enumerate(episodes, start=1):
+            post_text, spotify_url, apple_url = build_episode_post(episode)
+            print(f"Episode {index}: {episode['title']}")
+            print(f"Episode guid: {episode['guid']}")
+            print(f"Spotify URL: {spotify_url}")
+            print(f"Apple URL: {apple_url}")
+            print(post_text)
+            print(f"Weighted length: {weighted_length(post_text)}")
+        return 0
+
     if os.getenv("PREFER_RSS", "").lower() in {"1", "true", "yes"}:
         episode = latest_episode_from_rss_or_cache()
     else:
@@ -612,29 +709,9 @@ def main() -> int:
         print(f"Already posted: {episode['title']}")
         return 0
 
-    title_for_post = display_title(episode["title"])
-    spotify_url = xgd_shorten_url(lookup_spotify_episode_url(episode["rss_episode_url"]))
-    apple_url = xgd_shorten_url(lookup_apple_episode_url(episode["title"]))
+    post_text, spotify_url, apple_url = build_episode_post(episode)
     print(f"Spotify URL: {spotify_url}")
     print(f"Apple URL: {apple_url}")
-    fixed_parts_length = len(
-        "\n".join(
-            [
-                "🔥更新🔥",
-                title_for_post,
-                "",
-                f"Spotify: {spotify_url}",
-                f"Apple: {apple_url}",
-            ]
-        )
-    )
-    target_summary_length = max(50, min(110, 280 - fixed_parts_length))
-    summary = build_catchy_summary(episode["title"], episode["description"], target_summary_length)
-    post_text = build_post_text(episode["title"], summary, spotify_url, apple_url)
-
-    if os.getenv("DRY_RUN", "").lower() in {"1", "true", "yes"}:
-        print(post_text)
-        return 0
 
     if not episode.get("title") or not episode.get("description"):
         raise RuntimeError("Episode data is incomplete; refusing to post.")
