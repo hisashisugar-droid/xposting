@@ -48,24 +48,18 @@
     "ea7b150b-e56c-491c-8124-9ca25356d794",
     "f00299df-f585-4662-8378-e0787a013df4",
     "f13a4778-b083-4340-baf1-db8f16219a32",
+    "f14a2e09-3ff0-42dd-ad2b-470eb8915d30",
     "f250508f-5722-4c2c-ab14-35f2bf27f343",
     "f8595685-e7f1-4f70-868d-c30e722f7d2b",
     "fd69f010-2f60-4f14-891b-12f75279d42a"
   ],
   "last_post": {
-    "guid": "781e4862-6756-4463-9ff3-2a2302609eef",
-    "title": "ラジオはオワコンなのか？ #278",
-    "pub_date": "Tue, 20 Oct 2026 21:30:00 GMT",
-    "tweet_id": "2112766133904261373"
+    "guid": "f14a2e09-3ff0-42dd-ad2b-470eb8915d30",
+    "title": "マーケターは担当ブランドが好きであるべきか？ #279",
+    "pub_date": "Sun, 25 Oct 2026 21:30:00 GMT",
+    "tweet_id": "2114577024761188482"
   },
   "post_history": [
-    {
-      "guid": "7a3a4b5b-1fba-4d50-86b5-c4e8b474fa0d",
-      "title": "ホワハラの正体！ #255",
-      "pub_date": "Sun, 02 Aug 2026 21:30:00 GMT",
-      "result": "posted",
-      "tweet_id": "2084241789842583676"
-    },
     {
       "result": "error",
       "message": "<urlopen error [Errno 8] nodename nor servname provided, or not known>"
@@ -230,6 +224,13 @@
       "pub_date": "Tue, 20 Oct 2026 21:30:00 GMT",
       "result": "posted",
       "tweet_id": "2112766133904261373"
+    },
+    {
+      "guid": "f14a2e09-3ff0-42dd-ad2b-470eb8915d30",
+      "title": "マーケターは担当ブランドが好きであるべきか？ #279",
+      "pub_date": "Sun, 25 Oct 2026 21:30:00 GMT",
+      "result": "posted",
+      "tweet_id": "2114577024761188482"
     }
   ]
 }
