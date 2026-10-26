@@ -52,7 +52,8 @@
     "1cd72bfc-3e82-46ad-aa8e-4a35e05a3230",
     "56714d39-d9a6-4da0-a5a0-43c02e69f4ad",
     "7847aa00-ba64-4c7d-82f5-de7b5448c18a",
-    "781e4862-6756-4463-9ff3-2a2302609eef"
+    "781e4862-6756-4463-9ff3-2a2302609eef",
+    "f14a2e09-3ff0-42dd-ad2b-470eb8915d30"
   ],
   "clips": [
     {
@@ -796,20 +797,34 @@
       "clip_start_seconds": 357.484,
       "file_size_bytes": 961539,
       "created_at_unix": 1792570933
+    },
+    {
+      "guid": "f14a2e09-3ff0-42dd-ad2b-470eb8915d30",
+      "title": "マーケターは担当ブランドが好きであるべきか？ #279",
+      "pub_date": "Sun, 25 Oct 2026 21:30:00 GMT",
+      "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/279-e3r23p1",
+      "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/128044257/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-25%2F434937292-44100-2-38947c217214b.m4a",
+      "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/マーケターは担当ブランドが好きであるべきか？_#279_clip.mp4",
+      "clip_filename": "マーケターは担当ブランドが好きであるべきか？_#279_clip.mp4",
+      "clip_seconds": 15.0,
+      "audio_duration_seconds": 926.277,
+      "clip_start_seconds": 352.715,
+      "file_size_bytes": 946742,
+      "created_at_unix": 1793003927
     }
   ],
   "latest_clip": {
-    "guid": "781e4862-6756-4463-9ff3-2a2302609eef",
-    "title": "ラジオはオワコンなのか？ #278",
-    "pub_date": "Tue, 20 Oct 2026 21:30:00 GMT",
-    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/278-e3qlamj",
-    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/127625363/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-17%2Fa89893a8-af94-5629-a2c8-51c0f8c1ddd2.mp3",
-    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/ラジオはオワコンなのか？_#278_clip.mp4",
-    "clip_filename": "ラジオはオワコンなのか？_#278_clip.mp4",
+    "guid": "f14a2e09-3ff0-42dd-ad2b-470eb8915d30",
+    "title": "マーケターは担当ブランドが好きであるべきか？ #279",
+    "pub_date": "Sun, 25 Oct 2026 21:30:00 GMT",
+    "episode_url": "https://podcasters.spotify.com/pod/show/ningenradio/episodes/279-e3r23p1",
+    "audio_url": "https://anchor.fm/s/9bb1c5d8/podcast/play/128044257/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-25%2F434937292-44100-2-38947c217214b.m4a",
+    "clip_path": "/home/runner/work/xposting/xposting/clip_outputs/マーケターは担当ブランドが好きであるべきか？_#279_clip.mp4",
+    "clip_filename": "マーケターは担当ブランドが好きであるべきか？_#279_clip.mp4",
     "clip_seconds": 15.0,
-    "audio_duration_seconds": 1539.264,
-    "clip_start_seconds": 357.484,
-    "file_size_bytes": 961539,
-    "created_at_unix": 1792570933
+    "audio_duration_seconds": 926.277,
+    "clip_start_seconds": 352.715,
+    "file_size_bytes": 946742,
+    "created_at_unix": 1793003927
   }
 }
