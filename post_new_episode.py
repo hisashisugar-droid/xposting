@@ -122,6 +122,12 @@ def display_title(title: str) -> str:
     return re.sub(r"\s*#\d+\s*$", "", title).strip()
 
 
+def normalize_title_for_comparison(value: str) -> str:
+    normalized = re.sub(r"\s+", "", value).lower()
+    normalized = re.sub(r"#\d+$", "", normalized)
+    return re.sub(r"[「」『』【】（）()、。！？!?・…]", "", normalized)
+
+
 def extract_topic(text: str) -> Optional[str]:
     cleaned = strip_html(text)
     match = re.search(r"「([^」]{1,20})」", cleaned)
@@ -141,12 +147,24 @@ def build_catchy_summary(
         if part.strip()
     ]
 
+    normalized_title = normalize_title_for_comparison(title)
+    first_content_index = 0
+    while first_content_index < len(parts):
+        normalized_part = normalize_title_for_comparison(parts[first_content_index])
+        if not normalized_title or not normalized_part.startswith(normalized_title):
+            break
+        first_content_index += 1
+    content_parts = parts[first_content_index:]
+
     used_count = 1
-    if parts:
-        hook = parts[0]
-        if len(hook) < 20 and len(parts) > 1:
-            hook += parts[1]
+    if content_parts:
+        hook = content_parts[0]
+        if len(hook) < 20 and len(content_parts) > 1:
+            hook += content_parts[1]
             used_count = 2
+    elif parts:
+        hook = ""
+        used_count = 0
     else:
         hook = title.strip()
         used_count = 0
@@ -155,7 +173,7 @@ def build_catchy_summary(
     if hook.endswith("、"):
         hook = hook[:-1] + "。"
 
-    supplement = parts[used_count] if len(parts) > used_count else ""
+    supplement = content_parts[used_count] if len(content_parts) > used_count else ""
     return hook, supplement
 
 
@@ -619,7 +637,10 @@ def _compose_post_text(
     if title_first:
         lines = [title_line]
     else:
-        lines = [hook, title_line]
+        lines = []
+        if hook and hook not in {title, title_line}:
+            lines.append(hook)
+        lines.append(title_line)
     if supplement:
         lines.append(supplement)
     lines.extend(
@@ -635,7 +656,18 @@ def build_post_text(title: str, description: str, spotify_url: str, apple_url: s
     shown_title = post_display_title(title)
     hook, supplement = build_catchy_summary(title, description)
 
-    title_first = bool(strip_html(description)) and _display_length(hook) > HOOK_DISPLAY_LIMIT
+    hook_matches_title = (
+        bool(hook)
+        and normalize_title_for_comparison(hook)
+        == normalize_title_for_comparison(shown_title)
+    )
+    if hook_matches_title:
+        hook = ""
+    title_first = (
+        not hook
+        or bool(strip_html(description))
+        and _display_length(hook) > HOOK_DISPLAY_LIMIT
+    )
     if title_first:
         candidates = [
             (hook, hook, True),

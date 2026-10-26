@@ -53,6 +53,75 @@ EPISODES = [
 
 
 class PostTextTests(unittest.TestCase):
+    def test_exact_title_sentence_is_skipped(self):
+        title = "マーケターは担当ブランドが好きであるべきか？ #279"
+        description = (
+            "マーケターは担当ブランドが好きであるべきか？"
+            "ブランドへの愛着と判断の関係を考えます。"
+        )
+        hook, _ = post.build_catchy_summary(title, description)
+        text = post.build_post_text(
+            title, description, "https://x.gd/spotify", "https://x.gd/apple"
+        )
+
+        self.assertEqual(hook, "ブランドへの愛着と判断の関係を考えます。")
+        self.assertEqual(text.count(post.display_title(title)), 1)
+
+    def test_title_prefix_sentence_is_skipped(self):
+        title = "売れる広告の条件 #280"
+        description = (
+            "売れる広告の条件を実例から考えます。"
+            "生活者の視点が重要です。"
+        )
+        hook, _ = post.build_catchy_summary(title, description)
+        text = post.build_post_text(
+            title, description, "https://x.gd/spotify", "https://x.gd/apple"
+        )
+
+        self.assertEqual(hook, "生活者の視点が重要です。")
+        self.assertEqual(text.count(post.display_title(title)), 1)
+
+    def test_title_only_description_has_no_duplicate_or_empty_line(self):
+        title = "マーケターは担当ブランドが好きであるべきか？ #279"
+        text = post.build_post_text(
+            title,
+            "マーケターは担当ブランドが好きであるべきか？",
+            "https://x.gd/spotify",
+            "https://x.gd/apple",
+        )
+
+        self.assertEqual(
+            text.splitlines(),
+            [
+                f"{title} {post.HASHTAG}",
+                post.CTA_TEXT,
+                "Spotify: https://x.gd/spotify / Apple: https://x.gd/apple",
+            ],
+        )
+        self.assertNotIn("\n\n", text)
+        self.assertEqual(text.count(post.display_title(title)), 1)
+
+    def test_episode_278_output_is_unchanged(self):
+        episode = EPISODES[0]
+        text = post.build_post_text(
+            episode["title"],
+            episode["description"],
+            episode["spotify_url"],
+            episode["apple_url"],
+        )
+
+        self.assertEqual(
+            text,
+            "\n".join(
+                [
+                    "ラジオはオワコンなのか？ #278 #ニンゲン広告社",
+                    "テレビやネットに押され幾度も衰退を囁かれたラジオが、なぜ荒波をサヴァイブし、そして今や逆襲を果たしているのか？",
+                    "Apple Podcastでフォローすると、月・水の新着が届きます。",
+                    "Spotify: https://open.spotify.com/episode/2tJa359uCIixybnowC2j8r / Apple: https://podcasts.apple.com/jp/podcast/id1630515609?i=1000797331407",
+                ]
+            ),
+        )
+
     def test_xgd_shortening_when_enabled(self):
         response = MagicMock()
         response.__enter__.return_value.read.return_value = (
@@ -162,7 +231,8 @@ class PostTextTests(unittest.TestCase):
         text = post.build_post_text(
             title, "", "https://x.gd/spotify", "https://x.gd/apple"
         )
-        self.assertEqual(text.splitlines()[0], title)
+        self.assertEqual(text.splitlines()[0], f"{title} {post.HASHTAG}")
+        self.assertEqual(text.count(post.display_title(title)), 1)
 
     def test_short_first_sentence_is_joined_and_trailing_comma_becomes_period(self):
         hook, supplement = post.build_catchy_summary(
