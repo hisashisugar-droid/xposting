@@ -39,10 +39,29 @@ TIMEOUT = 20
 X_WEIGHT_LIMIT = 280
 URL_WEIGHT = 23
 RETRYABLE_ERRORS = (TimeoutError, URLError)
-RELEASE_DAYS_LABEL = "月・水"
-CTA_TEXT = f"Apple Podcastでフォローすると、{RELEASE_DAYS_LABEL}の新着が届きます。"
-HASHTAG = "#ニンゲン広告社"
+SIGNATURE = "ポッドキャスト「ニンゲン広告社」"
 HOOK_DISPLAY_LIMIT = 45
+NOTICE_MARKERS = (
+    "コラボ",
+    "最終回",
+    "ゲスト",
+    "お知らせ",
+    "おしらせ",
+    "告知",
+    "配信開始",
+    "リリース",
+)
+BANNED_WORDS = (
+    "衝撃",
+    "完全版",
+    "絶対",
+    "ヤバい",
+    "やばい",
+    "保存版",
+    "驚愕",
+    "必見",
+    "神回",
+)
 
 
 class DuplicateTweetError(RuntimeError):
@@ -147,12 +166,11 @@ def build_catchy_summary(
         if part.strip()
     ]
 
-    normalized_title = normalize_title_for_comparison(title)
     first_content_index = 0
-    while first_content_index < len(parts):
-        normalized_part = normalize_title_for_comparison(parts[first_content_index])
-        if not normalized_title or not normalized_part.startswith(normalized_title):
-            break
+    while (
+        first_content_index < len(parts)
+        and is_title_restatement(title, parts[first_content_index])
+    ):
         first_content_index += 1
     content_parts = parts[first_content_index:]
 
@@ -509,6 +527,67 @@ def title_similarity(left: str, right: str) -> float:
     return overlap / max(len(left_chars), len(right_chars))
 
 
+def is_title_restatement(title: str, sentence: str) -> bool:
+    a = normalize_title_for_comparison(title)
+    b = normalize_title_for_comparison(sentence)
+    if not a or not b:
+        return False
+    if b.startswith(a):
+        return True
+    if not sentence.rstrip().endswith(("?", "？")):
+        return False
+    return title_similarity(normalize_title(a), normalize_title(b)) >= 0.5
+
+
+def lint_description(title: str, description: str) -> list[str]:
+    cleaned = strip_html(description).replace("\n", " ")
+    cleaned = re.sub(r"\s+", " ", cleaned).strip()
+    parts = [
+        part.strip()
+        for part in re.findall(r"[^。！？!?]+[。！？!?]+|[^。！？!?]+$", cleaned)
+        if part.strip()
+    ]
+    first_sentence = parts[0] if parts else ""
+    first_content_index = 0
+    while (
+        first_content_index < len(parts)
+        and is_title_restatement(title, parts[first_content_index])
+    ):
+        first_content_index += 1
+    opening_sentence = (
+        parts[first_content_index] if first_content_index < len(parts) else ""
+    )
+    warnings = []
+
+    common_terms = re.findall(r"[ァ-ヶー]{2,}|[一-龯々〆ヵヶ]{2,}", title)
+    if (
+        first_sentence.rstrip().endswith(("?", "？"))
+        and not is_title_restatement(title, first_sentence)
+        and any(term in first_sentence for term in common_terms)
+    ):
+        warnings.append(
+            "[warn] 説明文の1文目がタイトルの言い換えになっています。"
+            "冒頭の二重の原因になります"
+        )
+
+    if any(marker in opening_sentence for marker in NOTICE_MARKERS):
+        warnings.append(
+            "[warn] 説明文の1文目が告知です。フックに告知が選ばれます。"
+            "問い→中身→告知の順にしてください"
+        )
+
+    banned_word = next((word for word in BANNED_WORDS if word in cleaned), None)
+    if banned_word:
+        warnings.append(f"[warn] 説明文に煽り語が含まれています: {banned_word}")
+
+    return warnings
+
+
+def print_description_warnings(title: str, description: str) -> None:
+    for warning in lint_description(title, description):
+        print(warning)
+
+
 def percent_encode(value: str) -> str:
     return quote(str(value), safe="~-._")
 
@@ -598,12 +677,7 @@ def post_to_x(text: str) -> dict:
 
 
 def post_display_title(title: str) -> str:
-    shown_title = display_title(title)
-    episode_number = re.search(r"#\d+\s*$", title)
-    if episode_number:
-        separator = " " if title[: episode_number.start()].endswith(" ") else ""
-        return f"{shown_title}{separator}{episode_number.group(0).strip()}"
-    return shown_title
+    return display_title(title)
 
 
 def _shorten_hook(hook: str, max_chars: int, add_ellipsis: bool = False) -> str:
@@ -628,12 +702,10 @@ def _compose_post_text(
     supplement: str,
     spotify_url: str,
     apple_url: str,
-    include_hashtag: bool,
+    include_signature: bool,
     title_first: bool = False,
 ) -> str:
     title_line = title
-    if include_hashtag:
-        title_line = f"{title_line} {HASHTAG}"
     if title_first:
         lines = [title_line]
     else:
@@ -643,12 +715,9 @@ def _compose_post_text(
         lines.append(title_line)
     if supplement:
         lines.append(supplement)
-    lines.extend(
-        [
-            CTA_TEXT,
-            f"Spotify: {spotify_url} / Apple: {apple_url}",
-        ]
-    )
+    lines.append(f"Spotify: {spotify_url} / Apple: {apple_url}")
+    if include_signature:
+        lines.append(SIGNATURE)
     return "\n".join(lines)
 
 
@@ -667,6 +736,7 @@ def build_post_text(title: str, description: str, spotify_url: str, apple_url: s
         not hook
         or bool(strip_html(description))
         and _display_length(hook) > HOOK_DISPLAY_LIMIT
+        or hook.rstrip().endswith(("？", "?"))
     )
     if title_first:
         candidates = [
@@ -683,14 +753,14 @@ def build_post_text(title: str, description: str, spotify_url: str, apple_url: s
             (_shorten_hook(hook, 45), "", False),
             (_shorten_hook(hook, 30, add_ellipsis=True), "", False),
         ]
-    for candidate_hook, candidate_supplement, include_hashtag in candidates:
+    for candidate_hook, candidate_supplement, include_signature in candidates:
         text = _compose_post_text(
             candidate_hook,
             shown_title,
             candidate_supplement,
             spotify_url,
             apple_url,
-            include_hashtag,
+            include_signature,
             title_first=title_first,
         )
         if weighted_length(text) <= X_WEIGHT_LIMIT:
@@ -726,6 +796,7 @@ def main() -> int:
             print(f"Spotify URL: {spotify_url}")
             print(f"Apple URL: {apple_url}")
             print(post_text)
+            print_description_warnings(episode["title"], episode["description"])
             print(f"Weighted length: {weighted_length(post_text)}")
         return 0
 
@@ -747,6 +818,7 @@ def main() -> int:
 
     if not episode.get("title") or not episode.get("description"):
         raise RuntimeError("Episode data is incomplete; refusing to post.")
+    print_description_warnings(episode["title"], episode["description"])
     response = None
     for attempt in range(3):
         candidate_text = post_text if attempt == 0 else add_retry_marker(post_text, attempt)

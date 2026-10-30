@@ -93,15 +93,15 @@ class PostTextTests(unittest.TestCase):
         self.assertEqual(
             text.splitlines(),
             [
-                f"{title} {post.HASHTAG}",
-                post.CTA_TEXT,
+                post.post_display_title(title),
                 "Spotify: https://x.gd/spotify / Apple: https://x.gd/apple",
+                post.SIGNATURE,
             ],
         )
         self.assertNotIn("\n\n", text)
         self.assertEqual(text.count(post.display_title(title)), 1)
 
-    def test_episode_278_output_is_unchanged(self):
+    def test_episode_278_output(self):
         episode = EPISODES[0]
         text = post.build_post_text(
             episode["title"],
@@ -114,10 +114,10 @@ class PostTextTests(unittest.TestCase):
             text,
             "\n".join(
                 [
-                    "ラジオはオワコンなのか？ #278 #ニンゲン広告社",
+                    "ラジオはオワコンなのか？",
                     "テレビやネットに押され幾度も衰退を囁かれたラジオが、なぜ荒波をサヴァイブし、そして今や逆襲を果たしているのか？",
-                    "Apple Podcastでフォローすると、月・水の新着が届きます。",
                     "Spotify: https://open.spotify.com/episode/2tJa359uCIixybnowC2j8r / Apple: https://podcasts.apple.com/jp/podcast/id1630515609?i=1000797331407",
+                    post.SIGNATURE,
                 ]
             ),
         )
@@ -152,16 +152,17 @@ class PostTextTests(unittest.TestCase):
                 print(f"\n[{episode['title']}]\n{text}\nweighted_length={weight}")
                 self.assertLessEqual(weight, post.X_WEIGHT_LIMIT)
                 self.assertNotIn("🔥更新🔥", text.splitlines()[0])
-                self.assertIn(post.CTA_TEXT, text.splitlines())
-                self.assertEqual(text.count(post.HASHTAG), 1)
+                self.assertEqual(text.count(post.SIGNATURE), 1)
+                self.assertEqual(text.splitlines()[-1], post.SIGNATURE)
+                shown_title = post.post_display_title(episode["title"])
                 if episode["title"].endswith("#276"):
-                    self.assertTrue(text.splitlines()[1].startswith(episode["title"]))
+                    self.assertTrue(text.splitlines()[1].startswith(shown_title))
                 else:
-                    self.assertTrue(text.splitlines()[0].startswith(episode["title"]))
+                    self.assertTrue(text.splitlines()[0].startswith(shown_title))
 
     def test_shrinks_in_required_order(self):
         description = f"{'あ' * 200}。{'補' * 200}。"
-        title = f"{'題' * 187} #999"
+        title = f"{'題' * 217} #999"
 
         with patch.object(
             post, "_compose_post_text", wraps=post._compose_post_text
@@ -179,7 +180,7 @@ class PostTextTests(unittest.TestCase):
         self.assertEqual(calls[2][2], "")
         self.assertFalse(calls[2][5])
         self.assertTrue(all(call.kwargs["title_first"] for call in compose.call_args_list))
-        self.assertNotIn(post.HASHTAG, text)
+        self.assertNotIn(post.SIGNATURE, text)
         self.assertNotIn("あ", text)
         self.assertLessEqual(post.weighted_length(text), post.X_WEIGHT_LIMIT)
 
@@ -195,10 +196,10 @@ class PostTextTests(unittest.TestCase):
         first_sentence, _ = post.build_catchy_summary(
             episode["title"], episode["description"]
         )
-        self.assertEqual(lines[0], f"{episode['title']} {post.HASHTAG}")
+        self.assertEqual(lines[0], post.post_display_title(episode["title"]))
         self.assertEqual(lines[1], first_sentence)
 
-    def test_long_hook_never_puts_hashtag_on_own_line(self):
+    def test_signature_is_always_the_last_line(self):
         episode = EPISODES[0]
         text = post.build_post_text(
             episode["title"],
@@ -207,8 +208,8 @@ class PostTextTests(unittest.TestCase):
             episode["apple_url"],
         )
         lines = text.splitlines()
-        self.assertNotIn(post.HASHTAG, lines)
-        self.assertTrue(lines[0].endswith(f" {post.HASHTAG}"))
+        self.assertEqual(lines[-1], post.SIGNATURE)
+        self.assertEqual(text.count(post.SIGNATURE), 1)
 
     def test_short_hook_keeps_hook_before_title(self):
         episode = EPISODES[2]
@@ -223,7 +224,7 @@ class PostTextTests(unittest.TestCase):
             episode["title"], episode["description"]
         )
         self.assertEqual(lines[0], hook)
-        self.assertTrue(lines[1].startswith(episode["title"]))
+        self.assertTrue(lines[1].startswith(post.post_display_title(episode["title"])))
         self.assertEqual(lines[2], supplement)
 
     def test_empty_description_uses_title_as_hook(self):
@@ -231,7 +232,7 @@ class PostTextTests(unittest.TestCase):
         text = post.build_post_text(
             title, "", "https://x.gd/spotify", "https://x.gd/apple"
         )
-        self.assertEqual(text.splitlines()[0], f"{title} {post.HASHTAG}")
+        self.assertEqual(text.splitlines()[0], post.post_display_title(title))
         self.assertEqual(text.count(post.display_title(title)), 1)
 
     def test_short_first_sentence_is_joined_and_trailing_comma_becomes_period(self):
@@ -256,18 +257,125 @@ class PostTextTests(unittest.TestCase):
         )
         self.assertNotIn("🔥更新🔥", text.splitlines()[0])
 
-    def test_cta_matches_exactly(self):
+    def test_no_cta_line(self):
         text = post.build_post_text(
             "CTAテスト #1",
             "これは十分な長さがある説明文の第一文です。補足として使う第二文です。",
             "https://x.gd/spotify",
             "https://x.gd/apple",
         )
-        self.assertIn(
+        self.assertNotIn(
             "Apple Podcastでフォローすると、月・水の新着が届きます。",
             text.splitlines(),
         )
-        self.assertEqual(post.RELEASE_DAYS_LABEL, "月・水")
+        self.assertEqual(text.splitlines()[-1], post.SIGNATURE)
+
+    def test_episode_280_does_not_repeat_the_question(self):
+        title = "ユーザーは洗濯機で何を洗ってしまった!?【広告ウルトラクイズ】#280"
+        description = (
+            "ユーザーは洗濯機で服ではなく何を洗っていた!?"
+            "かつて中国の農村で多発した謎の故障。"
+            "メーカーが調査して判明した衝撃の正体とは？ "
+            "メンバーが自信満々にボケ倒す中、実は現代のモノづくりにも通じる大ヒットの金脈が眠っていました。"
+        )
+        text = post.build_post_text(
+            title, description, "https://x.gd/spotify", "https://x.gd/apple"
+        )
+        lines = text.splitlines()
+
+        self.assertEqual(
+            sum(line.startswith("ユーザーは洗濯機で") for line in lines), 1
+        )
+        self.assertEqual(lines[0], post.post_display_title(title))
+        self.assertEqual(
+            lines[1],
+            "かつて中国の農村で多発した謎の故障。メーカーが調査して判明した衝撃の正体とは？",
+        )
+        self.assertEqual(lines[-1], post.SIGNATURE)
+        self.assertLessEqual(post.weighted_length(text), post.X_WEIGHT_LIMIT)
+
+    def test_lint_flags_restated_opening(self):
+        warnings = post.lint_description(
+            "ラジオはオワコンなのか？ #278",
+            "テレビやネットに押され幾度も衰退を囁かれたラジオが、"
+            "なぜ荒波をサヴァイブし、そして今や逆襲を果たしているのか？"
+            "その鍵は事業定義の転換にありました。",
+        )
+
+        self.assertTrue(
+            any("説明文の1文目がタイトルの言い換え" in warning for warning in warnings)
+        )
+
+    def test_lint_flags_notice_opening(self):
+        warnings = post.lint_description(
+            "マーケターは担当ブランドが好きであるべきか？ #279",
+            "マーケターの仮説ラヂオさんとのコラボの最終回です！"
+            "表題の問いはブランドへの愛着に関するものです。",
+        )
+
+        self.assertTrue(any("説明文の1文目が告知" in warning for warning in warnings))
+
+    def test_lint_flags_banned_words(self):
+        warnings = post.lint_description(
+            "洗濯機の意外な使われ方 #280",
+            "メーカーが調査して判明した衝撃の正体とは？",
+        )
+
+        self.assertTrue(any("煽り語" in warning and "衝撃" in warning for warning in warnings))
+
+    def test_lint_is_silent_for_clean_description(self):
+        warnings = post.lint_description(
+            "売れる広告の条件 #281",
+            "生活者の視点から売れる広告の条件を考えます。実例を3つ紹介します。",
+        )
+
+        self.assertEqual(warnings, [])
+
+    def test_lint_runs_on_post_path(self):
+        episode = {
+            "guid": "test-guid",
+            "title": "通常投稿のタイトル #999",
+            "description": "通常投稿で確認する説明文です。",
+            "rss_episode_url": "https://example.com/episode",
+            "pub_date": "Fri, 30 Oct 2026 00:00:00 GMT",
+        }
+        state = {"posted_guids": []}
+        with (
+            patch.dict(post.os.environ, {"DRY_RUN": "0"}, clear=True),
+            patch.object(post, "load_state", return_value=state),
+            patch.object(post, "refresh_apple_show_cache", return_value=False),
+            patch.object(post, "latest_episode", return_value=episode),
+            patch.object(
+                post,
+                "build_episode_post",
+                return_value=(
+                    "投稿文",
+                    "https://example.com/spotify",
+                    "https://example.com/apple",
+                ),
+            ),
+            patch.object(post, "lint_description", return_value=[]) as lint,
+            patch.object(post, "post_to_x", return_value={"data": {"id": "1"}}),
+            patch.object(post, "save_state"),
+            patch("builtins.print"),
+        ):
+            result = post.main()
+
+        self.assertEqual(result, 0)
+        lint.assert_called_once_with(episode["title"], episode["description"])
+
+    def test_signature_dropped_when_over_limit(self):
+        title = f"{'題' * 217} #999"
+        text = post.build_post_text(
+            title,
+            f"{'あ' * 200}。{'補' * 200}。",
+            "https://x.gd/a",
+            "https://x.gd/b",
+        )
+
+        self.assertNotIn(post.SIGNATURE, text)
+        self.assertIn(post.post_display_title(title), text)
+        self.assertLessEqual(post.weighted_length(text), post.X_WEIGHT_LIMIT)
 
 
 if __name__ == "__main__":
