@@ -5,6 +5,27 @@ from unittest.mock import MagicMock, patch
 import post_new_episode as post
 
 
+# twitter-text v3 ranges で算出した既知の投稿本文と重み付き文字数。
+KNOWN_POST_TEXT = "\n\n".join(
+    [
+        "優れた広告ほどなぜ心が冷めるのか!?",
+        (
+            "便利になりすぎた現代、何回も追いかけてくるネット広告や"
+            "自動化されたLINEに「私、マーケティングされてる…」と"
+            "冷めていませんか？"
+        ),
+        (
+            "Spotify: https://open.spotify.com/episode/"
+            "75KcQLL6akJyGKNW7nHsDT / Apple: "
+            "https://podcasts.apple.com/jp/podcast/"
+            "id1630515609?i=1000799281439"
+        ),
+        "#ニンゲン広告社",
+    ]
+)
+KNOWN_POST_WEIGHT = 244
+
+
 EPISODES = [
     {
         "title": "ラジオはオワコンなのか？ #278",
@@ -53,6 +74,69 @@ EPISODES = [
 
 
 class PostTextTests(unittest.TestCase):
+    def test_fixed_four_element_format(self):
+        title = (
+            "優れた広告ほどなぜ心が冷めるのか!? "
+            "#マーケティング#トレンド #281"
+        )
+        description = (
+            "便利になりすぎた現代、何回も追いかけてくるネット広告や自動化されたLINEに"
+            "「私、マーケティングされてる…」と冷めていませんか？"
+            "広告と受け手の距離を考えます。"
+        )
+
+        self.assertEqual(
+            post.post_display_title(title),
+            "優れた広告ほどなぜ心が冷めるのか!?",
+        )
+        spotify_url = "https://open.spotify.com/episode/75KcQLL6akJyGKNW7nHsDT"
+        apple_url = (
+            "https://podcasts.apple.com/jp/podcast/"
+            "id1630515609?i=1000799281439"
+        )
+
+        text = post.build_post_text(
+            title, description, spotify_url, apple_url
+        )
+
+        self.assertEqual(
+            text,
+            "\n".join(
+                [
+                    "優れた広告ほどなぜ心が冷めるのか!?",
+                    "広告と受け手の距離を考えます。",
+                    f"Spotify: {spotify_url} / Apple: {apple_url}",
+                    "",
+                    post.HASHTAG,
+                ]
+            ),
+        )
+        self.assertEqual(len([line for line in text.splitlines() if line]), 4)
+        self.assertEqual(text.splitlines()[3], "")
+
+    def test_known_post_weight_is_244(self):
+        self.assertEqual(len(KNOWN_POST_TEXT), 236)
+        self.assertEqual(
+            post.weighted_length(KNOWN_POST_TEXT), KNOWN_POST_WEIGHT
+        )
+
+    def test_weighted_length_character_and_url_rules(self):
+        for character in ("…", "①", "℃", "ﾆ"):
+            with self.subTest(character=character):
+                self.assertEqual(post.weighted_length(character), 2)
+        self.assertEqual(post.weighted_length("×"), 1)
+        self.assertEqual(
+            post.weighted_length("A https://example.com/a-very-long-path\n"),
+            26,
+        )
+
+    def test_weighted_length_counts_emoji_zwj_sequence_as_two(self):
+        self.assertEqual(post.weighted_length("👩‍💻"), 2)
+        self.assertEqual(post.weighted_length("👨‍👩‍👧‍👦"), 2)
+
+    def test_weighted_length_normalizes_to_nfc(self):
+        self.assertEqual(post.weighted_length("e\u0301"), 1)
+
     def test_exact_title_sentence_is_skipped(self):
         title = "マーケターは担当ブランドが好きであるべきか？ #279"
         description = (
@@ -81,25 +165,24 @@ class PostTextTests(unittest.TestCase):
         self.assertEqual(hook, "生活者の視点が重要です。")
         self.assertEqual(text.count(post.display_title(title)), 1)
 
-    def test_title_only_description_has_no_duplicate_or_empty_line(self):
+    def test_raises_when_hook_is_empty(self):
         title = "マーケターは担当ブランドが好きであるべきか？ #279"
-        text = post.build_post_text(
-            title,
-            "マーケターは担当ブランドが好きであるべきか？",
-            "https://x.gd/spotify",
-            "https://x.gd/apple",
-        )
+        with self.assertRaisesRegex(
+            RuntimeError,
+            "条件=フック抽出失敗",
+        ) as caught:
+            post.build_post_text(
+                title,
+                "マーケターは担当ブランドが好きであるべきか？",
+                "https://x.gd/spotify",
+                "https://x.gd/apple",
+            )
 
-        self.assertEqual(
-            text.splitlines(),
-            [
-                post.post_display_title(title),
-                "Spotify: https://x.gd/spotify / Apple: https://x.gd/apple",
-                post.SIGNATURE,
-            ],
-        )
-        self.assertNotIn("\n\n", text)
-        self.assertEqual(text.count(post.display_title(title)), 1)
+        message = str(caught.exception)
+        self.assertIn("タイトル=", message)
+        self.assertIn("リンク=", message)
+        self.assertIn("タグ=", message)
+        self.assertIn("フック用残量", message)
 
     def test_episode_278_output(self):
         episode = EPISODES[0]
@@ -115,9 +198,10 @@ class PostTextTests(unittest.TestCase):
             "\n".join(
                 [
                     "ラジオはオワコンなのか？",
-                    "テレビやネットに押され幾度も衰退を囁かれたラジオが、なぜ荒波をサヴァイブし、そして今や逆襲を果たしているのか？",
+                    "その鍵は「電波を売る」から「声で人と繋がる」への事業定義の転換にありました。",
                     "Spotify: https://open.spotify.com/episode/2tJa359uCIixybnowC2j8r / Apple: https://podcasts.apple.com/jp/podcast/id1630515609?i=1000797331407",
-                    post.SIGNATURE,
+                    "",
+                    post.HASHTAG,
                 ]
             ),
         )
@@ -152,36 +236,28 @@ class PostTextTests(unittest.TestCase):
                 print(f"\n[{episode['title']}]\n{text}\nweighted_length={weight}")
                 self.assertLessEqual(weight, post.X_WEIGHT_LIMIT)
                 self.assertNotIn("🔥更新🔥", text.splitlines()[0])
-                self.assertEqual(text.count(post.SIGNATURE), 1)
-                self.assertEqual(text.splitlines()[-1], post.SIGNATURE)
+                self.assertEqual(text.count(post.HASHTAG), 1)
+                self.assertEqual(text.splitlines()[-1], post.HASHTAG)
                 shown_title = post.post_display_title(episode["title"])
-                if episode["title"].endswith("#276"):
-                    self.assertTrue(text.splitlines()[1].startswith(shown_title))
-                else:
-                    self.assertTrue(text.splitlines()[0].startswith(shown_title))
+                lines = text.splitlines()
+                self.assertEqual(lines[0], shown_title)
+                self.assertEqual(len([line for line in lines if line]), 4)
+                self.assertEqual(lines[-2], "")
+                self.assertEqual(lines.count(""), 1)
 
-    def test_shrinks_in_required_order(self):
-        description = f"{'あ' * 200}。{'補' * 200}。"
-        title = f"{'題' * 217} #999"
+    def test_over_limit_trims_only_hook(self):
+        title = f"{'題' * 80} #999"
+        hook = f"{'あ' * 200}。"
+        text = post.build_post_text(
+            title, hook, "https://x.gd/a", "https://x.gd/b"
+        )
 
-        with patch.object(
-            post, "_compose_post_text", wraps=post._compose_post_text
-        ) as compose:
-            text = post.build_post_text(
-                title, description, "https://x.gd/a", "https://x.gd/b"
-            )
-
-        calls = [call.args for call in compose.call_args_list]
-        self.assertEqual(len(calls), 3)
-        self.assertTrue(calls[0][2])
-        self.assertTrue(calls[0][5])
-        self.assertEqual(calls[1][2], "")
-        self.assertTrue(calls[1][5])
-        self.assertEqual(calls[2][2], "")
-        self.assertFalse(calls[2][5])
-        self.assertTrue(all(call.kwargs["title_first"] for call in compose.call_args_list))
-        self.assertNotIn(post.SIGNATURE, text)
-        self.assertNotIn("あ", text)
+        lines = text.splitlines()
+        self.assertEqual(lines[0], post.post_display_title(title))
+        self.assertLess(len(lines[1]), len(hook))
+        self.assertEqual(lines[2], "Spotify: https://x.gd/a / Apple: https://x.gd/b")
+        self.assertEqual(lines[3], "")
+        self.assertEqual(lines[4], post.HASHTAG)
         self.assertLessEqual(post.weighted_length(text), post.X_WEIGHT_LIMIT)
 
     def test_long_hook_puts_title_first_and_first_sentence_next(self):
@@ -193,13 +269,12 @@ class PostTextTests(unittest.TestCase):
             episode["apple_url"],
         )
         lines = text.splitlines()
-        first_sentence, _ = post.build_catchy_summary(
-            episode["title"], episode["description"]
-        )
         self.assertEqual(lines[0], post.post_display_title(episode["title"]))
-        self.assertEqual(lines[1], first_sentence)
+        self.assertEqual(lines[1], post._extract_post_hook(
+            episode["title"], episode["description"]
+        ))
 
-    def test_signature_is_always_the_last_line(self):
+    def test_hashtag_is_always_the_last_line(self):
         episode = EPISODES[0]
         text = post.build_post_text(
             episode["title"],
@@ -208,10 +283,10 @@ class PostTextTests(unittest.TestCase):
             episode["apple_url"],
         )
         lines = text.splitlines()
-        self.assertEqual(lines[-1], post.SIGNATURE)
-        self.assertEqual(text.count(post.SIGNATURE), 1)
+        self.assertEqual(lines[-1], post.HASHTAG)
+        self.assertEqual(text.count(post.HASHTAG), 1)
 
-    def test_short_hook_keeps_hook_before_title(self):
+    def test_short_hook_still_puts_title_first(self):
         episode = EPISODES[2]
         text = post.build_post_text(
             episode["title"],
@@ -220,20 +295,41 @@ class PostTextTests(unittest.TestCase):
             episode["apple_url"],
         )
         lines = text.splitlines()
-        hook, supplement = post.build_catchy_summary(
-            episode["title"], episode["description"]
-        )
-        self.assertEqual(lines[0], hook)
-        self.assertTrue(lines[1].startswith(post.post_display_title(episode["title"])))
-        self.assertEqual(lines[2], supplement)
+        self.assertEqual(lines[0], post.post_display_title(episode["title"]))
+        self.assertEqual(lines[1], "帰ってきたぜ！")
+        self.assertEqual(lines[-1], post.HASHTAG)
 
-    def test_empty_description_uses_title_as_hook(self):
-        title = "説明文がない回 #999"
+    def test_question_title_uses_non_question_hook(self):
         text = post.build_post_text(
-            title, "", "https://x.gd/spotify", "https://x.gd/apple"
+            "広告は人を幸せにするのか？ #999",
+            "広告に心を動かされたことはありますか？実例を3つ紹介します。",
+            "https://x.gd/spotify",
+            "https://x.gd/apple",
         )
-        self.assertEqual(text.splitlines()[0], post.post_display_title(title))
-        self.assertEqual(text.count(post.display_title(title)), 1)
+
+        self.assertEqual(text.splitlines()[1], "実例を3つ紹介します。")
+
+    def test_question_only_hook_is_flattened(self):
+        text = post.build_post_text(
+            "広告を見るとなぜ冷めるのか？ #999",
+            "便利な広告に、マーケティングされていると冷めていませんか？",
+            "https://x.gd/spotify",
+            "https://x.gd/apple",
+        )
+
+        hook = text.splitlines()[1]
+        self.assertEqual(
+            hook,
+            "マーケティングされていると冷めてしまうことがあります。",
+        )
+        self.assertFalse(post._is_question_form(hook))
+
+    def test_empty_description_raises(self):
+        title = "説明文がない回 #999"
+        with self.assertRaisesRegex(RuntimeError, "条件=フック抽出失敗"):
+            post.build_post_text(
+                title, "", "https://x.gd/spotify", "https://x.gd/apple"
+            )
 
     def test_short_first_sentence_is_joined_and_trailing_comma_becomes_period(self):
         hook, supplement = post.build_catchy_summary(
@@ -268,7 +364,7 @@ class PostTextTests(unittest.TestCase):
             "Apple Podcastでフォローすると、月・水の新着が届きます。",
             text.splitlines(),
         )
-        self.assertEqual(text.splitlines()[-1], post.SIGNATURE)
+        self.assertEqual(text.splitlines()[-1], post.HASHTAG)
 
     def test_episode_280_does_not_repeat_the_question(self):
         title = "ユーザーは洗濯機で何を洗ってしまった!?【広告ウルトラクイズ】#280"
@@ -281,17 +377,17 @@ class PostTextTests(unittest.TestCase):
         text = post.build_post_text(
             title, description, "https://x.gd/spotify", "https://x.gd/apple"
         )
-        lines = text.splitlines()
+        elements = [line for line in text.splitlines() if line]
 
         self.assertEqual(
-            sum(line.startswith("ユーザーは洗濯機で") for line in lines), 1
+            sum(line.startswith("ユーザーは洗濯機で") for line in elements), 1
         )
-        self.assertEqual(lines[0], post.post_display_title(title))
+        self.assertEqual(elements[0], post.post_display_title(title))
         self.assertEqual(
-            lines[1],
-            "かつて中国の農村で多発した謎の故障。メーカーが調査して判明した衝撃の正体とは？",
+            elements[1],
+            "かつて中国の農村で多発した謎の故障。",
         )
-        self.assertEqual(lines[-1], post.SIGNATURE)
+        self.assertEqual(elements[-1], post.HASHTAG)
         self.assertLessEqual(post.weighted_length(text), post.X_WEIGHT_LIMIT)
 
     def test_lint_flags_restated_opening(self):
@@ -364,18 +460,30 @@ class PostTextTests(unittest.TestCase):
         self.assertEqual(result, 0)
         lint.assert_called_once_with(episode["title"], episode["description"])
 
-    def test_signature_dropped_when_over_limit(self):
-        title = f"{'題' * 217} #999"
+    def test_hashtag_is_not_dropped_when_over_limit(self):
+        title = f"{'題' * 80} #999"
         text = post.build_post_text(
             title,
-            f"{'あ' * 200}。{'補' * 200}。",
+            f"{'あ' * 200}。",
             "https://x.gd/a",
             "https://x.gd/b",
         )
 
-        self.assertNotIn(post.SIGNATURE, text)
+        self.assertEqual(text.splitlines()[-1], post.HASHTAG)
         self.assertIn(post.post_display_title(title), text)
         self.assertLessEqual(post.weighted_length(text), post.X_WEIGHT_LIMIT)
+
+    def test_raises_when_required_fields_exceed_limit(self):
+        with self.assertRaisesRegex(
+            RuntimeError,
+            "条件=超過",
+        ):
+            post.build_post_text(
+                f"{'題' * 140} #999",
+                "短いフックです。",
+                "https://x.gd/a",
+                "https://x.gd/b",
+            )
 
 
 if __name__ == "__main__":

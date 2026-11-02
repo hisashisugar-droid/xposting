@@ -39,8 +39,13 @@ TIMEOUT = 20
 X_WEIGHT_LIMIT = 280
 URL_WEIGHT = 23
 RETRYABLE_ERRORS = (TimeoutError, URLError)
-SIGNATURE = "ポッドキャスト「ニンゲン広告社」"
-HOOK_DISPLAY_LIMIT = 45
+HASHTAG = "#ニンゲン広告社"
+WEIGHT_ONE_RANGES = (
+    (0x0000, 0x10FF),
+    (0x2000, 0x200D),
+    (0x2010, 0x201F),
+    (0x2032, 0x2037),
+)
 NOTICE_MARKERS = (
     "コラボ",
     "最終回",
@@ -195,17 +200,72 @@ def build_catchy_summary(
     return hook, supplement
 
 
-def weighted_length(text: str) -> int:
+def _codepoint_weight(ch: str) -> int:
+    codepoint = ord(ch)
+    return 1 if any(start <= codepoint <= end for start, end in WEIGHT_ONE_RANGES) else 2
+
+
+def _is_emoji_codepoint(ch: str) -> bool:
+    codepoint = ord(ch)
+    return (
+        0x1F000 <= codepoint <= 0x1FAFF
+        or 0x2600 <= codepoint <= 0x27BF
+        or codepoint in {0x00A9, 0x00AE, 0x2122, 0x3030, 0x303D, 0x3297, 0x3299}
+    )
+
+
+def _emoji_zwj_sequence_end(text: str, start: int) -> Optional[int]:
+    if not _is_emoji_codepoint(text[start]):
+        return None
+
+    index = start + 1
+    while index < len(text) and (
+        text[index] in {"\ufe0e", "\ufe0f"}
+        or 0x1F3FB <= ord(text[index]) <= 0x1F3FF
+    ):
+        index += 1
+
+    has_zwj = False
+    while index < len(text) and text[index] == "\u200d":
+        has_zwj = True
+        index += 1
+        if index >= len(text) or not _is_emoji_codepoint(text[index]):
+            return None
+        index += 1
+        while index < len(text) and (
+            text[index] in {"\ufe0e", "\ufe0f"}
+            or 0x1F3FB <= ord(text[index]) <= 0x1F3FF
+        ):
+            index += 1
+
+    return index if has_zwj else None
+
+
+def _weighted_non_url_length(text: str) -> int:
     total = 0
-    for part in re.split(r"(https?://\S+)", text):
+    index = 0
+    while index < len(text):
+        sequence_end = _emoji_zwj_sequence_end(text, index)
+        if sequence_end is not None:
+            total += 2
+            index = sequence_end
+            continue
+        total += _codepoint_weight(text[index])
+        index += 1
+    return total
+
+
+def weighted_length(text: str) -> int:
+    normalized = unicodedata.normalize("NFC", text)
+    total = 0
+    for part in re.split(r"(https?://\S+)", normalized):
         if not part:
             continue
-        if re.match(r"^https?://\S+$", part):
+        if re.fullmatch(r"https?://\S+", part):
             total += URL_WEIGHT
             continue
-        for ch in part:
-            total += 1 if unicodedata.east_asian_width(ch) in {"F", "W", "A"} else 0.5
-    return int(total * 2) // 2 if total % 1 else int(total)
+        total += _weighted_non_url_length(part)
+    return total
 
 
 def trim_to_weight(text: str, max_weight: int) -> str:
@@ -677,96 +737,122 @@ def post_to_x(text: str) -> dict:
 
 
 def post_display_title(title: str) -> str:
-    return display_title(title)
-
-
-def _shorten_hook(hook: str, max_chars: int, add_ellipsis: bool = False) -> str:
-    shortened = hook[:max_chars].rstrip()
-    if shortened.endswith("、"):
-        shortened = shortened[:-1] + "。"
-    if add_ellipsis and len(hook) > max_chars:
-        shortened += "…"
-    return shortened
-
-
-def _display_length(text: str) -> int:
-    return sum(
-        2 if unicodedata.east_asian_width(ch) in {"F", "W", "A"} else 1
-        for ch in text
-    )
+    return re.sub(r"\s*#[^#\s]+", "", display_title(title)).strip()
 
 
 def _compose_post_text(
     hook: str,
     title: str,
-    supplement: str,
     spotify_url: str,
     apple_url: str,
-    include_signature: bool,
-    title_first: bool = False,
 ) -> str:
-    title_line = title
-    if title_first:
-        lines = [title_line]
-    else:
-        lines = []
-        if hook and hook not in {title, title_line}:
-            lines.append(hook)
-        lines.append(title_line)
-    if supplement:
-        lines.append(supplement)
-    lines.append(f"Spotify: {spotify_url} / Apple: {apple_url}")
-    if include_signature:
-        lines.append(SIGNATURE)
+    lines = [title]
+    if hook:
+        lines.append(hook)
+    lines.extend(
+        [f"Spotify: {spotify_url} / Apple: {apple_url}", "", HASHTAG]
+    )
     return "\n".join(lines)
+
+
+def _post_text_error(
+    condition: str,
+    title: str,
+    spotify_url: str,
+    apple_url: str,
+) -> RuntimeError:
+    link_line = f"Spotify: {spotify_url} / Apple: {apple_url}"
+    title_weight = weighted_length(title)
+    link_weight = weighted_length(link_line)
+    tag_weight = weighted_length(HASHTAG)
+    hook_allowance = X_WEIGHT_LIMIT - title_weight - link_weight - tag_weight
+    newline_weight = weighted_length("\n\n\n\n")
+    effective_hook_budget = hook_allowance - newline_weight
+    return RuntimeError(
+        "4要素のX投稿本文を生成できません: "
+        f"条件={condition}; "
+        f"タイトル={title_weight}; リンク={link_weight}; タグ={tag_weight}; "
+        f"フック用残量(280-タイトル-リンク-タグ)={hook_allowance}; "
+        f"改行={newline_weight}; 実効フック予算={effective_hook_budget}"
+    )
+
+
+def _extract_post_hook(title: str, description: str) -> str:
+    cleaned = strip_html(description).replace("\n", " ")
+    cleaned = re.sub(r"\s+", " ", cleaned).strip()
+    parts = [
+        part.strip()
+        for part in re.findall(r"[^。！？!?]+[。！？!?]+|[^。！？!?]+$", cleaned)
+        if part.strip()
+    ]
+    candidates = [part for part in parts if not is_title_restatement(title, part)]
+    title_is_question = _is_question_form(post_display_title(title))
+    if title_is_question:
+        for part in candidates:
+            if not _is_question_form(part):
+                return part
+        if candidates:
+            return _flatten_question_hook(candidates[0])
+    elif candidates:
+        return candidates[0]
+    return ""
+
+
+def _is_question_form(text: str) -> bool:
+    stripped = text.strip()
+    if "?" in stripped or "？" in stripped:
+        return True
+    core = stripped.rstrip("。！!")
+    return bool(re.search(r"(?:のか|なのか|だろうか|でしょうか|ますか|ですか)$", core))
+
+
+def _flatten_question_hook(sentence: str) -> str:
+    flattened = sentence.rstrip("！？!?").strip()
+    if "、" in flattened:
+        flattened = flattened.split("、", 1)[1].strip()
+    flattened = re.sub(r"ていませんか$", "てしまうことがあります", flattened)
+    flattened = re.sub(r"ではありませんか$", "です", flattened)
+    flattened = re.sub(r"(ます|です)か$", r"\1", flattened)
+    flattened = re.sub(r"なのか$", "なのです", flattened)
+    flattened = re.sub(r"のか$", "のです", flattened)
+    return flattened.rstrip("。") + "。"
 
 
 def build_post_text(title: str, description: str, spotify_url: str, apple_url: str) -> str:
     shown_title = post_display_title(title)
-    hook, supplement = build_catchy_summary(title, description)
-
-    hook_matches_title = (
-        bool(hook)
-        and normalize_title_for_comparison(hook)
-        == normalize_title_for_comparison(shown_title)
-    )
-    if hook_matches_title:
-        hook = ""
-    title_first = (
-        not hook
-        or bool(strip_html(description))
-        and _display_length(hook) > HOOK_DISPLAY_LIMIT
-        or hook.rstrip().endswith(("？", "?"))
-    )
-    if title_first:
-        candidates = [
-            (hook, hook, True),
-            (hook, "", True),
-            (hook, "", False),
-        ]
-    else:
-        candidates = [
-            (hook, supplement, True),
-            (hook, "", True),
-            (hook, "", False),
-            (_shorten_hook(hook, 60), "", False),
-            (_shorten_hook(hook, 45), "", False),
-            (_shorten_hook(hook, 30, add_ellipsis=True), "", False),
-        ]
-    for candidate_hook, candidate_supplement, include_signature in candidates:
-        text = _compose_post_text(
-            candidate_hook,
-            shown_title,
-            candidate_supplement,
-            spotify_url,
-            apple_url,
-            include_signature,
-            title_first=title_first,
+    hook = _extract_post_hook(title, description)
+    if not hook.strip():
+        raise _post_text_error(
+            "フック抽出失敗", shown_title, spotify_url, apple_url
         )
-        if weighted_length(text) <= X_WEIGHT_LIMIT:
-            return text
 
-    raise RuntimeError("Required post fields do not fit within X's 280-character limit.")
+    text = _compose_post_text(hook, shown_title, spotify_url, apple_url)
+    if weighted_length(text) <= X_WEIGHT_LIMIT:
+        return text
+
+    link_line = f"Spotify: {spotify_url} / Apple: {apple_url}"
+    hook_budget = X_WEIGHT_LIMIT - (
+        weighted_length(shown_title)
+        + weighted_length(link_line)
+        + weighted_length(HASHTAG)
+        + weighted_length("\n\n\n\n")
+    )
+    if hook_budget <= 0:
+        raise _post_text_error(
+            "超過", shown_title, spotify_url, apple_url
+        )
+
+    shortened_hook = trim_to_weight(hook, hook_budget)
+    if not shortened_hook.strip():
+        raise _post_text_error(
+            "フック短縮後に空", shown_title, spotify_url, apple_url
+        )
+
+    text = _compose_post_text(shortened_hook, shown_title, spotify_url, apple_url)
+    if weighted_length(text) <= X_WEIGHT_LIMIT:
+        return text
+
+    raise _post_text_error("超過", shown_title, spotify_url, apple_url)
 
 
 def build_episode_post(episode: dict) -> tuple[str, str, str]:
