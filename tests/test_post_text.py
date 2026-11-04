@@ -114,6 +114,58 @@ class PostTextTests(unittest.TestCase):
         self.assertEqual(len([line for line in text.splitlines() if line]), 4)
         self.assertEqual(text.splitlines()[3], "")
 
+    def test_dangling_separator_is_removed(self):
+        self.assertEqual(
+            post.post_display_title(
+                "世界最初のビジネス書には何が書かれていた？｜ #ビジネス史 #282"
+            ),
+            "世界最初のビジネス書には何が書かれていた？",
+        )
+
+    def test_question_title_prefers_payoff_sentence(self):
+        title = "世界最初のビジネス書には何が書かれていた？｜ #ビジネス史 #282"
+        description = (
+            "出版不況のなかでも売れ続けるビジネス書。"
+            "では、世界で最初に生まれたビジネス書には一体何が書かれていたのでしょう？"
+            "メソポタミア文明のクサビ型文字…ではなく、場所は500年前のイタリア。"
+            "1494年に出版された『スムマ』という書物で、記されていたのは"
+            "なんと「複式簿記」の基礎でした！"
+            "単なる帳簿の付け方にとどまらず、世界中の商売人の価値観を"
+            "根本から規定した世紀の大発明とは？"
+            "その知られざる原点に迫ります！"
+        )
+        text = post.build_post_text(
+            title,
+            description,
+            "https://open.spotify.com/episode/3PLIlV4VVmZSRV2sQeRfzb",
+            "https://podcasts.apple.com/jp/podcast/id1630515609?i=1000799674877",
+        )
+
+        self.assertEqual(
+            text.splitlines()[0],
+            "世界最初のビジネス書には何が書かれていた？",
+        )
+        self.assertNotIn("｜", text.splitlines()[0])
+        self.assertIn("1494年", text.splitlines()[1])
+        self.assertIn("スムマ", text.splitlines()[1])
+        self.assertEqual(text.splitlines()[-1], post.HASHTAG)
+        self.assertEqual(post.weighted_length(text), 216)
+
+    def test_noise_sentences_are_never_picked(self):
+        text = post.build_post_text(
+            "売れる広告の条件は？ #999",
+            "https://example.com/related は関連回です。"
+            "●お便りはこちら\n"
+            "生活者の視点が3つの実例から見えてきます。",
+            "https://x.gd/spotify",
+            "https://x.gd/apple",
+        )
+
+        self.assertEqual(
+            text.splitlines()[1],
+            "生活者の視点が3つの実例から見えてきます。",
+        )
+
     def test_known_post_weight_is_244(self):
         self.assertEqual(len(KNOWN_POST_TEXT), 236)
         self.assertEqual(
@@ -286,7 +338,7 @@ class PostTextTests(unittest.TestCase):
         self.assertEqual(lines[-1], post.HASHTAG)
         self.assertEqual(text.count(post.HASHTAG), 1)
 
-    def test_short_hook_still_puts_title_first(self):
+    def test_question_title_picks_quoted_payoff(self):
         episode = EPISODES[2]
         text = post.build_post_text(
             episode["title"],
@@ -296,7 +348,10 @@ class PostTextTests(unittest.TestCase):
         )
         lines = text.splitlines()
         self.assertEqual(lines[0], post.post_display_title(episode["title"]))
-        self.assertEqual(lines[1], "帰ってきたぜ！")
+        self.assertEqual(
+            lines[1],
+            "実はどれも「開発の失敗」や「意外な誤用」から生まれた大ヒット商品です。",
+        )
         self.assertEqual(lines[-1], post.HASHTAG)
 
     def test_question_title_uses_non_question_hook(self):

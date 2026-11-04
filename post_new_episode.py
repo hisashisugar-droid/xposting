@@ -40,6 +40,9 @@ X_WEIGHT_LIMIT = 280
 URL_WEIGHT = 23
 RETRYABLE_ERRORS = (TimeoutError, URLError)
 HASHTAG = "#ニンゲン広告社"
+_TITLE_TRIM = r"^[\s｜|/／・:：\-–—〜~]+|[\s｜|/／・:：\-–—〜~]+$"
+_HOOK_NUMBER = re.compile(r"[0-9０-９]|[一二三四五六七八九十百千]+年")
+_HOOK_QUOTED = re.compile(r"[『「][^』」]{1,30}[』」]")
 WEIGHT_ONE_RANGES = (
     (0x0000, 0x10FF),
     (0x2000, 0x200D),
@@ -737,7 +740,11 @@ def post_to_x(text: str) -> dict:
 
 
 def post_display_title(title: str) -> str:
-    return re.sub(r"\s*#[^#\s]+", "", display_title(title)).strip()
+    base_title = display_title(title).strip()
+    cleaned = re.sub(r"\s*#[^#\s]+", "", base_title)
+    cleaned = re.sub(r"\s+", " ", cleaned).strip()
+    cleaned = re.sub(_TITLE_TRIM, "", cleaned).strip()
+    return cleaned or base_title
 
 
 def _compose_post_text(
@@ -778,7 +785,8 @@ def _post_text_error(
 
 
 def _extract_post_hook(title: str, description: str) -> str:
-    cleaned = strip_html(description).replace("\n", " ")
+    cleaned = strip_html(description)
+    cleaned = re.sub(r"(?<![。！？!?])\n+", "。", cleaned).replace("\n", " ")
     cleaned = re.sub(r"\s+", " ", cleaned).strip()
     parts = [
         part.strip()
@@ -788,14 +796,33 @@ def _extract_post_hook(title: str, description: str) -> str:
     candidates = [part for part in parts if not is_title_restatement(title, part)]
     title_is_question = _is_question_form(post_display_title(title))
     if title_is_question:
-        for part in candidates:
-            if not _is_question_form(part):
-                return part
-        if candidates:
-            return _flatten_question_hook(candidates[0])
-    elif candidates:
-        return candidates[0]
-    return ""
+        pool = [part for part in candidates if not _is_question_form(part)]
+        if not pool:
+            return _flatten_question_hook(candidates[0]) if candidates else ""
+    else:
+        pool = candidates
+
+    if not pool:
+        return ""
+    pool = [part for part in pool if not _is_noise_sentence(part)] or pool
+    return max(
+        enumerate(pool),
+        key=lambda indexed: (_hook_score(indexed[1]), -indexed[0]),
+    )[1]
+
+
+def _hook_score(sentence: str) -> int:
+    score = 0
+    if _HOOK_NUMBER.search(sentence):
+        score += 3
+    if _HOOK_QUOTED.search(sentence):
+        score += 3
+    return score
+
+
+def _is_noise_sentence(sentence: str) -> bool:
+    stripped = sentence.lstrip()
+    return "http" in stripped or stripped.startswith(("●", "※", "（", "("))
 
 
 def _is_question_form(text: str) -> bool:
